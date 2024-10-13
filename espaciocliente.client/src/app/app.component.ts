@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
 interface WeatherForecast {
   date: string;
@@ -12,7 +14,8 @@ interface WeatherForecast {
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    standalone: true
+    standalone: true,
+    imports: [CommonModule, ButtonModule]
 })
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
