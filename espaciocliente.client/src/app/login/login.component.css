@@ -1,0 +1,33 @@
+.contenedor {
+    padding: 30px;   
+}
+
+.login-form {
+  display: flex;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
+  -webkit-align-items: center;
+  align-items: flex-start;
+  flex-direction:column;
+  gap:10px; 
+}
+
+.login-header {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.login-boton {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.login-error {
+    color: red;
+    max-width: 220px;
+    
+}
