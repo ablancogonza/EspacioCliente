@@ -39,16 +39,17 @@ export class LoginComponent {
 
   acceder() {
     if (this.loginForm.valid) {
-      
+      this.procesando = true;
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
           this.router.navigateByUrl('/arbol');
         },
         error: (e: HttpErrorResponse) => {
+          this.procesando = false;
           if (e.error.status === 401) {
             this.mensajesService.error('Las credenciales no son correctas');
           } else {
-            this.mensajesService.error('Error de conexión');
+            this.mensajesService.errorHttp(e);
           }
         },
         complete: () => {
