@@ -1,11 +1,39 @@
+using EspacioCliente.Server.Servicios;
+using EspacioCliente.Server.Utils;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
+//{
+//    WebRootPath = "wwwroot/browser"
+//});
+
+if (!builder.Environment.IsProduction())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: "_todos",
+                          policy =>
+                          {
+                              policy.WithOrigins("https://localhost:4200")
+                                    .AllowCredentials().
+                                    AllowAnyHeader().
+                                    AllowAnyMethod();
+                          });
+    });
+}
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+string? connectionString = "Data Source=Window11vm;Initial Catalog=EspacioCliente;Integrated Security=True;Trust Server Certificate=True";
+    //builder.Configuration.GetConnectionString("DB:conexion");
+builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<JwtHandler>();
 
 var app = builder.Build();
 
@@ -21,9 +49,21 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+if (!app.Environment.IsProduction())
+{
+    app.UseCors();
+}
+
 app.UseAuthorization();
 
-app.MapControllers();
+if (!app.Environment.IsProduction())
+{
+    app.MapControllers().RequireCors("_todos");
+}
+else
+{
+    app.MapControllers();
+}
 
 app.MapFallbackToFile("/index.html");
 

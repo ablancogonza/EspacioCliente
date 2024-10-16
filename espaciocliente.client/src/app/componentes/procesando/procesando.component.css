@@ -1,0 +1,29 @@
+.procesando-fondo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.8;
+}
+
+.procesando-progreso {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  -ms-flex: inherit;
+  -webkit-flex: inherit;
+  flex: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+.procesando-img {
+    width: 200px;
+}

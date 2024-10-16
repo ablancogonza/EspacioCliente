@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { LoginComponent } from './login/login.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { Subscription } from 'rxjs';
+import { MensajesService } from './servicios/mensajes.service';
+import { Router, RouterModule } from '@angular/router';
 
 interface WeatherForecast {
   date: string;
@@ -12,31 +16,25 @@ interface WeatherForecast {
 }
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
-    standalone: true,
-    imports: [CommonModule, ButtonModule, LoginComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+  standalone: true,
+  imports: [CommonModule, RouterModule, ButtonModule, ToastModule],
+  providers: [MessageService]
 })
-export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+export class AppComponent implements OnDestroy {
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    this.getForecasts();
+  subs: Subscription[] = [];
+  constructor(private messageService: MessageService, private mensajesService: MensajesService) {
+    this.subs.push(this.mensajesService.mensaje$.subscribe({
+      next: (m) => { this.messageService.add(m); },
+    }));
   }
 
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s?.unsubscribe());
   }
 
-  title = 'espaciocliente.client';
+  title = 'Espacio Cliente';
 }

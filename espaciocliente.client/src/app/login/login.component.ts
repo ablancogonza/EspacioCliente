@@ -4,22 +4,26 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthService, TokenResponse } from '../servicios/auth.service';
+import { ProcesandoComponent } from '../componentes/procesando/procesando.component';
+import { Router } from '@angular/router';
+import { MensajesService } from '../servicios/mensajes.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CardModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, CardModule, InputTextModule, ButtonModule, ProcesandoComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  loginForm: FormGroup;  
-  error: string | undefined;  
-  //email!: FormControl;
-  //pass!: FormControl;
+  loginForm: FormGroup;
+  error: string | undefined;
+  procesando: boolean = false;
 
-  constructor() {    
-    this.loginForm = new FormGroup({ 
+  constructor(private router: Router, private authService: AuthService, private mensajesService: MensajesService) {
+    this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(4)])
     });
@@ -34,45 +38,36 @@ export class LoginComponent {
   }
 
   acceder() {
-    console.log('acceder');
+    if (this.loginForm.valid) {
+      
+      this.authService.signIn(this.email?.value, this.password?.value).subscribe({
+        next: (t) => {
+          this.router.navigateByUrl('/arbol');
+        },
+        error: (e: HttpErrorResponse) => {
+          if (e.error.status === 401) {
+            this.mensajesService.error('Las credenciales no son correctas');
+          } else {
+            this.mensajesService.error('Error de conexión');
+          }
+        },
+        complete: () => {
+          this.procesando = false;
+        }
+      });
 
-    //if (!this.loginForm || !this.loginForm.valid) return;
+    }
+  }
 
-    //console.log('acceder ok')
-    //this.principalService.bloquearUI(true);
+  autenticacionCorrecta(self: LoginComponent) {
 
-    //this.authService.signIn(this.loginForm!.get('email')?.value, this.loginForm!.get('password')?.value)
-    //  .subscribe(
-    //    claims => {
-    //      console.log('auth: ', claims);
+    return (claims: TokenResponse) => {
+      console.log('auth: ', claims);
+      self.procesando = false;
+    };
+  }
 
-    //      //this.authService.setToken(v['token']);
-    //      if (this.loginForm!.get('rememberme')?.value === true) {
-    //        localStorage.setItem('email', this.loginForm!.get('email')?.value);
-    //      } else {
-    //        localStorage.removeItem('email');
-    //      }
-    //      this.usuarioService.claims$.next(claims);
-
-    //      let agencia = this.usuarioService.agencias().find(a => a.c == 'GL');
-    //      if (!agencia) {
-    //        agencia = this.usuarioService.agencias()[0];
-    //      }
-    //      this.configService.cambioAgenciaSeleccionada(agencia); // Agencia por defecto para el usuario
-    //      this.storeService.configuracion.agencia.set(agencia);
-    //      this.semaforoService.liberarRecursosUsuario().subscribe(() => { });
-    //      //  this.authService.autenticado$.next(true);
-    //      //this.router.navigate(['/planes']);
-    //      this.principalService.bloquearUI(false);
-    //    }, err => {
-    //      if (err.status === 401) {
-    //        this.error = 'Las credenciales son incorrectas';
-    //      } else {
-    //        this.error = 'Se ha producido un error';
-    //      }
-    //      this.principalService.bloquearUI(false);
-    //      //this.principalService.bloquearUI(false);
-    //    });
-
+  autenticacionIncorrecta(self: LoginComponent) {
+    console.log('incorrecto');
   }
 }

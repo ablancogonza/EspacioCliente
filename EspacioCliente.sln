@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EspacioCliente.Server", "EspacioCliente.Server\EspacioCliente.Server.csproj", "{30332BC2-0FE0-455F-ADFF-1BA6AC565062}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EspacioCliente.Server", "EspacioCliente.Server\EspacioCliente.Server.csproj", "{30332BC2-0FE0-455F-ADFF-1BA6AC565062}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "espaciocliente.client", "espaciocliente.client\espaciocliente.client.esproj", "{7D35559F-E2A4-445F-9654-DA8974F34D39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EspacioCliente.Data", "EspacioCliente.Data\EspacioCliente.Data.csproj", "{24ACA0DB-9658-4F65-9D1F-A47939025F33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{7D35559F-E2A4-445F-9654-DA8974F34D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D35559F-E2A4-445F-9654-DA8974F34D39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D35559F-E2A4-445F-9654-DA8974F34D39}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{24ACA0DB-9658-4F65-9D1F-A47939025F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24ACA0DB-9658-4F65-9D1F-A47939025F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24ACA0DB-9658-4F65-9D1F-A47939025F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24ACA0DB-9658-4F65-9D1F-A47939025F33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
