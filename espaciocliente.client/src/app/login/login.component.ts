@@ -42,7 +42,7 @@ export class LoginComponent {
       this.procesando = true;
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
-          this.router.navigateByUrl('/arbol');
+          this.router.navigateByUrl('/principal');
         },
         error: (e: HttpErrorResponse) => {
           this.procesando = false;
@@ -56,7 +56,6 @@ export class LoginComponent {
           this.procesando = false;
         }
       });
-
     }
   }
 

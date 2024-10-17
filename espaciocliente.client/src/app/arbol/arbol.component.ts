@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-arbol',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './arbol.component.css'
 })
 export class ArbolComponent {
-
+  @Input() pequenio: boolean = false;
 }

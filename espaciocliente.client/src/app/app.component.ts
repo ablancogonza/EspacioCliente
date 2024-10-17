@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { MensajesService } from './servicios/mensajes.service';
 import { Router, RouterModule } from '@angular/router';
 
+
 interface WeatherForecast {
   date: string;
   temperatureC: number;
@@ -23,13 +24,18 @@ interface WeatherForecast {
   imports: [CommonModule, RouterModule, ButtonModule, ToastModule],
   providers: [MessageService]
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
+  pequenio: boolean = false;
   constructor(private messageService: MessageService, private mensajesService: MensajesService) {
     this.subs.push(this.mensajesService.mensaje$.subscribe({
       next: (m) => { this.messageService.add(m); },
     }));
+  }
+
+  ngOnInit() {
+         
   }
 
   ngOnDestroy(): void {
