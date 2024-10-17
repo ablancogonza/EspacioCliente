@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DispositivoGrandeComponent } from '../dispositivo-grande/dispositivo-grande.component';
-import { DispositivoPequenioComponent } from '../dispositivo-pequenio/dispositivo-pequenio.component';
+import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/dispositivo-grande.component';
+import { DispositivoPequenioComponent } from '../componentes/dispositivo-pequenio/dispositivo-pequenio.component';
+
 
 @Component({
   selector: 'app-contenedor-principal',
