@@ -1,3 +1,17 @@
 <div class="contenedor">
-  dispositivo-grande works!
+  <div class="cabecera">Cabecera principal</div>
+  <p-splitter [style]="{ height: '100%' }" [panelSizes]="[40, 60]"  styleClass="mb-5">
+    <ng-template pTemplate>
+        <div class="arbol">
+            Arbol
+        </div>
+    </ng-template>
+    <ng-template pTemplate>
+      <div class="contenido-variable">
+        <div class="variable-cabecera">Selector de vista</div>
+        <div class="variable-inversion">Inversión</div>
+        <div class="variable-contenido">Contenido detalle</div>
+      </div>
+    </ng-template>
+</p-splitter>
 </div>

@@ -19,9 +19,7 @@ export class ContenedorPrincipalComponent implements OnInit {
 
   ngOnInit() {
     this.breakpointObserver.observe('(max-width: 768px')
-      .pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(state => {
         this.pequenio = state.matches;
       });
