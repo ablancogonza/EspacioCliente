@@ -9,11 +9,17 @@ import { Dispositivo } from '../estado/dispositivo';
   providedIn: 'root'
 })
 export class EstadoService {
-
   constructor(private arbolService: ArbolService) { }
 
   sesion: Sesion = new Sesion();
   arbol: Arbol = new Arbol(this.arbolService);
   selectorVista: SelectorVista = new SelectorVista();
   dispositivo: Dispositivo = new Dispositivo();
+
+  cerrarSesion() {
+    this.sesion.setToken('');
+    this.arbol = new Arbol(this.arbolService);
+    this.selectorVista = new SelectorVista();
+    this.dispositivo = new Dispositivo();
+  }
 }

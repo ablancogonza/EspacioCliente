@@ -19,6 +19,8 @@ public partial class EspacioClienteContext : DbContext
 
     public virtual DbSet<Insercion> Insercion { get; set; }
 
+    public virtual DbSet<Log> Log { get; set; }
+
     public virtual DbSet<Medio> Medio { get; set; }
 
     public virtual DbSet<Nodo> Nodo { get; set; }
@@ -91,6 +93,14 @@ public partial class EspacioClienteContext : DbContext
                 .HasForeignKey(d => d.Medio)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Insercion_Medio");
+        });
+
+        modelBuilder.Entity<Log>(entity =>
+        {
+            entity.Property(e => e.Fecha)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Texto).IsRequired();
         });
 
         modelBuilder.Entity<Medio>(entity =>

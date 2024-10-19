@@ -41,8 +41,10 @@ namespace EspacioCliente.Server.Controllers
             {                
                 JwtSecurityToken token = jwtHandler.GetToken(usr);
                 string jwt = new JwtSecurityTokenHandler().WriteToken(token);
+                Logging.Registrar(context, $"Login exitoso: {request.Email}");
                 return Ok(new { token = jwt });
             }
+            Logging.Registrar(context, $"Intento de login fallido: {request.Email}, {request.Password}");
             return Unauthorized();
         }
 
