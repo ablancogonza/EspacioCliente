@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://localhost:7226/api'
+  baseUrl: 'https://espaciocliente-dsaqc3g8gwe0b9ht.spaincentral-01.azurewebsites.net/api'
 };

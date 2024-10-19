@@ -14,6 +14,10 @@ export class AuthService {
         { Email: email, Password: pwd });
   }
 
+  test(): Observable<string> {
+    return this.http.get<any>(environment.baseUrl + '/auth/test');
+  }
+
   //getForecasts() {
   //  this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
   //    (result) => {

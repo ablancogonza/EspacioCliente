@@ -2,7 +2,10 @@
   <p-card>
     <div class="login-form-container">
       <div class="login-header">
-        Espacio Cliente
+          <div>
+            <img src="/assets/images/logo-100.png" alt="Logo empresa" />
+          </div>
+          <div>Espacio Cliente</div>
       </div>
 
       <div [formGroup]="loginForm" (keydown.enter)="acceder()" class="login-form">
@@ -29,8 +32,6 @@
             La contraseña debe tener como mínimo 4 caracteres
           </div>
         </div>
-
-
         <div class="mb-3">
           <div *ngIf="error" class="msg-error">
             {{ error }}

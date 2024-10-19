@@ -18,4 +18,7 @@ export class MensajesService {
     this.mensaje$.next({ severity: 'error', summary: 'Error', detail: mensaje });
   }
 
+  ok(mensaje: string) {
+    this.mensaje$.next({ severity: 'success', summary: 'Correcto', detail: mensaje });
+  }
 }
