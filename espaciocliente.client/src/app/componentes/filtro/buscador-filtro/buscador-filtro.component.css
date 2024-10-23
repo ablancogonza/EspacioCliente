@@ -1,0 +1,14 @@
+.contenedor-buscador {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.buscador-boton {
+  display: grid;
+  grid-template-columns: auto 40px;
+}
+
+.ancho-completo {
+    width: 100%;
+}

@@ -9,6 +9,7 @@ import { ProcesandoComponent } from '../componentes/procesando/procesando.compon
 import { Router } from '@angular/router';
 import { MensajesService } from '../servicios/mensajes.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EstadoService } from '../servicios/estado.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   error: string | undefined;
   procesando: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private mensajesService: MensajesService) {
+  constructor(private router: Router, private authService: AuthService, private estadoService: EstadoService, private mensajesService: MensajesService) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(4)])
@@ -52,6 +53,8 @@ export class LoginComponent implements OnInit {
       this.procesando = true;
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
+          this.estadoService.sesion.setEmail(this.email?.value);
+          this.estadoService.sesion.setToken(t.token);
           this.router.navigateByUrl('/principal');
         },
         error: (e: HttpErrorResponse) => {

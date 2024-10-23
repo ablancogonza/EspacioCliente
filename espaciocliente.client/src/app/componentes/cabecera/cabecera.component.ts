@@ -12,12 +12,14 @@ import { Router } from '@angular/router';
   styleUrl: './cabecera.component.css'
 })
 export class CabeceraComponent {
+  email: string = '';
   constructor(private router: Router, private estadoService: EstadoService) {
-
+    this.email = estadoService.sesion.getEmail();
   }
 
   cerrarSesion() {
     this.estadoService.cerrarSesion();
     this.router.navigateByUrl('/');
   }
+  
 }

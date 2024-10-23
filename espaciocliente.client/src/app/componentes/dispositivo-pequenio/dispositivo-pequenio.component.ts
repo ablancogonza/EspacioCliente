@@ -9,17 +9,28 @@ import { ContenedorConversacionesComponent } from '../contenedor-conversaciones/
 import { Observable } from 'rxjs';
 import { VistaSeleccionada } from '../../enumerados/vista-seleccionada';
 import { EstadoService } from '../../servicios/estado.service';
+import { NodoInversionComponent } from '../nodo-inversion/nodo-inversion.component';
 
 @Component({
   selector: 'app-dispositivo-pequenio',
   standalone: true,
-  imports: [CommonModule, CabeceraComponent, ArbolComponent, SelectorVistaComponent, ArbolComponent, MapaComponent, ContenedorGraficosComponent, ContenedorConversacionesComponent],
+  imports: [CommonModule,
+    CabeceraComponent,
+    ArbolComponent,
+    SelectorVistaComponent,
+    ArbolComponent,
+    MapaComponent,
+    ContenedorGraficosComponent,
+    ContenedorConversacionesComponent,
+    NodoInversionComponent
+  ],
   templateUrl: './dispositivo-pequenio.component.html',
   styleUrl: './dispositivo-pequenio.component.css'
 })
 export class DispositivoPequenioComponent {
+  public vista = VistaSeleccionada;
   vista$: Observable<VistaSeleccionada>;
-
+  
   constructor(private estadoService: EstadoService) {
     this.vista$ = estadoService.selectorVista.vista$;
   }

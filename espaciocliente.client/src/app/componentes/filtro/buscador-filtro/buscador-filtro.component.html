@@ -1,0 +1,13 @@
+<div class="contenedor-buscador">
+  <div>{{ titulo }}</div>
+  <div class="buscador-boton">
+    <form [formGroup]="formGroup">
+      <p-autoComplete formControlName="buscador"
+                      [suggestions]="resultados"
+                      (completeMethod)="buscar($event)"
+                      class="ancho-completo"
+                      optionLabel="name" />
+    </form>
+    <p-button icon="pi pi-times" severity="secondary" />
+  </div>
+</div>

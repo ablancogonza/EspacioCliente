@@ -1,10 +1,10 @@
 <div class="arbol-container">
   <p-tree #tree
-          [value]="arbol.arbol()"
+          [value]="(arbol.arbol$ | async)"
           selectionMode="single"
           loadingMode="icon"
           scrollHeight="100%" class="tree font-bold"
-          [selection]="arbol.nodoSeleccionado()"
+          [selection]="(arbol.nodoSeleccionado$ | async)"
           (onNodeExpand)="arbol.nodoExpandido($event)"
           (onNodeSelect)="arbol.nodeSelect($event)">
     <ng-template let-node pTemplate="AG">

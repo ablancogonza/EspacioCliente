@@ -2,12 +2,13 @@ import { signal } from "@angular/core";
 import { TreeNode } from "primeng/api";
 import { ArbolService } from "../servicios/arbol.service";
 import { TreeNodeExpandEvent, TreeNodeSelectEvent } from "primeng/tree";
+import { BehaviorSubject } from "rxjs";
 
 export class Arbol {
-  arbol = signal<TreeNode[]>([]);
-
+  arbol$: BehaviorSubject<TreeNode[]> = new BehaviorSubject([{}]); //  = signal<TreeNode[]>([]);
+  nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
   constructor(private arbolService: ArbolService) {
-    this.arbol.set([{
+    this.arbol$.next([{
       key: '0',
       label: 'Documents',
       data: 'Documents Folder',
@@ -34,12 +35,12 @@ export class Arbol {
     }]);
   }
 
-  nodoSeleccionado(): TreeNode | undefined {
-    return undefined;
-  }
+  //nodoSeleccionado(): TreeNode | undefined {
+  //  return undefined;
+  //}
 
   nodoExpandido(e: TreeNodeExpandEvent) {
-
+    
   }
 
   nodeSelect(e: TreeNodeSelectEvent) {

@@ -10,15 +10,26 @@ import { Observable } from 'rxjs';
 import { ContenedorGraficosComponent } from '../contenedor-graficos/contenedor-graficos.component';
 import { MapaComponent } from '../mapa/mapa.component';
 import { ContenedorConversacionesComponent } from '../contenedor-conversaciones/contenedor-conversaciones.component';
+import { NodoInversionComponent } from '../nodo-inversion/nodo-inversion.component';
 
 @Component({
   selector: 'app-dispositivo-grande',
   standalone: true,
-  imports: [CommonModule, SplitterModule, CabeceraComponent, ArbolComponent, SelectorVistaComponent, ContenedorGraficosComponent, MapaComponent, ContenedorConversacionesComponent],
+  imports: [CommonModule,
+    SplitterModule,
+    CabeceraComponent,
+    ArbolComponent,
+    SelectorVistaComponent,
+    ContenedorGraficosComponent,
+    MapaComponent,
+    ContenedorConversacionesComponent,
+    NodoInversionComponent
+  ],
   templateUrl: './dispositivo-grande.component.html',
   styleUrl: './dispositivo-grande.component.css'
 })
 export class DispositivoGrandeComponent {
+  public vista = VistaSeleccionada;
   vista$: Observable<VistaSeleccionada>;
   constructor(private estadoService: EstadoService) {
     this.vista$ = estadoService.selectorVista.vista$;

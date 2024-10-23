@@ -8,4 +8,13 @@
   justify-content: space-between;
   align-items: center;
   padding-left: 5px;
+  padding-right: 5px;
+}
+
+.cabecera-dcha {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }

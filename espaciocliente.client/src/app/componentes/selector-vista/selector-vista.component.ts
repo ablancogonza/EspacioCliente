@@ -26,7 +26,8 @@ export class SelectorVistaComponent {
   }
 
   selecciona(id: VistaSeleccionada): void {
-    this.estadoService.selectorVista.vista$.next(id);   
+    this.estadoService.selectorVista.vista$.next(id);
+    this.estadoService.guardar();
   }
 
   cambiaDispositivo(p: boolean) {

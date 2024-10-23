@@ -22,4 +22,14 @@ export class EstadoService {
     this.selectorVista = new SelectorVista();
     this.dispositivo = new Dispositivo();
   }
+
+  guardar() {
+    const estado = {
+      token: this.sesion.getToken(),
+      arbol: this.arbol.arbol$.value,
+      nodoSeleccionado: this.arbol.nodoSeleccionado$.value,
+      vista: this.selectorVista.vista$.value
+    };
+    localStorage.setItem('estado', JSON.stringify(estado));
+  }
 }

@@ -1,0 +1,9 @@
+<div class="contenedor">
+  <div>Nodo</div>
+  <div>
+    <p-button icon="pi pi-filter" severity="secondary" title="Filtro" (click)="filtroVisible = true" />
+  </div>
+</div>
+<p-sidebar [(visible)]="filtroVisible" position="right">
+  <app-filtro></app-filtro>
+</p-sidebar>
