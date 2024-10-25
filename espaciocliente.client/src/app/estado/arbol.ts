@@ -1,50 +1,81 @@
 import { signal } from "@angular/core";
 import { TreeNode } from "primeng/api";
-import { ArbolService } from "../servicios/arbol.service";
+import { ArbolService, Nodo } from "../servicios/arbol.service";
 import { TreeNodeExpandEvent, TreeNodeSelectEvent } from "primeng/tree";
 import { BehaviorSubject } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MensajesService } from "../servicios/mensajes.service";
 
 export class Arbol {
   arbol$: BehaviorSubject<TreeNode[]> = new BehaviorSubject([{}]); //  = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
-  constructor(private arbolService: ArbolService) {
-    this.arbol$.next([{
-      key: '0',
-      label: 'Documents',
-      data: 'Documents Folder',
-      icon: 'pi pi-fw pi-inbox',
-      children: [
-        {
-          key: '0-0',
-          label: 'Work',
-          data: 'Work Folder',
-          icon: 'pi pi-fw pi-cog',
-          children: [
-            { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-            { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-          ]
-        },
-        {
-          key: '0-1',
-          label: 'Home',
-          data: 'Home Folder',
-          icon: 'pi pi-fw pi-home',
-          children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
+  constructor(private arbolService: ArbolService, private mensajesService: MensajesService) { }
+
+  init() {
+    this.arbolService.raiz().subscribe({
+      next: (nodos) => {
+        const raiz: TreeNode[] = [];
+        console.log('nodos: ', nodos);
+        nodos.forEach((nodo: Nodo) => {
+          raiz.push({
+            key: nodo.Id.toString(),
+            label: nodo.Descripcion,
+            children: [],
+            data: nodo,
+            leaf: nodo.IdTipoNodo == 6,
+            loading: false
+          });
+        });
+        this.arbol$.next(raiz);
+        if (raiz.length == 1) {
+          this.cargaDescendientes(raiz[0]);
         }
-      ]
-    }]);
+      }, error: (error: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(error);
+      }
+    });
   }
 
-  //nodoSeleccionado(): TreeNode | undefined {
-  //  return undefined;
-  //}
+  cargaDescendientes(nodo: TreeNode) {
+    nodo.loading = true;
+    this.arbolService.descendientes(nodo.key!).subscribe({
+      next: (nodos: Nodo[]) => {
+        nodo.children = [];
+        console.log('nodos: ', nodos);
+        nodos.forEach((nod: Nodo) => {
+          nodo.children!.push({
+            key: nod.Id.toString(),
+            label: nod.Descripcion,
+            children: [],
+            data: nod,
+            leaf: nod.IdTipoNodo == 6,
+            loading: false
+          });
+        });
+        nodo.loading = false;
+        nodo.expanded = true;
+        console.log('NODO: ', nodo);
+        this.arbol$.next([...this.arbol$.value]);
+        if (nodo.children.length === 1) {
+          this.cargaDescendientes(nodo.children[0]);
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
+      }
+    });
+  }
+  
+  nodoSeleccionado(): TreeNode | undefined {
+    return undefined;
+  }
 
   nodoExpandido(e: TreeNodeExpandEvent) {
-    
+    this.cargaDescendientes(e.node);
   }
 
   nodeSelect(e: TreeNodeSelectEvent) {
-
+    this.nodoSeleccionado$.next(e.node);
   }
 
 }

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ElementoFiltro } from '../../../estado/filtro';
 
 @Component({
   selector: 'app-buscador-filtro',
@@ -12,7 +13,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
   styleUrl: './buscador-filtro.component.css'
 })
 export class BuscadorFiltroComponent {
-  titulo: string = 'Titulo del buscador';
+  @Input() buscador!: ElementoFiltro;
+  
   resultados: string[] = [];
 
   formGroup: FormGroup = new FormGroup({

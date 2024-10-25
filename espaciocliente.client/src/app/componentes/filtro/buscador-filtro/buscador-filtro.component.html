@@ -1,5 +1,5 @@
 <div class="contenedor-buscador">
-  <div>{{ titulo }}</div>
+  <div>{{ buscador.titulo }}</div>
   <div class="buscador-boton">
     <form [formGroup]="formGroup">
       <p-autoComplete formControlName="buscador"
@@ -8,6 +8,6 @@
                       class="ancho-completo"
                       optionLabel="name" />
     </form>
-    <p-button icon="pi pi-times" severity="secondary" />
+    <p-button icon="pi pi-times" severity="secondary" [disabled]="buscador.seleccionado === undefined" />
   </div>
 </div>

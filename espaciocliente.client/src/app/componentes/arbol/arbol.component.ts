@@ -5,6 +5,9 @@ import { TreeModule } from 'primeng/tree';
 import { EstadoService } from '../../servicios/estado.service';
 import { Arbol } from '../../estado/arbol';
 import { NodoComponent } from './nodo/nodo.component';
+import { ArbolService } from '../../servicios/arbol.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-arbol',
@@ -19,4 +22,6 @@ export class ArbolComponent {
   constructor(private estado: EstadoService) {
     this.arbol = estado.arbol;
   };
+
+  
 }

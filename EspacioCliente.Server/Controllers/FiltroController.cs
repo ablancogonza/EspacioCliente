@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EspacioCliente.Server.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class FiltroController : ControllerBase
@@ -20,6 +20,13 @@ namespace EspacioCliente.Server.Controllers
 
         [HttpGet("elementosFiltro")]
         public string? ElementosFiltro()
+        {
+            // Recuperar usuario del contexto
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] (1) as value").FirstOrDefault();
+        }
+
+        [HttpGet("buscar")]
+        public string? Buscar(int nivel, string texto)
         {
             // Recuperar usuario del contexto
             return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] (1) as value").FirstOrDefault();

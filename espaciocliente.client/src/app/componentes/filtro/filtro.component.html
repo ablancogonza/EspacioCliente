@@ -1,4 +1,6 @@
 <div class="filtro-contenedor">
-  <app-buscador-filtro></app-buscador-filtro>
-  <app-buscador-filtro></app-buscador-filtro>
+  <app-buscador-filtro [buscador]="elem" *ngFor="let elem of (filtro.elementosFiltro$ | async)"></app-buscador-filtro>
+  <div>
+    {{ filtro.elementosFiltro$ | async | json }}
+  </div>
 </div>

@@ -1,4 +1,4 @@
 export interface ElementoFiltroDto {
-  id: number;
-  tipoNodo: string;
+  Id: number;
+  TipoNodo: string;
 }

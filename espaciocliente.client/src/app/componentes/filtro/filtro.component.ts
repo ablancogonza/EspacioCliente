@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { BuscadorFiltroComponent } from './buscador-filtro/buscador-filtro.component';
+import { EstadoService } from '../../servicios/estado.service';
+import { Filtro } from '../../estado/filtro';
 
 
 @Component({
@@ -11,5 +13,9 @@ import { BuscadorFiltroComponent } from './buscador-filtro/buscador-filtro.compo
   styleUrl: './filtro.component.css'
 })
 export class FiltroComponent {
+  filtro!: Filtro;
+  constructor(private estadoService: EstadoService) {
+    this.filtro = estadoService.filtro;
+  }
 
 }

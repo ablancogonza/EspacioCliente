@@ -53,8 +53,10 @@ export class LoginComponent implements OnInit {
       this.procesando = true;
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
+          this.estadoService.init();
           this.estadoService.sesion.setEmail(this.email?.value);
           this.estadoService.sesion.setToken(t.token);
+          this.procesando = false;
           this.router.navigateByUrl('/principal');
         },
         error: (e: HttpErrorResponse) => {
@@ -64,10 +66,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.mensajesService.errorHttp(e);
           }
-        },
-        complete: () => {
-          this.procesando = false;
-        }
+        }        
       });
     }
   }
