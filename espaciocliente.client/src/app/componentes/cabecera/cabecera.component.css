@@ -9,6 +9,17 @@
   align-items: center;
   padding-left: 5px;
   padding-right: 5px;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.logo-app {
+    display: flex;
+    flex-direction:row;
+    justify-items: start;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.4rem;
 }
 
 .cabecera-dcha {

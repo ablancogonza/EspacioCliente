@@ -1,8 +1,10 @@
 <div class="contenedor">
   <app-cabecera></app-cabecera>
-  <p-splitter [style]="{ height: '100%' }" [panelSizes]="[40, 60]"  styleClass="mb-5">
+  <p-splitter [style]="{ height: '100%' }" [panelSizes]="[40, 60]">
     <ng-template pTemplate>
-        <app-arbol></app-arbol>        
+      <div class="contenedor-arbol">
+        <app-arbol></app-arbol>
+      </div>      
     </ng-template>
     <ng-template pTemplate>
       <div class="contenido-variable">
@@ -11,9 +13,9 @@
         </div>
         <app-nodo-inversion></app-nodo-inversion>
         <div class="variable-contenido">
-          <app-contenedor-graficos *ngIf="(vista$ | async) === vista.grafico"></app-contenedor-graficos>
-          <app-mapa *ngIf="(vista$ | async) === vista.mapa"></app-mapa>
-          <app-contenedor-conversaciones *ngIf="(vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
+          <app-contenedor-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-contenedor-graficos>
+          <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
+          <app-contenedor-conversaciones *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
         </div>
       </div>
     </ng-template>

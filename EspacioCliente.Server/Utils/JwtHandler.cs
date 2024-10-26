@@ -9,7 +9,7 @@ using System.Text;
 namespace EspacioCliente.Server.Utils
 {
     public class JwtHandler
-    {
+    {        
         private readonly IConfiguration _configuration;
 
         public JwtHandler(IConfiguration configuration)
@@ -20,8 +20,8 @@ namespace EspacioCliente.Server.Utils
         public JwtSecurityToken GetToken(Usuario user)
         {
             var jwt = new JwtSecurityToken(
-                issuer: _configuration["JwtSettings:Issuer"],
-                audience: _configuration["JwtSettings:Audience"],
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
                 claims: GetClaims(user),
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(
                     _configuration["Sesion:Minutos"])),
@@ -31,7 +31,7 @@ namespace EspacioCliente.Server.Utils
 
         private SigningCredentials GetSigningCredentials()
         {
-            var key = Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecurityKey"]!);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }

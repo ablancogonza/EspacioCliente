@@ -14,9 +14,8 @@ export class Arbol {
   init() {
     this.arbolService.raiz().subscribe({
       next: (nodos) => {
-        const raiz: TreeNode[] = [];
-        console.log('nodos: ', nodos);
-        nodos.forEach((nodo: Nodo) => {
+        const raiz: TreeNode[] = [];        
+        nodos?.forEach((nodo: Nodo) => {
           raiz.push({
             key: nodo.Id.toString(),
             label: nodo.Descripcion,
@@ -27,6 +26,7 @@ export class Arbol {
           });
         });
         this.arbol$.next(raiz);
+        if (raiz.length > 0) this.nodoSeleccionado$.next(raiz[0]);
         if (raiz.length == 1) {
           this.cargaDescendientes(raiz[0]);
         }
@@ -40,9 +40,8 @@ export class Arbol {
     nodo.loading = true;
     this.arbolService.descendientes(nodo.key!).subscribe({
       next: (nodos: Nodo[]) => {
-        nodo.children = [];
-        console.log('nodos: ', nodos);
-        nodos.forEach((nod: Nodo) => {
+        nodo.children = [];       
+        nodos?.forEach((nod: Nodo) => {
           nodo.children!.push({
             key: nod.Id.toString(),
             label: nod.Descripcion,
@@ -53,8 +52,7 @@ export class Arbol {
           });
         });
         nodo.loading = false;
-        nodo.expanded = true;
-        console.log('NODO: ', nodo);
+        nodo.expanded = true;        
         this.arbol$.next([...this.arbol$.value]);
         if (nodo.children.length === 1) {
           this.cargaDescendientes(nodo.children[0]);

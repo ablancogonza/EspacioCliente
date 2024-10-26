@@ -1,6 +1,7 @@
 ﻿using EspacioCliente.Data.Models;
 using EspacioCliente.Server.Servicios;
 using EspacioCliente.Server.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ namespace EspacioCliente.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly AuthService authService;

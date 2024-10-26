@@ -6,5 +6,17 @@
 body {
     margin: 0;
     height: 100svh;
-    width: 100svw;
+    width: 100svw; 
+}
+
+.tree {
+  height: 100% !important;
+}
+
+.p-tree-container {
+  overflow: hidden !important;
+}
+
+.p-tree-wrapper {
+  overflow: hidden !important;
 }

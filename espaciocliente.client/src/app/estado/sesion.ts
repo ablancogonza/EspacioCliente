@@ -3,7 +3,10 @@ export class Sesion {
   private email: string = '';
 
   getToken(): string { return this.token; }
-  setToken(token: string) { this.token = token; };
+  setToken(token: string) {
+    this.token = token;
+    localStorage.setItem('token', token);
+  };
 
   getEmail(): string { return this.email; }
   setEmail(email: string) { this.email = email; };

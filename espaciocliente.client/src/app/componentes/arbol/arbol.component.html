@@ -1,17 +1,16 @@
 <div class="arbol-container">
-  <p-tree #tree
-          [value]="(arbol.arbol$ | async)"
-          selectionMode="single"
-          loadingMode="icon"
-          scrollHeight="100%" class="tree font-bold"
-          [selection]="(arbol.nodoSeleccionado$ | async)"
-          (onNodeExpand)="arbol.nodoExpandido($event)"
-          (onNodeSelect)="arbol.nodeSelect($event)">
-    <ng-template let-node pTemplate="AG">
-      <app-nodo tooltip="Agencia" tipoNodo="AG" [texto]="node.label" [bold]="true" [loading]="false"></app-nodo>
-    </ng-template>
-  </p-tree>
+  <!--<div class="arbol-scroll">-->
+    <p-tree #tree
+            [value]="(arbol.arbol$ | async)"
+            selectionMode="single"
+            loadingMode="icon"
+            scrollHeight="100%" class="tree font-bold"
+            [selection]="(arbol.nodoSeleccionado$ | async)"
+            (onNodeExpand)="arbol.nodoExpandido($event)"
+            (onNodeSelect)="arbol.nodeSelect($event)">
+      <ng-template let-node pTemplate="AG">
+        <app-nodo tooltip="Agencia" tipoNodo="AG" [texto]="node.label" [bold]="true" [loading]="false"></app-nodo>
+      </ng-template>
+    </p-tree>
+  <!--</div>-->
 </div>
-
-
-<!--(onNodeCollapse)="arbol.nodeCollapse($event)"-->

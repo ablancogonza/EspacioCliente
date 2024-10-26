@@ -1,7 +1,7 @@
 <div class="contenedor">
-  <div>{{ (nodo$ | async)?.data.Descripcion }}</div>
+  <div class="bold">{{ (nodo$ | async)?.data?.Descripcion }}</div>
   <div>
-    <p-button icon="pi pi-filter" severity="secondary" title="Filtro" (click)="filtroVisible = true" />
+    <p-button icon="pi pi-filter" severity="primary" title="Filtro" (click)="filtroVisible = true" />
   </div>
 </div>
 <p-sidebar [(visible)]="filtroVisible" position="right">

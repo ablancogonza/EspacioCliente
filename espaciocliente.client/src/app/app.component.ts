@@ -7,6 +7,7 @@ import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
 import { MensajesService } from './servicios/mensajes.service';
 import { Router, RouterModule } from '@angular/router';
+import { EstadoService } from './servicios/estado.service';
 
 
 interface WeatherForecast {
@@ -28,14 +29,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
   pequenio: boolean = false;
-  constructor(private messageService: MessageService, private mensajesService: MensajesService) {
+  constructor(private messageService: MessageService, private mensajesService: MensajesService, private estadoService: EstadoService, private router: Router) {
     this.subs.push(this.mensajesService.mensaje$.subscribe({
       next: (m) => { this.messageService.add(m); },
     }));
   }
 
   ngOnInit() {
-         
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');    
+    if (token && email) {     
+      this.estadoService.init(email, token);
+      this.router.navigateByUrl('/principal');
+    }
   }
 
   ngOnDestroy(): void {

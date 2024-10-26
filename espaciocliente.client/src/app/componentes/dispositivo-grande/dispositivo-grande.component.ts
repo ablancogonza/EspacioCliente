@@ -30,9 +30,9 @@ import { NodoInversionComponent } from '../nodo-inversion/nodo-inversion.compone
 })
 export class DispositivoGrandeComponent {
   public vista = VistaSeleccionada;
-  vista$: Observable<VistaSeleccionada>;
-  constructor(private estadoService: EstadoService) {
-    this.vista$ = estadoService.selectorVista.vista$;
+  //vista$: Observable<VistaSeleccionada>;
+  constructor(public estadoService: EstadoService) {
+    //this.vista$ = estadoService.selectorVista.vista$;
   }
 
 }

@@ -23,8 +23,10 @@ export class EstadoService {
     private filtroService: FiltroService,
     private mensajesService: MensajesService) { }
 
-  init() {
+  init(email: string, token: string) {
     this.sesion = new Sesion();
+    this.sesion.setEmail(email);
+    this.sesion.setToken(token);
     this.dispositivo = new Dispositivo();
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();    
@@ -49,6 +51,6 @@ export class EstadoService {
       nodoSeleccionado: this.arbol.nodoSeleccionado$.value,
       vista: this.selectorVista.vista$.value
     };
-    localStorage.setItem('estado', JSON.stringify(estado));
+    localStorage.setItem('token', this.sesion.getToken());
   }
 }

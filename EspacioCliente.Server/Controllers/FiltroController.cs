@@ -1,4 +1,5 @@
 ﻿using EspacioCliente.Data.Models;
+using EspacioCliente.Server.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace EspacioCliente.Server.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FiltroController : ControllerBase
     {
         private readonly EspacioClienteContext context;
@@ -21,15 +23,14 @@ namespace EspacioCliente.Server.Controllers
         [HttpGet("elementosFiltro")]
         public string? ElementosFiltro()
         {
-            // Recuperar usuario del contexto
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] (1) as value").FirstOrDefault();
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] ({idUsuario}) as value").FirstOrDefault();
         }
 
         [HttpGet("buscar")]
         public string? Buscar(int nivel, string texto)
-        {
-            // Recuperar usuario del contexto
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] (1) as value").FirstOrDefault();
+        {            
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] ({nivel}) as value").FirstOrDefault();
         }
     }
 }

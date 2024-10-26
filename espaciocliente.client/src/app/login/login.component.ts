@@ -48,18 +48,17 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  acceder() {
+  acceder() {    
     if (this.loginForm.valid) {
       this.procesando = true;
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
-          this.estadoService.init();
-          this.estadoService.sesion.setEmail(this.email?.value);
-          this.estadoService.sesion.setToken(t.token);
+          localStorage.setItem('email', this.email?.value);
+          this.estadoService.init(this.email?.value, t.token);          
           this.procesando = false;
           this.router.navigateByUrl('/principal');
         },
-        error: (e: HttpErrorResponse) => {
+        error: (e: HttpErrorResponse) => {         
           this.procesando = false;
           if (e.error.status === 401) {
             this.mensajesService.error('Las credenciales no son correctas');
@@ -69,17 +68,5 @@ export class LoginComponent implements OnInit {
         }        
       });
     }
-  }
-
-  autenticacionCorrecta(self: LoginComponent) {
-
-    return (claims: TokenResponse) => {
-      console.log('auth: ', claims);
-      self.procesando = false;
-    };
-  }
-
-  autenticacionIncorrecta(self: LoginComponent) {
-    console.log('incorrecto');
-  }
+  }  
 }

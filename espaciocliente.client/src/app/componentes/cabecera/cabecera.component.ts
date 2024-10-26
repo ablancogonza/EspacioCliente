@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class CabeceraComponent {
   email: string = '';
   constructor(private router: Router, private estadoService: EstadoService) {
-    this.email = estadoService.sesion.getEmail();
+    this.email = estadoService?.sesion?.getEmail()??'';
   }
 
   cerrarSesion() {

@@ -20,7 +20,7 @@
   display: grid;
   width: 100%;
   gap: 5px;
-  grid-template-rows: 30px auto 60px; 
+  grid-template-rows: 40px auto 60px;
 }
 
 .variable-cabecera { 

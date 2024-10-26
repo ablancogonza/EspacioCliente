@@ -10,9 +10,8 @@ export class Filtro {
 
   init() {
     this.filtroService.elementosFiltro().subscribe(elementos => {
-      const elems: ElementoFiltro[] = [];
-      console.log('elementos: ', elementos);
-      elementos.map(e => {
+      const elems: ElementoFiltro[] = [];      
+      elementos?.map(e => {
         const elem: ElementoFiltro = {
           id: e.Id,
           titulo: e.TipoNodo,
@@ -20,8 +19,7 @@ export class Filtro {
           coincidentes: []
         };
         elems.push(elem);
-      });
-      console.log('elems filtro: ', elems);
+      });      
       this.elementosFiltro$.next(elems);
     });
   }
