@@ -1,5 +1,5 @@
 <div class="contenedor">
-  <div class="bold">{{ (nodo$ | async)?.data?.Descripcion }}</div>
+  <div class="bold">{{ (nodo$ | async)?.data?.Descripcion }} {{ (nodo$ | async)?.data | json }}</div>
   <div>
     <p-button icon="pi pi-filter" severity="primary" title="Filtro" (click)="filtroVisible = true" />
   </div>
