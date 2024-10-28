@@ -29,8 +29,10 @@ namespace EspacioCliente.Server.Controllers
 
         [HttpGet("buscar")]
         public string? Buscar(int nivel, string texto)
-        {            
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[ElementosFiltro] ({nivel}) as value").FirstOrDefault();
+        {
+            int idUsuario = User.IdUsuario();
+            if (string.IsNullOrEmpty(texto)) return "[]";
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[BuscarFiltro] ({idUsuario},{nivel},{texto}) as value").FirstOrDefault();
         }
     }
 }

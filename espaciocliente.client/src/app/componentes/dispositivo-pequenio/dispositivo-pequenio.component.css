@@ -20,6 +20,8 @@
   display: grid;
   width: 100%;
   gap: 5px;
+  height: 100%;
+  overflow: hidden;
   grid-template-rows: 40px auto 60px;
 }
 

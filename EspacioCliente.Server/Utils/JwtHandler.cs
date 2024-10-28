@@ -20,18 +20,18 @@ namespace EspacioCliente.Server.Utils
         public JwtSecurityToken GetToken(Usuario user)
         {
             var jwt = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: _configuration["Jwt_Issuer"],
+                audience: _configuration["Jwt_Audience"],
                 claims: GetClaims(user),
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(
-                    _configuration["Sesion:Minutos"])),
+                expires: DateTime.UtcNow.AddHours(3).AddMinutes(Convert.ToDouble(
+                    _configuration["Sesion_Minutos"])),
                 signingCredentials: GetSigningCredentials());
             return jwt;
         }
 
         private SigningCredentials GetSigningCredentials()
         {
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt_Key"]!);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }

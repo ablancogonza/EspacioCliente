@@ -38,6 +38,7 @@ export class EstadoService {
   
   cerrarSesion() {
     this.sesion.setToken('');
+    this.sesion.setEmail('');
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();
     this.dispositivo = new Dispositivo();
@@ -51,6 +52,6 @@ export class EstadoService {
       nodoSeleccionado: this.arbol.nodoSeleccionado$.value,
       vista: this.selectorVista.vista$.value
     };
-    localStorage.setItem('token', this.sesion.getToken());
+    //localStorage.setItem('token', this.sesion.getToken());
   }
 }

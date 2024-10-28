@@ -1,7 +1,7 @@
 .arbol-container {
     height: 100%;
     width: 100%;
-    overflow-y: scroll;
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -13,13 +13,13 @@
 }
 
 
-/*
+
 .arbol-scroll {
-    width: 100%;
-    height: 100%;
+    /*width: 100%;
+    height: 100%;*/
     overflow: auto;
 }
-
+/*
 
 app-arbol {
     height: 100%;

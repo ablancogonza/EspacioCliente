@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
 import { MensajesService } from './servicios/mensajes.service';
@@ -29,10 +29,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
   pequenio: boolean = false;
-  constructor(private messageService: MessageService, private mensajesService: MensajesService, private estadoService: EstadoService, private router: Router) {
+  constructor(private config: PrimeNGConfig,
+    private messageService: MessageService,
+    private mensajesService: MensajesService,
+    private estadoService: EstadoService,
+    private router: Router) {
+    config.setTranslation({
+      monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+    });
     this.subs.push(this.mensajesService.mensaje$.subscribe({
       next: (m) => { this.messageService.add(m); },
-    }));
+    }));    
   }
 
   ngOnInit() {

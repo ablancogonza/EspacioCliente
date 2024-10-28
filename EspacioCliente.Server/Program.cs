@@ -35,9 +35,9 @@ builder.Services.AddAuthentication(options =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty)),
+        ValidIssuer = builder.Configuration["Jwt_Issuer"],
+        ValidAudience = builder.Configuration["Jwt_Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt_Key"] ?? string.Empty)),
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
@@ -49,7 +49,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(builder.Configuration["DB:Conexion"]));
+builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(builder.Configuration["DB_Conexion"]));
 
 //if (builder.Environment.IsDevelopment())
 //{

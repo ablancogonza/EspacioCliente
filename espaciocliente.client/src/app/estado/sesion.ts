@@ -5,9 +5,20 @@ export class Sesion {
   getToken(): string { return this.token; }
   setToken(token: string) {
     this.token = token;
-    localStorage.setItem('token', token);
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
   };
 
   getEmail(): string { return this.email; }
-  setEmail(email: string) { this.email = email; };
+  setEmail(email: string) {
+    this.email = email;
+    if (email) {
+      localStorage.setItem('email', email);
+    } else {
+      localStorage.removeItem('email');
+    }
+  };
 }

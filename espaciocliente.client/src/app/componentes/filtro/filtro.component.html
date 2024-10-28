@@ -1,6 +1,19 @@
 <div class="filtro-contenedor">
   <app-buscador-filtro [buscador]="elem" *ngFor="let elem of (filtro.elementosFiltro$ | async)"></app-buscador-filtro>
-  <div>
-    {{ filtro.elementosFiltro$ | async | json }}
-  </div>
+
+  <label for="inicio">Desde</label>
+  <p-calendar [(ngModel)]="filtro.inicio" id="inicio"
+              view="month"
+              dateFormat="mm/yy"
+              [readonlyInput]="true"
+              (onSelect)="filtro.inicioModificado($event)"
+              />
+
+  <label for="fin">Hasta</label>
+  <p-calendar [(ngModel)]="filtro.fin" id="fin"
+              view="month"
+              dateFormat="mm/yy"
+              [readonlyInput]="true"
+              (onSelect)="filtro.finModificado($event)"
+              /> 
 </div>

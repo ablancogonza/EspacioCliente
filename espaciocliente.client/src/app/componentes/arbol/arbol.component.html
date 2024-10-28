@@ -1,5 +1,5 @@
 <div class="arbol-container">
-  <!--<div class="arbol-scroll">-->
+  <div class="arbol-scroll">
     <p-tree #tree
             [value]="(arbol.arbol$ | async)"
             selectionMode="single"
@@ -12,5 +12,5 @@
         <app-nodo tooltip="Agencia" tipoNodo="AG" [texto]="node.label" [bold]="true" [loading]="false"></app-nodo>
       </ng-template>
     </p-tree>
-  <!--</div>-->
+  </div>
 </div>

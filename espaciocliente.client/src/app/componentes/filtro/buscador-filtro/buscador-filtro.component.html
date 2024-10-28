@@ -3,11 +3,14 @@
   <div class="buscador-boton">
     <form [formGroup]="formGroup">
       <p-autoComplete formControlName="buscador"
-                      [suggestions]="resultados"
+                      [suggestions]="buscador.coincidentes"
                       (completeMethod)="buscar($event)"
+                      (onSelect)="seleccionado($event)"
                       class="ancho-completo"
-                      optionLabel="name" />
+                      optionLabel="value"
+                      appendTo="body"
+                      />
     </form>
-    <p-button icon="pi pi-times" severity="secondary" [disabled]="buscador.seleccionado === undefined" />
+    <p-button icon="pi pi-times" severity="secondary" [disabled]="buscador.seleccionado === undefined" (click)="limpiar()" /> 
   </div>
 </div>
