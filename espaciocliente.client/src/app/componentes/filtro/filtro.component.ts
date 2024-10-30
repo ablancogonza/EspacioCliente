@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { CalendarModule } from 'primeng/calendar';
 import { BuscadorFiltroComponent } from './buscador-filtro/buscador-filtro.component';
 import { EstadoService } from '../../servicios/estado.service';
-import { Filtro } from '../../estado/filtro';
+import { ElementoFiltro, Filtro } from '../../estado/filtro';
 import { FormsModule } from '@angular/forms';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -21,4 +21,8 @@ export class FiltroComponent {
     this.filtro = estadoService.filtro;    
   }
 
+
+  buscadorModificado(buscador: ElementoFiltro) {
+    console.log('buscadorModificado en filtro: ', buscador);
+  }
 }

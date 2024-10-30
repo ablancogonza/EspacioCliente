@@ -20,3 +20,12 @@ body {
 .p-tree-wrapper {
   overflow: hidden !important;
 }
+
+.p-autocomplete {
+  display: block;
+  width: 100% !important;
+}
+
+.p-inputtext {
+    width: 100%;
+}

@@ -52,6 +52,7 @@ export class BuscadorFiltroComponent {
   seleccionado(n: AutoCompleteSelectEvent) {
     this.buscador.seleccionado = n.value;
     console.log('Seleccionado: ', n.value);
+    this.buscadorModificado.emit(this.buscador);
   }
 
   limpiar() {
@@ -59,5 +60,6 @@ export class BuscadorFiltroComponent {
     this.formGroup.patchValue({
       buscador: ''
     });
+    this.buscadorModificado.emit(this.buscador);
   }
 }

@@ -12,3 +12,17 @@
 .ancho-completo {
     width: 100%;
 }
+
+p-autocomplete {
+  display: block;
+  width: 100%;
+}
+
+.p-autocomplete {
+    display: block;
+    width: 100%!important;
+}
+
+.p-inputtext {
+    width: 100%!important;
+}

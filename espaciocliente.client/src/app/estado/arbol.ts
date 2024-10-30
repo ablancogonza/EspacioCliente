@@ -7,6 +7,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../servicios/mensajes.service";
 
 export class Arbol {
+
   arbol$: BehaviorSubject<TreeNode[]> = new BehaviorSubject([{}]); //  = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
   constructor(private arbolService: ArbolService, private mensajesService: MensajesService) { }
@@ -74,6 +75,10 @@ export class Arbol {
 
   nodeSelect(e: TreeNodeSelectEvent) {
     this.nodoSeleccionado$.next(e.node);
+  }
+
+  eliminar() {
+    this.arbolService.eliminar(this.nodoSeleccionado$.value);
   }
 
 }

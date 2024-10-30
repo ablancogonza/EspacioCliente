@@ -7,7 +7,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ArbolService {  
+export class ArbolService {
+ 
   constructor(private http: HttpClient) { }
 
   raiz(): Observable<Nodo[]> {
@@ -17,6 +18,18 @@ export class ArbolService {
   descendientes(id: string): Observable<Nodo[]> {
     return this.http.get<Nodo[]>(`${environment.baseUrl}/arbol/nodosArbol?id=${id}`);
   }
+
+  eliminar(value: TreeNode<any>) {
+    console.log('eliminar: ', value.key);
+    return this.http.get<string>(`${environment.baseUrl}/arbol/eliminar?id=${value.key}`).subscribe({
+      next: () => {
+        console.log('completado');
+      },
+      error: (e) => {
+        console.log('error: ',e);
+      }
+    });
+  }  
 
 }
 

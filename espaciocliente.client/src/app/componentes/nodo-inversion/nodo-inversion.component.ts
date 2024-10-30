@@ -29,4 +29,8 @@ export class NodoInversionComponent {
       //  }
       //})
   }
+
+  eliminar() {
+    this.estadoService.arbol.eliminar();
+  }
 }
