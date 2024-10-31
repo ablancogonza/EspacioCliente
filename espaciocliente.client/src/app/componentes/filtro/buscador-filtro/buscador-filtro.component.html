@@ -9,6 +9,7 @@
                       class="ancho-completo"
                       optionLabel="value"
                       appendTo="body"
+                      [disabled]="!buscador.activo"
                       />
     </form>
     <p-button icon="pi pi-times" severity="secondary" [disabled]="buscador.seleccionado === undefined" (click)="limpiar()" /> 

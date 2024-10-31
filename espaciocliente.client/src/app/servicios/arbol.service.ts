@@ -19,6 +19,11 @@ export class ArbolService {
     return this.http.get<Nodo[]>(`${environment.baseUrl}/arbol/nodosArbol?id=${id}`);
   }
 
+  desdeNodo(id: number) {
+    return this.http.get<Nodo[]>(`${environment.baseUrl}/arbol/nodoFiltrado?id=${id}`);
+  }
+
+
   eliminar(value: TreeNode<any>) {
     console.log('eliminar: ', value.key);
     return this.http.get<string>(`${environment.baseUrl}/arbol/eliminar?id=${value.key}`).subscribe({

@@ -53,5 +53,5 @@ export class EstadoService {
       vista: this.selectorVista.vista$.value
     };
     //localStorage.setItem('token', this.sesion.getToken());
-  }
+  } 
 }

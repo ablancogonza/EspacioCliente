@@ -24,5 +24,11 @@ export class FiltroComponent {
 
   buscadorModificado(buscador: ElementoFiltro) {
     console.log('buscadorModificado en filtro: ', buscador);
+    if (buscador.seleccionado !== undefined) {
+      this.filtro.desactivaSuperiores(buscador.id);
+
+    } else {
+      this.filtro.reactivaSuperiores(buscador.id);
+    }
   }
 }

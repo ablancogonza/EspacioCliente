@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 
 import { TreeModule } from 'primeng/tree';
 import { EstadoService } from '../../servicios/estado.service';
@@ -8,6 +8,8 @@ import { NodoComponent } from './nodo/nodo.component';
 import { ArbolService } from '../../servicios/arbol.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TreeNode } from 'primeng/api';
+import { pipe } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-arbol',
@@ -19,8 +21,12 @@ import { TreeNode } from 'primeng/api';
 export class ArbolComponent {
   arbol: Arbol;
   loading = false;
-  constructor(private estado: EstadoService) {
+  constructor(private estado: EstadoService, private destroyRef: DestroyRef) {
     this.arbol = estado.arbol;
+    this.estado.filtro.filtroModificado$.
+      pipe(takeUntilDestroyed(this.destroyRef)).
+      subscribe(f => estado.arbol.repintar(f));
+    
   };
 
   

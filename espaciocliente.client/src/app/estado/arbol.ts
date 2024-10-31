@@ -5,9 +5,10 @@ import { TreeNodeExpandEvent, TreeNodeSelectEvent } from "primeng/tree";
 import { BehaviorSubject } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../servicios/mensajes.service";
+import { FiltroActivo } from "./filtro";
 
 export class Arbol {
-
+ 
   arbol$: BehaviorSubject<TreeNode[]> = new BehaviorSubject([{}]); //  = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
   constructor(private arbolService: ArbolService, private mensajesService: MensajesService) { }
@@ -61,6 +62,39 @@ export class Arbol {
       },
       error: (err: HttpErrorResponse) => {
         this.mensajesService.errorHttp(err);
+      }
+    });
+  }
+
+  repintar(f: FiltroActivo): void {
+    if (f.id) {
+      this.seccionArbol(f.id);
+    } else {
+      this.init();
+    }
+  }
+
+  seccionArbol(id: number) {
+    this.arbolService.desdeNodo(id).subscribe({
+      next: (nodos) => {
+        const raiz: TreeNode[] = [];
+        nodos?.forEach((nodo: Nodo) => {
+          raiz.push({
+            key: nodo.Id.toString(),
+            label: nodo.Descripcion,
+            children: [],
+            data: nodo,
+            leaf: nodo.IdTipoNodo == 6,
+            loading: false
+          });
+        });
+        this.arbol$.next(raiz);
+        if (raiz.length > 0) this.nodoSeleccionado$.next(raiz[0]);
+        if (raiz.length == 1) {
+          this.cargaDescendientes(raiz[0]);
+        }
+      }, error: (error: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(error);
       }
     });
   }

@@ -1,5 +1,6 @@
 <div class="filtro-contenedor">
-  <app-buscador-filtro [buscador]="elem" *ngFor="let elem of (filtro.elementosFiltro$ | async)" (buscadorModificado)="buscadorModificado($event)"></app-buscador-filtro>
+  <app-buscador-filtro [buscador]="elem" *ngFor="let elem of (filtro.elementosFiltro$ | async)"
+                       (buscadorModificado)="buscadorModificado($event)"></app-buscador-filtro>
 
   <label for="inicio">Desde</label>
   <p-calendar [(ngModel)]="filtro.inicio" id="inicio"

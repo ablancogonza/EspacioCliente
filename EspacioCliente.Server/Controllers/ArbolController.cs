@@ -33,6 +33,13 @@ namespace EspacioCliente.Server.Controllers
             return context.Database.SqlQuery<string>($"SELECT [dbo].[ArbolNodos]({idUsuario}, {id}) as value").FirstOrDefault();
         }
 
+        [HttpGet("nodoFiltrado")]
+        public string? NodoFiltrado(int id)
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[ArbolFiltrado]({idUsuario},{id}) as value").FirstOrDefault();
+        }
+
         [HttpGet("eliminar")]
         public void Eliminar(int id)
         {
