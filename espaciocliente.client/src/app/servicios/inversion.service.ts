@@ -15,12 +15,20 @@ export class InversionService {
     return this.http.get<number>(`${environment.baseUrl}/inversion/inversion?id=${f.id}&inicio=${f.inicio}&fin=${f.fin}`);
   }
 
-  inversionMedio(f: FiltroActivo): Observable<InversionMedio[]> {
-    return this.http.get<InversionMedio[]>(`${environment.baseUrl}/inversion/inversionMedio?id=${f.id}&inicio=${f.inicio}&fin=${f.fin}`);
+  inversionMedio(f: FiltroActivo): Observable<InversionData[]> {
+    return this.http.get<InversionData[]>(`${environment.baseUrl}/inversion/inversionMedio?id=${f.id}&inicio=${f.inicio}&fin=${f.fin}`);
+  }
+
+  inversionCampania(f: FiltroActivo): Observable<InversionData[]> {
+    return this.http.get<InversionData[]>(`${environment.baseUrl}/inversion/inversionCampania?id=${f.id}&inicio=${f.inicio}&fin=${f.fin}`);
+  }
+
+  inversionTemporal(f: FiltroActivo): Observable<InversionData[]> {
+    return this.http.get<InversionData[]>(`${environment.baseUrl}/inversion/inversionTemporal?id=${f.id}&inicio=${f.inicio}&fin=${f.fin}`);
   }
 }
 
-export interface InversionMedio {
-  Medio: string,
+export interface InversionData {
+  Data: string,
   Inversion: number
 }

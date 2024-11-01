@@ -1,7 +1,14 @@
 <div class="graficos-contenedor">
-  Gráficos
-  <div class="cuadrado">
-    <p-chart type="pie" [data]="data" [options]="options" />
+  <p-selectButton [options]="grafico.tiposDeGraficos"
+                  [ngModel]="grafico.tipoGrafico()"
+                  (onChange)="grafico.vistaSeleccionada($event)"
+                  unselectable="true"
+                  optionLabel="label"
+                  optionValue="value" />
+  <div class="grafico">
+    <div class="cuadrado">
+      <p-chart [type]="grafico.tipo()" [data]="grafico.data()" [options]="grafico.options()" />
+    </div>
   </div>
   
 </div>

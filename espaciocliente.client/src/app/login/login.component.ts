@@ -18,7 +18,7 @@ import { EstadoService } from '../servicios/estado.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm: FormGroup;
   error: string | undefined;
   procesando: boolean = false;
@@ -26,17 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, private estadoService: EstadoService, private mensajesService: MensajesService) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(4)])
-    });
-  }
-
-  ngOnInit() {
-    this.authService.test().subscribe({
-      next: (r) => {
-        this.mensajesService.error
-      }, error: (err) => {
-
-      }
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
   }
 

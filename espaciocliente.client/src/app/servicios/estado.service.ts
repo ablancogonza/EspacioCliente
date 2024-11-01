@@ -7,6 +7,8 @@ import { Dispositivo } from '../estado/dispositivo';
 import { Filtro } from '../estado/filtro';
 import { FiltroService } from './filtro.service';
 import { MensajesService } from './mensajes.service';
+import { Grafico } from '../estado/grafico';
+import { InversionService } from './inversion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,11 @@ export class EstadoService {
   selectorVista!: SelectorVista;
   dispositivo!: Dispositivo;
   filtro!: Filtro;
+  grafico!: Grafico;
 
   constructor(private arbolService: ArbolService,
     private filtroService: FiltroService,
+    private inversionService: InversionService,
     private mensajesService: MensajesService) { }
 
   init(email: string, token: string) {
@@ -31,10 +35,11 @@ export class EstadoService {
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();    
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
+    this.grafico?.destroy();
+    this.grafico = new Grafico(this.inversionService);
     this.filtro.init();
     this.arbol.init();
   }
-
   
   cerrarSesion() {
     this.sesion.setToken('');
@@ -43,6 +48,8 @@ export class EstadoService {
     this.selectorVista = new SelectorVista();
     this.dispositivo = new Dispositivo();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
+    this.grafico?.destroy();
+    this.grafico = new Grafico(this.inversionService);
   }
 
   guardar() {

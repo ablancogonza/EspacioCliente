@@ -30,6 +30,20 @@ namespace EspacioCliente.Server.Controllers
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionMedio]({id},{inicio},{fin}) as value").FirstOrDefault();
         }
+
+        [HttpGet("inversionCampania")]
+        public string? InversionCampania(int id, int inicio, int fin)
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionCampania]({id},{inicio},{fin}) as value").FirstOrDefault();
+        }
+
+        [HttpGet("inversionTemporal")]
+        public string? InversionTemporal(int id, int inicio, int fin)
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionTemporal]({id},{inicio},{fin}) as value").FirstOrDefault();
+        }
     }
 
     
