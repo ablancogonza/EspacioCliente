@@ -2,21 +2,22 @@ import { BehaviorSubject } from "rxjs";
 import { KeyValueDto } from "../dtos/key-value-dto";
 import { FiltroService } from "../servicios/filtro.service";
 import { initZone } from "zone.js/lib/zone-impl";
+import { MensajesService } from "../servicios/mensajes.service";
+import { signal } from "@angular/core";
 
 export class Filtro {
-
+  filtroInicial: FiltroActivo = { inicio: 202001, fin: 202312 };
   elementosFiltro$: BehaviorSubject<ElementoFiltro[]> = new BehaviorSubject<ElementoFiltro[]>([]);
-  inicio: Date;
-  fin: Date;
+  inicio = signal(this.presupuestoToDate(this.filtroInicial.inicio));
+  fin = signal(this.presupuestoToDate(this.filtroInicial.fin));  
   filtroModificado$: BehaviorSubject<FiltroActivo>;
 
-  constructor(private filtroService: FiltroService) {
-    this.inicio = new Date(2023, 0, 1);
-    this.fin = new Date(2023, 11, 31);
+  constructor(private filtroService: FiltroService, private mensajeService: MensajesService) {
+
     this.filtroModificado$ = new BehaviorSubject<FiltroActivo>({
-      inicio: this.inicio.getFullYear() * 100 + this.inicio.getMonth() + 1,
-      fin: this.fin.getFullYear() * 100 + this.fin.getMonth() + 1,
-    })
+      inicio: this.dateToPresupuesto(this.inicio()),
+      fin: this.dateToPresupuesto(this.fin())
+    });    
   }
 
   init() {
@@ -36,45 +37,77 @@ export class Filtro {
     });
   }
 
-  inicioModificado(d: Date) {
-    alert(d);
+  inicioModificado(d: Date) {    
+    if (this.dateToPresupuesto(d) > this.dateToPresupuesto(this.fin())) {
+      this.inicio.set(this.fin());
+      this.mensajeService.warning('La fecha de inicio no puede ser posterior a la de fin');
+    } else {
+      this.inicio.set(d);
+    }
+    this.notificarFiltroCambiado();
   }
 
-  finModificado(d: Date) {
-    alert(d);
+  finModificado(d: Date) {    
+    if (this.dateToPresupuesto(d) < this.dateToPresupuesto(this.inicio())) {
+      this.fin.set(this.inicio());
+      this.mensajeService.warning('La fecha de fin no puede ser anterior a la de inicio');
+    } else {
+      this.fin.set(d);
+    }
+    this.notificarFiltroCambiado();
   }
 
-  buscadorModificado(e: ElementoFiltro) {
-    console.log('En filtro buscador Modificado: ', e);
+  buscadorModificado(e: ElementoFiltro) {    
+    if (e.seleccionado !== undefined) {
+      const nuevo: ElementoFiltro[] = this.elementosFiltro$.value.map(f => {
+        if (f.id > e.id) return f;
+        if (f.id === e.id) return e;
+        return { ...f, activo: false };      
+      });
+      this.elementosFiltro$.next(nuevo);
+    } else {
+      let existeFiltro = false;      
+      const nuevo: ElementoFiltro[] = [];      
+      for (let i = this.elementosFiltro$.value.length - 1; i >= 0; i--) {          
+        if (this.elementosFiltro$.value[i].id > e.id) {
+          nuevo.push({ ...this.elementosFiltro$.value[i], coincidentes: [] });
+        } else if (this.elementosFiltro$.value[i].id === e.id) {
+          nuevo.push({ ...e, activo: true, coincidentes: [] });
+        } else {            
+          nuevo.push({ ...this.elementosFiltro$.value[i], activo: !existeFiltro, coincidentes: [] });
+          if (i < e.id && this.elementosFiltro$.value[i].seleccionado !== undefined) existeFiltro = true;
+        }
+      }      
+      nuevo.reverse();
+      this.elementosFiltro$.next(nuevo);
+    }
+    this.notificarFiltroCambiado();
   }
 
-  desactivaSuperiores(n: number) {
-    this.elementosFiltro$.value?.forEach(e => {
-      if (e.id < n) e.activo = false;
-    });
-    this.notificaFiltroActivo(this.elementosFiltro$.value[n]);    
+  idBuscador(): number | undefined {
+    let i = this.elementosFiltro$.value.length - 1;
+    while (i >= 0) {
+      if (this.elementosFiltro$.value[i].seleccionado !== undefined) return this.elementosFiltro$.value[i].seleccionado?.key;
+      i--;
+    }
+    return undefined;
   }
 
-  notificaFiltroActivo(e: ElementoFiltro) {
+  notificarFiltroCambiado() {
     const fa: FiltroActivo = {
-      id: e ? e.id : undefined,
-      inicio: this.dateToPresupuesto(this.inicio),
-      fin: this.dateToPresupuesto(this.fin)
+      id: this.idBuscador(),
+      inicio: this.dateToPresupuesto(this.inicio()),
+      fin: this.dateToPresupuesto(this.fin())
     };
     this.filtroModificado$.next(fa);
   }
-
-  reactivaSuperiores(n: number) {
-    for (let i = n - 1; i >= 0; i--) {
-      this.elementosFiltro$.value[i].activo = true;
-      if (this.elementosFiltro$.value[i].seleccionado !== undefined) {
-        break;
-      }
-    }    
-  }
-
+ 
   dateToPresupuesto(d: Date): number {
     return d.getFullYear() * 100 + d.getMonth() + 1;
+  }
+
+  presupuestoToDate(n: number): Date {
+    return new Date(Math.round(n / 100), (n % 100) - 1, 1);
   }
 }
 

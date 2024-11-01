@@ -37,7 +37,7 @@ namespace EspacioCliente.Server.Controllers
         public string? NodoFiltrado(int id)
         {
             int idUsuario = User.IdUsuario();
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[ArbolFiltrado]({idUsuario},{id}) as value").FirstOrDefault();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[ArbolFiltrado]({id}) as value").FirstOrDefault();
         }
 
         [HttpGet("eliminar")]

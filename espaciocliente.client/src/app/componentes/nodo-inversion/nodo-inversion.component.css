@@ -11,3 +11,15 @@
 .bold {
     font-weight: bold;
 }
+
+.suspensivos {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.dcha {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}

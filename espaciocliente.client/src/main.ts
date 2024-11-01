@@ -1,7 +1,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
-import { importProvidersFrom } from '@angular/core';
+import { LOCALE_ID, importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app/app-routing.module';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -11,8 +11,9 @@ import { authInterceptor } from './app/interceptors/auth.interceptor';
 
 
 bootstrapApplication(AppComponent, {
-    providers: [
+  providers: [
     importProvidersFrom(BrowserModule, AppRoutingModule, BrowserAnimationsModule),
-        provideHttpClient(withInterceptors([authInterceptor]))
-    ]
-}).catch(err => console.error('boostrapApplication: ',err));
+    provideHttpClient(withInterceptors([authInterceptor])),
+    { provide: LOCALE_ID, useValue: "es-ES" },
+  ],
+}).catch(err => console.error('boostrapApplication: ', err));

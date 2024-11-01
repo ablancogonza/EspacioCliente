@@ -77,6 +77,7 @@ export class Arbol {
   seccionArbol(id: number) {
     this.arbolService.desdeNodo(id).subscribe({
       next: (nodos) => {
+        console.log('secciónArbol: ', nodos);
         const raiz: TreeNode[] = [];
         nodos?.forEach((nodo: Nodo) => {
           raiz.push({

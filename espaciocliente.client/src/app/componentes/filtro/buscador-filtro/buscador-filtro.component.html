@@ -8,8 +8,7 @@
                       (onSelect)="seleccionado($event)"
                       class="ancho-completo"
                       optionLabel="value"
-                      appendTo="body"
-                      [disabled]="!buscador.activo"
+                      appendTo="body"                      
                       />
     </form>
     <p-button icon="pi pi-times" severity="secondary" [disabled]="buscador.seleccionado === undefined" (click)="limpiar()" /> 

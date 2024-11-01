@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { MensajesService } from './servicios/mensajes.service';
 import { Router, RouterModule } from '@angular/router';
 import { EstadoService } from './servicios/estado.service';
+import es from '@angular/common/locales/es';
 
 
 interface WeatherForecast {
@@ -43,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    registerLocaleData(es);
+
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');    
     if (token && email) {     

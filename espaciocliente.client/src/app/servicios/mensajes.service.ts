@@ -21,4 +21,9 @@ export class MensajesService {
   ok(mensaje: string) {
     this.mensaje$.next({ severity: 'success', summary: 'Correcto', detail: mensaje });
   }
+
+
+  warning(mensaje: string) {
+    this.mensaje$.next({ severity: 'contrast', summary: 'Atención', detail: mensaje });
+  }
 }

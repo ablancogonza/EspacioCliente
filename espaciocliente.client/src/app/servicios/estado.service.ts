@@ -30,7 +30,7 @@ export class EstadoService {
     this.dispositivo = new Dispositivo();
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();    
-    this.filtro = new Filtro(this.filtroService);
+    this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.filtro.init();
     this.arbol.init();
   }
@@ -42,7 +42,7 @@ export class EstadoService {
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();
     this.dispositivo = new Dispositivo();
-    this.filtro = new Filtro(this.filtroService);
+    this.filtro = new Filtro(this.filtroService, this.mensajesService);
   }
 
   guardar() {
