@@ -47,15 +47,11 @@ export class NodoInversionComponent {
       });
     this.obtenerInversion$ = this.peticionRefrescoInversion$.pipe(
       switchMap(filtro => this.inversionService.inversion(filtro))
-    );
-
-    this.obtenerInversion$.subscribe((inversion) => {
-
-    });
+    );    
   }
 
   recalculaInversion() {
-    console.log('recalcularInversion: ', this.filtroActivo, this.nodo);
+    
     if (!this.filtroActivo || !this.nodo) return;
     this.peticionRefrescoInversion$.next({ id: parseInt(this.nodo.key!), inicio: this.filtroActivo.inicio, fin: this.filtroActivo.fin });    
   }

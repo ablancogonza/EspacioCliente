@@ -6,7 +6,7 @@ import { MensajesService } from "../servicios/mensajes.service";
 import { signal } from "@angular/core";
 
 export class Filtro {
-  filtroInicial: FiltroActivo = { inicio: 202001, fin: 202312 };
+  filtroInicial: FiltroActivo = { inicio: 202001, fin: 202412 };
   elementosFiltro$: BehaviorSubject<ElementoFiltro[]> = new BehaviorSubject<ElementoFiltro[]>([]);
   inicio = signal(this.presupuestoToDate(this.filtroInicial.inicio));
   fin = signal(this.presupuestoToDate(this.filtroInicial.fin));  

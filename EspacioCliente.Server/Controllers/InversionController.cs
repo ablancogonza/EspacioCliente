@@ -23,6 +23,13 @@ namespace EspacioCliente.Server.Controllers
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<decimal>($"SELECT [dbo].[Inversion]({id},{inicio},{fin}) as value").FirstOrDefault();
         }
+
+        [HttpGet("inversionMedio")]
+        public string? InversionMedio(int id, int inicio, int fin)
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionMedio]({id},{inicio},{fin}) as value").FirstOrDefault();
+        }
     }
 
     
