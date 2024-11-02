@@ -1,9 +1,14 @@
 <div class="contenedor">
-  <div class="bold suspensivos">
-    {{ nodo?.data?.Descripcion }}
-    
-    <!--<<button (click)="eliminar()">Eliminar</button>-->
+  <div class="contenedor-izq">
+    <div class="bold suspensivos">
+      {{ nodo?.data?.Descripcion }}
+      <!--<<button (click)="eliminar()">Eliminar</button>-->
+    </div>
+    <div class="rango-fechas">
+      {{ rangoFechas }}
+    </div>
   </div>
+  
   <div class="dcha">
     <div class="bold">{{ obtenerInversion$ | async | currency:'EUR':'symbol':'1.2-2':'es' }}</div>
     <p-button icon="pi pi-filter" severity="primary" title="Filtro" (click)="filtroVisible = true" />

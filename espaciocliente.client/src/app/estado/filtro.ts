@@ -4,19 +4,20 @@ import { FiltroService } from "../servicios/filtro.service";
 import { initZone } from "zone.js/lib/zone-impl";
 import { MensajesService } from "../servicios/mensajes.service";
 import { signal } from "@angular/core";
+import { Presupuesto } from "../utils/presupuesto";
 
 export class Filtro {
-  filtroInicial: FiltroActivo = { inicio: 202001, fin: 202412 };
+  filtroInicial: FiltroActivo = { inicio: 202401, fin: 202412 };
   elementosFiltro$: BehaviorSubject<ElementoFiltro[]> = new BehaviorSubject<ElementoFiltro[]>([]);
-  inicio = signal(this.presupuestoToDate(this.filtroInicial.inicio));
-  fin = signal(this.presupuestoToDate(this.filtroInicial.fin));  
+  inicio = signal(Presupuesto.presupuestoToDate(this.filtroInicial.inicio));
+  fin = signal(Presupuesto.presupuestoToDate(this.filtroInicial.fin));  
   filtroModificado$: BehaviorSubject<FiltroActivo>;
 
   constructor(private filtroService: FiltroService, private mensajeService: MensajesService) {
 
     this.filtroModificado$ = new BehaviorSubject<FiltroActivo>({
-      inicio: this.dateToPresupuesto(this.inicio()),
-      fin: this.dateToPresupuesto(this.fin())
+      inicio: Presupuesto.dateToPresupuesto(this.inicio()),
+      fin: Presupuesto.dateToPresupuesto(this.fin())
     });    
   }
 
@@ -38,7 +39,7 @@ export class Filtro {
   }
 
   inicioModificado(d: Date) {    
-    if (this.dateToPresupuesto(d) > this.dateToPresupuesto(this.fin())) {
+    if (Presupuesto.dateToPresupuesto(d) > Presupuesto.dateToPresupuesto(this.fin())) {
       this.inicio.set(this.fin());
       this.mensajeService.warning('La fecha de inicio no puede ser posterior a la de fin');
     } else {
@@ -48,7 +49,7 @@ export class Filtro {
   }
 
   finModificado(d: Date) {    
-    if (this.dateToPresupuesto(d) < this.dateToPresupuesto(this.inicio())) {
+    if (Presupuesto.dateToPresupuesto(d) < Presupuesto.dateToPresupuesto(this.inicio())) {
       this.fin.set(this.inicio());
       this.mensajeService.warning('La fecha de fin no puede ser anterior a la de inicio');
     } else {
@@ -96,18 +97,10 @@ export class Filtro {
   notificarFiltroCambiado() {
     const fa: FiltroActivo = {
       id: this.idBuscador(),
-      inicio: this.dateToPresupuesto(this.inicio()),
-      fin: this.dateToPresupuesto(this.fin())
+      inicio: Presupuesto.dateToPresupuesto(this.inicio()),
+      fin: Presupuesto.dateToPresupuesto(this.fin())
     };
     this.filtroModificado$.next(fa);
-  }
- 
-  dateToPresupuesto(d: Date): number {
-    return d.getFullYear() * 100 + d.getMonth() + 1;
-  }
-
-  presupuestoToDate(n: number): Date {
-    return new Date(Math.round(n / 100), (n % 100) - 1, 1);
   }
 }
 

@@ -38,9 +38,13 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
+  login() {
+    this.procesando = true;
+    setTimeout(() => { this.acceder(); });
+  }
+
   acceder() {    
-    if (this.loginForm.valid) {
-      this.procesando = true;
+    if (this.loginForm.valid) {      
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
           localStorage.setItem('email', this.email?.value);
