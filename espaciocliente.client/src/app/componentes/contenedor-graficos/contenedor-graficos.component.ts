@@ -11,7 +11,6 @@ import { Grafico } from '../../estado/grafico';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-contenedor-graficos',
   standalone: true,

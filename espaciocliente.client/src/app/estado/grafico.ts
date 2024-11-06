@@ -16,6 +16,7 @@ export class Grafico {
   peticionRefrescoGrafico$: Subject<FiltroActivo> = new Subject();
   obtenerGrafico$: Observable<any>;
   subs: Subscription[] = [];
+  cargando = true;
   readonly tiposDeGraficos = [{ label: 'Medio', value: 1 }, { label: 'Descendientes', value: 2 }, { label: 'Temporal', value: 3 }];
 
   constructor(private inversionService: InversionService) {
@@ -52,6 +53,7 @@ export class Grafico {
   }
 
   recalcularGrafico() {
+    this.cargando = true;
     if (!this.filtroActivo || !this.nodo || !this.nodo.key) return;    
     const f = { id: parseInt(this.nodo.key!), inicio: this.filtroActivo.inicio, fin: this.filtroActivo.fin };    
     this.peticionRefrescoGrafico$.next(f);
@@ -94,7 +96,7 @@ export class Grafico {
         }
       }
     });
-
+    this.cargando = false;
   }
 }
 
