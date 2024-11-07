@@ -9,6 +9,8 @@ import { FiltroService } from './filtro.service';
 import { MensajesService } from './mensajes.service';
 import { Grafico } from '../estado/grafico';
 import { InversionService } from './inversion.service';
+import { Mapa } from '../estado/mapa';
+import { MapaService } from './mapa.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +23,12 @@ export class EstadoService {
   dispositivo!: Dispositivo;
   filtro!: Filtro;
   grafico!: Grafico;
+  mapa!: Mapa;
 
   constructor(private arbolService: ArbolService,
     private filtroService: FiltroService,
     private inversionService: InversionService,
+    private mapaService: MapaService,
     private mensajesService: MensajesService) { }
 
   init(email: string, token: string) {
@@ -37,6 +41,7 @@ export class EstadoService {
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.grafico?.destroy();
     this.grafico = new Grafico(this.inversionService);
+    this.mapa = new Mapa(this.mapaService);
     this.filtro.init();
     this.arbol.init();
   }
@@ -49,6 +54,7 @@ export class EstadoService {
     this.dispositivo = new Dispositivo();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.grafico?.destroy();
+    this.mapa = new Mapa(this.mapaService);
     this.grafico = new Grafico(this.inversionService);
   }
 
