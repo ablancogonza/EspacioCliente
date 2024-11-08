@@ -13,7 +13,7 @@ namespace EspacioCliente.Data.Models
 {
     public partial interface IEspacioClienteContextProcedures
     {
-        Task<int> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
-        Task<int> IncidenciasCrearAsync(int? idUsuario, int? idNodo, string titulo, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<List<IncidenciasConversacionCrearEntradaResult>> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> IncidenciasCrearAsync(int? idUsuario, int? idNodo, string titulo, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }
 }

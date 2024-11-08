@@ -23,5 +23,17 @@ namespace EspacioCliente.Server.Controllers
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasLista]({idUsuario}) as value").FirstOrDefault();
         }
+
+        [HttpPost("crear")]
+        public async Task<string?> Crear([FromBody] PeticionCrearIncidencia nueva)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<string> salida = new OutputParameter<string>();
+            await this.context.Procedures.IncidenciasCrearAsync(idUsuario, nueva.IdNodo, nueva.Titulo, salida);
+            return salida.Value;
+        }
+
     }
+
+    public record PeticionCrearIncidencia(int IdNodo, string Titulo);
 }
