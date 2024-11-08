@@ -45,3 +45,11 @@
     color: red;
     max-width: 220px;    
 }
+
+.contenedor-procesando {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100svh;
+    width: 100svw;
+}

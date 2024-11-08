@@ -21,4 +21,8 @@ export class Sesion {
       localStorage.removeItem('email');
     }
   };
+
+  tieneCredenciales(): boolean {
+    return this.token !== '' && this.email !== '';
+  }
 }

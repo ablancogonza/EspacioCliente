@@ -10,11 +10,12 @@ import { ChartModule } from 'primeng/chart';
 import { Grafico } from '../../estado/grafico';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
+import { ProcesandoComponent } from '../procesando/procesando.component';
 
 @Component({
   selector: 'app-contenedor-graficos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule],
+  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule, ProcesandoComponent],
   templateUrl: './contenedor-graficos.component.html',
   styleUrl: './contenedor-graficos.component.css'
 })

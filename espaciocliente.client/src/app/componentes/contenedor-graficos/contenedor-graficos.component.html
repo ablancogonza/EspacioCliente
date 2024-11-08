@@ -8,5 +8,6 @@
   <div class="grafico" *ngIf="!grafico?.cargando">   
     <p-chart [type]="grafico.tipo()" [data]="grafico.data()" [options]="grafico.options()" />    
   </div>
+  <app-procesando *ngIf="grafico?.cargando"></app-procesando>
   
 </div>

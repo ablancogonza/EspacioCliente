@@ -50,19 +50,11 @@ namespace EspacioCliente.Server.Controllers
             return Unauthorized();
         }
 
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            string? cad = string.Empty;
-            try
-            {
-                cad = Environment.GetEnvironmentVariable("prueba")??"nada";
-            }
-            catch (Exception ex)
-            {
-                cad = ex.Message;
-            }            
-            return Ok(cad);
+        [HttpGet("tokenvalid")]
+        [Authorize]
+        public IActionResult TokenValid()
+        {                 
+            return Ok();
         }
     }
 

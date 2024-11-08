@@ -11,6 +11,7 @@ export class Mapa {
   idNodo: number | undefined = undefined;
   inicio: number | undefined = undefined;
   fin: number | undefined = undefined
+  cargando = true;
   constructor(private mapaService: MapaService) {
     this.options.set({
       mapId: "DEMO_MAP_ID",
@@ -20,18 +21,22 @@ export class Mapa {
   }
 
   recuperarVallas(idNodo: number, inicio: number, fin: number) {
-    this.mapaService.vallas(idNodo, inicio, fin).subscribe({
-      next: (vallas) => {
-        if (!vallas) vallas = [];
-        this.vallas.set(vallas);
-        const marcas: any[] = [];
-        vallas.forEach(valla => {
-          marcas.push({ position: { lat: parseFloat(valla.lat), lng: parseFloat(valla.lon) } });
-        });
-        this.markers.set(marcas);
-        this.limites$.next(this.getBounds(this.markers()));        
-      }
-    });
+    this.cargando = true;
+    setTimeout(() => {
+      this.mapaService.vallas(idNodo, inicio, fin).subscribe({
+        next: (vallas) => {
+          if (!vallas) vallas = [];
+          this.vallas.set(vallas);
+          const marcas: any[] = [];
+          vallas.forEach(valla => {
+            marcas.push({ position: { lat: parseFloat(valla.lat), lng: parseFloat(valla.lon) } });
+          });          
+          this.markers.set(marcas);
+          this.limites$.next(this.getBounds(this.markers()));
+          this.cargando = false;
+        }
+      });
+    });    
   }
 
   recuperarVallasFiltro(inicio: number, fin: number) {
@@ -61,9 +66,7 @@ export class Mapa {
       west: undefined
     };
 
-    for (const marker of markers) {
-      // set the coordinates to marker's lat and lng on the first run.
-      // if the coordinates exist, get max or min depends on the coordinates.
+    for (const marker of markers) {     
       north = north !== undefined ? Math.max(north, marker.position.lat) : marker.position.lat;
       south = south !== undefined ? Math.min(south, marker.position.lat) : marker.position.lat;
       east = east !== undefined ? Math.max(east, marker.position.lng) : marker.position.lng;

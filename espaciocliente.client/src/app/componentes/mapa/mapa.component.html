@@ -1,5 +1,5 @@
 <div class="mapa-contenedor">
-  <google-map height="100%" width="100%" [options]="mapa.options()" >
+  <google-map height="100%" width="100%" [options]="mapa.options()">
     @if (mapa.markers()) {
       @for (valla of mapa.markers(); track valla) {
       <map-advanced-marker #markerElem="mapAdvancedMarker"
@@ -8,4 +8,7 @@
       }
     }
   </google-map>
+  <div class="contenedor-procesando" *ngIf="mapa?.cargando">
+    <app-procesando ></app-procesando>
+  </div>  
 </div>

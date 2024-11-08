@@ -13,7 +13,5 @@ public partial class UsuarioNodo
 
     public int IdNodo { get; set; }
 
-    public virtual Nodo IdNodoNavigation { get; set; }
-
     public virtual Usuario IdUsuarioNavigation { get; set; }
 }

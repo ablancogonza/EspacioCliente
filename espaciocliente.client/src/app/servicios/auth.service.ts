@@ -14,8 +14,8 @@ export class AuthService {
         { Email: email, Password: pwd });
   }
 
-  test(): Observable<string> {
-    return this.http.get<any>(environment.baseUrl + '/auth/test');
+  isTokenValid(): Observable<string> {
+    return this.http.get<any>(environment.baseUrl + '/auth/tokenvalid');
   }
 
   //getForecasts() {

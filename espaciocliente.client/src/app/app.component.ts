@@ -9,6 +9,7 @@ import { MensajesService } from './servicios/mensajes.service';
 import { Router, RouterModule } from '@angular/router';
 import { EstadoService } from './servicios/estado.service';
 import es from '@angular/common/locales/es';
+import { AuthService } from './servicios/auth.service';
 
 
 interface WeatherForecast {
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private config: PrimeNGConfig,
     private messageService: MessageService,
     private mensajesService: MensajesService,
+    private authService: AuthService,
     private estadoService: EstadoService,
     private router: Router) {
     config.setTranslation({
@@ -46,12 +48,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     registerLocaleData(es);
 
-    const token = localStorage.getItem('token');
-    const email = localStorage.getItem('email');    
-    if (token && email) {     
-      this.estadoService.init(email, token);
-      this.router.navigateByUrl('/principal');
-    }
+    const token = localStorage.getItem('token')??'';
+    const email = localStorage.getItem('email')??'';        
+    this.estadoService.init(email, token);                
   }
 
   ngOnDestroy(): void {

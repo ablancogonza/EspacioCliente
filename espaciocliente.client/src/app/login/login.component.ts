@@ -18,16 +18,36 @@ import { EstadoService } from '../servicios/estado.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string | undefined;
-  procesando: boolean = false;
+  procesando: boolean = true;
 
   constructor(private router: Router, private authService: AuthService, private estadoService: EstadoService, private mensajesService: MensajesService) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
+  }
+
+  ngOnInit() {
+    if (this.estadoService.sesion.tieneCredenciales()) {
+      this.authService.isTokenValid().subscribe({
+        next: () => {
+          this.estadoService.postInit();
+          setTimeout(() => {
+            this.router.navigateByUrl('/principal');
+          }, 300);
+        },
+        error: (e: any) => {
+          this.estadoService.cerrarSesion();
+          this.procesando = false;
+        }
+      })
+    } else {
+      this.procesando = false;
+    }
+    console.log('procesando: ', this.procesando);
   }
 
   get email() {

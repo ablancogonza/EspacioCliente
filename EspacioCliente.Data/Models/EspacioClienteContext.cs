@@ -13,87 +13,15 @@ public partial class EspacioClienteContext : DbContext
     {
     }
 
-    public virtual DbSet<Conversacion> Conversacion { get; set; }
-
-    public virtual DbSet<Incidencia> Incidencia { get; set; }
-
-    public virtual DbSet<Insercion> Insercion { get; set; }
-
     public virtual DbSet<Log> Log { get; set; }
-
-    public virtual DbSet<Medio> Medio { get; set; }
-
-    public virtual DbSet<Nodo> Nodo { get; set; }
-
-    public virtual DbSet<Orden> Orden { get; set; }
-
-    public virtual DbSet<Plan> Plan { get; set; }
-
-    public virtual DbSet<Rol> Rol { get; set; }
-
-    public virtual DbSet<TipoNodo> TipoNodo { get; set; }
 
     public virtual DbSet<Usuario> Usuario { get; set; }
 
     public virtual DbSet<UsuarioNodo> UsuarioNodo { get; set; }
 
-    public virtual DbSet<Valla> Valla { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AI");
-
-        modelBuilder.Entity<Conversacion>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Fecha).HasColumnType("datetime");
-            entity.Property(e => e.Imagen).HasColumnType("image");
-
-            entity.HasOne(d => d.IdIncidenciaNavigation).WithMany(p => p.Conversacion)
-                .HasForeignKey(d => d.IdIncidencia)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Conversacion_Incidencia");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Conversacion)
-                .HasForeignKey(d => d.IdUsuario)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Conversacion_Usuario");
-        });
-
-        modelBuilder.Entity<Incidencia>(entity =>
-        {
-            entity.Property(e => e.Fecha).HasColumnType("datetime");
-
-            entity.HasOne(d => d.IdNodoNavigation).WithMany(p => p.Incidencia)
-                .HasForeignKey(d => d.IdNodo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Incidencia_Arbol");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Incidencia)
-                .HasForeignKey(d => d.IdUsuario)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Incidencia_Usuario");
-        });
-
-        modelBuilder.Entity<Insercion>(entity =>
-        {
-            entity.Property(e => e.Imagen).HasColumnType("image");
-            entity.Property(e => e.Inversion).HasColumnType("money");
-
-            entity.HasOne(d => d.IdPlanNavigation).WithMany(p => p.Insercion)
-                .HasForeignKey(d => d.IdPlan)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Insercion_Plan");
-
-            entity.HasOne(d => d.IdVallaNavigation).WithMany(p => p.Insercion)
-                .HasForeignKey(d => d.IdValla)
-                .HasConstraintName("FK_Insercion_Valla");
-
-            entity.HasOne(d => d.MedioNavigation).WithMany(p => p.Insercion)
-                .HasForeignKey(d => d.Medio)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Insercion_Medio");
-        });
+        modelBuilder.UseCollation("Latin1_General_CI_AI");
 
         modelBuilder.Entity<Log>(entity =>
         {
@@ -101,76 +29,6 @@ public partial class EspacioClienteContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Texto).IsRequired();
-        });
-
-        modelBuilder.Entity<Medio>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Medio1)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("Medio");
-        });
-
-        modelBuilder.Entity<Nodo>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_Arbol");
-
-            entity.Property(e => e.Descripcion).HasMaxLength(300);
-            entity.Property(e => e.Latitud).HasMaxLength(25);
-            entity.Property(e => e.Longitud).HasMaxLength(25);
-
-            entity.HasOne(d => d.IdNodoPadreNavigation).WithMany(p => p.InverseIdNodoPadreNavigation)
-                .HasForeignKey(d => d.IdNodoPadre)
-                .HasConstraintName("FK_Nodo_Nodo");
-
-            entity.HasOne(d => d.IdTipoNodoNavigation).WithMany(p => p.Nodo)
-                .HasForeignKey(d => d.IdTipoNodo)
-                .HasConstraintName("FK_Nodo_TipoNodo");
-        });
-
-        modelBuilder.Entity<Orden>(entity =>
-        {
-            entity.Property(e => e.Inversion).HasColumnType("money");
-
-            entity.HasOne(d => d.IdInsercionNavigation).WithMany(p => p.Orden)
-                .HasForeignKey(d => d.IdInsercion)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Orden_Insercion");
-        });
-
-        modelBuilder.Entity<Plan>(entity =>
-        {
-            entity.Property(e => e.Descripcion)
-                .IsRequired()
-                .HasMaxLength(250);
-
-            entity.HasOne(d => d.IdNodoNavigation).WithMany(p => p.Plan)
-                .HasForeignKey(d => d.IdNodo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Plan_Arbol");
-
-            entity.HasOne(d => d.MedioNavigation).WithMany(p => p.Plan)
-                .HasForeignKey(d => d.Medio)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Plan_Medio");
-        });
-
-        modelBuilder.Entity<Rol>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Rol1)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("Rol");
-        });
-
-        modelBuilder.Entity<TipoNodo>(entity =>
-        {
-            entity.Property(e => e.TipoNodo1)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("TipoNodo");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
@@ -184,37 +42,14 @@ public partial class EspacioClienteContext : DbContext
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(250);
-
-            entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuario)
-                .HasForeignKey(d => d.IdRol)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Usuario_Rol");
         });
 
         modelBuilder.Entity<UsuarioNodo>(entity =>
         {
-            entity.HasOne(d => d.IdNodoNavigation).WithMany(p => p.UsuarioNodo)
-                .HasForeignKey(d => d.IdNodo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsuarioNodo_Arbol");
-
             entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.UsuarioNodo)
                 .HasForeignKey(d => d.IdUsuario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsuarioNodo_Usuario");
-        });
-
-        modelBuilder.Entity<Valla>(entity =>
-        {
-            entity.Property(e => e.Descripcion)
-                .IsRequired()
-                .HasMaxLength(150);
-            entity.Property(e => e.Latitud)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.Longitud)
-                .IsRequired()
-                .HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

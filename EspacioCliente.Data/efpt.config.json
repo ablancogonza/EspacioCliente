@@ -15,43 +15,7 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[Conversacion]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Incidencia]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Insercion]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Log]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Medio]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Nodo]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Orden]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Plan]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Rol]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[TipoNodo]",
          "ObjectType": 0
       },
       {
@@ -63,8 +27,12 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Valla]",
-         "ObjectType": 0
+         "Name": "[dbo].[IncidenciasConversacionCrearEntrada]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[IncidenciasCrear]",
+         "ObjectType": 1
       }
    ],
    "UiHint": null,

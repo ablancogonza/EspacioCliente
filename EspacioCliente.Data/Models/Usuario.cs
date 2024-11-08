@@ -17,11 +17,5 @@ public partial class Usuario
 
     public int IdRol { get; set; }
 
-    public virtual ICollection<Conversacion> Conversacion { get; set; } = new List<Conversacion>();
-
-    public virtual Rol IdRolNavigation { get; set; }
-
-    public virtual ICollection<Incidencia> Incidencia { get; set; } = new List<Incidencia>();
-
     public virtual ICollection<UsuarioNodo> UsuarioNodo { get; set; } = new List<UsuarioNodo>();
 }

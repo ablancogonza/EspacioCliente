@@ -11,6 +11,7 @@ import { Grafico } from '../estado/grafico';
 import { InversionService } from './inversion.service';
 import { Mapa } from '../estado/mapa';
 import { MapaService } from './mapa.service';
+import { Incidencias } from '../estado/incidencias';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class EstadoService {
   filtro!: Filtro;
   grafico!: Grafico;
   mapa!: Mapa;
+  incidencias!: Incidencias;
 
   constructor(private arbolService: ArbolService,
     private filtroService: FiltroService,
@@ -37,25 +39,23 @@ export class EstadoService {
     this.sesion.setToken(token);
     this.dispositivo = new Dispositivo();
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
-    this.selectorVista = new SelectorVista();    
+    this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.grafico?.destroy();
     this.grafico = new Grafico(this.inversionService);
     this.mapa = new Mapa(this.mapaService);
+    this.incidencias = new Incidencias();
+  }
+
+  postInit() {    
     this.filtro.init();
     this.arbol.init();
   }
   
   cerrarSesion() {
     this.sesion.setToken('');
-    this.sesion.setEmail('');
-    this.arbol = new Arbol(this.arbolService, this.mensajesService);
-    this.selectorVista = new SelectorVista();
-    this.dispositivo = new Dispositivo();
-    this.filtro = new Filtro(this.filtroService, this.mensajesService);
-    this.grafico?.destroy();
-    this.mapa = new Mapa(this.mapaService);
-    this.grafico = new Grafico(this.inversionService);
+    this.sesion.setEmail('');   
+    this.grafico?.destroy();    
   }
 
   guardar() {
