@@ -53,4 +53,10 @@ export class DetalleConversacionComponent implements AfterViewInit {
   noimplementado() {
     this.mensajeService.info('Todavía no está implementado');
   }
+
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === "Enter" && this.texto) {
+      this.publicar();
+    }
+  }
 }

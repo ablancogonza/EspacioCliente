@@ -79,7 +79,7 @@ export class Incidencias {
     this.incidenciasService.publicarMensaje(this.seleccionada!.id, texto).subscribe({
       next: (msg) => {
         console.log('msg: ', msg);
-        this.listaMensajes = [...this.listaMensajes, msg[0]];
+        this.listaMensajes = [...this.listaMensajes??[], msg[0]];
         console.log('nueva lista: ', this.listaMensajes);
         this.mensajes.set(this.mensajesProcesados(this.listaMensajes)); 
         this.procesando.set(false);
