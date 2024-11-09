@@ -1,5 +1,6 @@
 import { signal } from "@angular/core";
-import { Incidencia, IncidenciasService } from "../servicios/incidencias.service";
+import { Incidencia, IncidenciasService, Mensaje } from "../servicios/incidencias.service";
+import { TipoEntradaMensaje } from "../enumerados/tipo-entrada-mensaje";
 
 export class Incidencias {
 
@@ -10,6 +11,8 @@ export class Incidencias {
   lista = signal<Incidencia[]>([]);
   vista = signal<string>('lista');
   seleccionada: Incidencia | undefined;
+  cargandoMensajes = signal<boolean>(false);
+  mensajes = signal < EntradaMensaje[]>([]);
 
   constructor(private incidenciasService: IncidenciasService) { }
 
@@ -34,16 +37,11 @@ export class Incidencias {
     })
   }
 
-  //showDialog() {
-  //  this.visibleNuevaIncidencia = true;
-  //}
-
   nuevo() {
     this.visibleNuevaIncidencia = true;
   }
 
   aceptaNuevaIncidencia() {
-    debugger;
     this.procesando.set(true);
     this.incidenciasService.crear(this.idNodo!, this.titulo).subscribe({
       next: (incidencia) => {
@@ -65,5 +63,42 @@ export class Incidencias {
   onSeleccionada(i: Incidencia) {
     this.vista.set('detalle');
     this.seleccionada = i;
+    this.cargarMensajes(i.id);
   }
+
+  publicar(texto: string) {
+    this.procesando.set(true);
+    this.incidenciasService.publicarMensaje(this.seleccionada!.id, texto).subscribe({
+      next: (msg) => {
+        this.procesando.set(false);
+      }
+    })
+  }
+
+  cargarMensajes(id: number) {
+    console.log('cargar mensajes: ', id);
+    this.incidenciasService.recuperarMensajes(id).subscribe({
+      next: (lista: Mensaje[]) => {
+        this.mensajes.set(this.mensajesProcesados(lista));
+        //console.log('mensajes: ', lista);
+      }
+    })
+  }
+
+  mensajesProcesados(lista: Mensaje[]): EntradaMensaje[] {
+    const res: EntradaMensaje[] = [];
+    if (lista.length === 0) return res;
+    let fecha = lista[0].fecha;
+    console.log('fecha: ', fecha.getFullYear());
+
+    return res;
+  }
+}
+
+export interface EntradaMensaje {
+  tipo: TipoEntradaMensaje,
+  fecha: string,
+  hora: string,
+  texto: string,
+  imagen: string
 }

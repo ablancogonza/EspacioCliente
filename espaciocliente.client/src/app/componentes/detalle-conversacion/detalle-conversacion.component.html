@@ -4,10 +4,19 @@
       <p-button icon="pi pi-angle-left" [rounded]="true" [outlined]="true" (click)="volver()" />
     </div>
     <div class="incidencia">
-      <app-incidencia [incidencia]="incidencias.seleccionada"></app-incidencia>
+      <app-incidencia [incidencia]="incidencias.seleccionada" [seleccionable]="false"></app-incidencia>
     </div>
   </div>
   <div class="conversacion">
-
+    <div class="mensajes">
+      <app-mensaje [mensaje]="msg" *ngFor="let msg of incidencias.mensajes()"></app-mensaje>
+    </div>
+    <div class="pie">
+      <input type="text" pInputText [(ngModel)]="texto" />
+      <p-button icon="pi pi-paperclip" [rounded]="true" [text]="true" [raised]="true" title="Adjuntar imagen" />
+      <p-button icon="pi pi-caret-right" [rounded]="true" [text]="true" [raised]="true" title="Publicar"
+                [disabled]="!texto || texto.length === 0 || texto.length > 100"
+                (click)="publicar()"/>
+    </div>
   </div>
 </div>

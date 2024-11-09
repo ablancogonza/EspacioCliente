@@ -1,4 +1,4 @@
-<div class="entrada" (click)="click()">
+<div class="entrada" (click)="click()" [ngClass]="{ 'seleccionable': seleccionable }">
   <div class="titulo">{{ incidencia?.titulo }}</div>
   <div class="des">{{ incidencia?.des }}</div>
 </div>

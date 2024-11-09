@@ -43,8 +43,16 @@ namespace EspacioCliente.Data.Models
             _context = context;
         }
 
-        public virtual async Task<List<IncidenciasConversacionCrearEntradaResult>> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<int> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
+            var parametersalida = new SqlParameter
+            {
+                ParameterName = "salida",
+                Size = -1,
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = salida?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+            };
             var parameterreturnValue = new SqlParameter
             {
                 ParameterName = "returnValue",
@@ -80,10 +88,12 @@ namespace EspacioCliente.Data.Models
                     Value = imagen ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarBinary,
                 },
+                parametersalida,
                 parameterreturnValue,
             };
-            var _ = await _context.SqlQueryAsync<IncidenciasConversacionCrearEntradaResult>("EXEC @returnValue = [dbo].[IncidenciasConversacionCrearEntrada] @idUsuario = @idUsuario, @idIncidencia = @idIncidencia, @texto = @texto, @imagen = @imagen", sqlParameters, cancellationToken);
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[IncidenciasConversacionCrearEntrada] @idUsuario = @idUsuario, @idIncidencia = @idIncidencia, @texto = @texto, @imagen = @imagen, @salida = @salida OUTPUT", sqlParameters, cancellationToken);
 
+            salida.SetValue(parametersalida.Value);
             returnValue?.SetValue(parameterreturnValue.Value);
 
             return _;

@@ -35,7 +35,25 @@ namespace EspacioCliente.Server.Controllers
             return salida.Value;
         }
 
+        [HttpPost("mensaje")]
+        public async Task<string?> CrearMensaje([FromBody] PeticionCrearMensaje nueva)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<string> salida = new OutputParameter<string>();
+            await this.context.Procedures.IncidenciasConversacionCrearEntradaAsync(idUsuario, nueva.IdIncidencia, nueva.Texto, null, salida);
+            return salida.Value;
+        }
+
+        [HttpGet("mensajes/{id}")]
+        public string? ListaMensajes(int id)
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasListaMensajes]({idUsuario},{id}) as value").FirstOrDefault();
+        }
+
     }
 
     public record PeticionCrearIncidencia(int IdNodo, string Titulo);
+
+    public record PeticionCrearMensaje(int IdIncidencia, string Texto);
 }

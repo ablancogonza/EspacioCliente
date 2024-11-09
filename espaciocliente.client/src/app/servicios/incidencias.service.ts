@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class IncidenciasService {
-
   constructor(private http: HttpClient) { }
 
   crear(idNodo: number, titulo: string): Observable<Incidencia> {
@@ -22,6 +21,19 @@ export class IncidenciasService {
     return this.http.get<Incidencia[]>(`${environment.baseUrl}/incidencia/lista/${idNodo}`);
   }
 
+  recuperarMensajes(id: number): Observable<Mensaje[]> {
+    return this.http.get<Mensaje[]>(`${environment.baseUrl}/incidencia/mensajes/${id}`);
+  }
+
+  publicarMensaje(idIncidencia: number, texto: string): Observable<Mensaje> {
+    const data = {
+      IdIncidencia: idIncidencia,
+      Texto: texto
+    };
+    return this.http.post<Mensaje>(`${environment.baseUrl}/incidencia/mensaje`, data);
+  }
+
+
 }
 
 export interface Incidencia {
@@ -31,4 +43,12 @@ export interface Incidencia {
   titulo: string,
   fecha: Date,
   finalizado: boolean
+}
+
+export interface Mensaje {
+  id: number,
+  fecha: Date,
+  usuario: string,
+  texto: string,  
+  imagen: any
 }

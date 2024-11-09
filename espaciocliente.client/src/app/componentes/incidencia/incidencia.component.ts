@@ -12,6 +12,7 @@ import { Incidencia } from '../../servicios/incidencias.service';
 })
 export class IncidenciaComponent {
   @Input() incidencia?: Incidencia;
+  @Input() seleccionable = true;
   @Output() seleccionada: EventEmitter<Incidencia> = new EventEmitter();
 
   click() {
