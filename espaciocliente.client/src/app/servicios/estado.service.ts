@@ -12,6 +12,7 @@ import { InversionService } from './inversion.service';
 import { Mapa } from '../estado/mapa';
 import { MapaService } from './mapa.service';
 import { Incidencias } from '../estado/incidencias';
+import { IncidenciasService } from './incidencias.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class EstadoService {
     private filtroService: FiltroService,
     private inversionService: InversionService,
     private mapaService: MapaService,
+    private incidenciasService: IncidenciasService,
     private mensajesService: MensajesService) { }
 
   init(email: string, token: string) {
@@ -42,9 +44,9 @@ export class EstadoService {
     this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.grafico?.destroy();
-    this.grafico = new Grafico(this.inversionService);
+    this.grafico = new Grafico(this.inversionService, this.mensajesService);
     this.mapa = new Mapa(this.mapaService);
-    this.incidencias = new Incidencias();
+    this.incidencias = new Incidencias(this.incidenciasService);
   }
 
   postInit() {    

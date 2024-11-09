@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from "@angular/google-maps";
 import { EstadoService } from '../../servicios/estado.service';
 import { Mapa } from '../../estado/mapa';
@@ -14,7 +14,7 @@ import { ProcesandoComponent } from '../procesando/procesando.component';
   templateUrl: './mapa.component.html',
   styleUrl: './mapa.component.css'
 })
-export class MapaComponent implements AfterViewInit {
+export class MapaComponent {
   @ViewChild(GoogleMap) map!: GoogleMap;
   mapa: Mapa;  
   
@@ -49,9 +49,6 @@ export class MapaComponent implements AfterViewInit {
       });
   }
 
-  ngAfterViewInit(): void {
-    console.log('afterViewInit()');
-  }
-
+  
   
 }

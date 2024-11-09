@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { EstadoService } from '../../servicios/estado.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InversionData, InversionService } from '../../servicios/inversion.service';
@@ -11,15 +11,16 @@ import { Grafico } from '../../estado/grafico';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { ProcesandoComponent } from '../procesando/procesando.component';
+import { SeleccioneNodoComponent } from '../seleccione-nodo/seleccione-nodo.component';
 
 @Component({
   selector: 'app-contenedor-graficos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule, ProcesandoComponent],
+  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule, ProcesandoComponent, SeleccioneNodoComponent],
   templateUrl: './contenedor-graficos.component.html',
   styleUrl: './contenedor-graficos.component.css'
 })
-export class ContenedorGraficosComponent {
+export class ContenedorGraficosComponent implements OnInit {
 
   grafico: Grafico;  
 
@@ -40,6 +41,12 @@ export class ContenedorGraficosComponent {
           this.grafico.setFiltro(filtro);          
         }
       });    
+  }
+
+  ngOnInit() {
+    if (this.grafico.nodo === undefined || this.grafico.nodo.data === undefined) {
+      this.grafico.sinNodoSeleccionado();
+    }
   }
   
 }

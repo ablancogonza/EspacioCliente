@@ -1,20 +1,6 @@
-<div class="conversacion-contenedor">
-
-
-  <p-dialog header="Nueva incidencia" [modal]="true" [(visible)]="incidencias.visibleNuevaIncidencia" [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-5">Establezca un título para la incidencia</span>
-    <div class="flex align-items-center gap-3 mb-3">
-      <label for="titulo" class="font-semibold w-6rem">Título</label>
-      <input pInputText id="titulo" class="flex-auto"  [(ngModel)]="incidencias.titulo" autocomplete="off" />
-    </div>    
-    <div class="flex justify-content-end gap-2">
-      <p-button label="Cancelar" severity="secondary" (onClick)="incidencias.visibleNuevaIncidencia = false" />
-      <p-button label="Crear" (onClick)="incidencias.aceptaNuevaIncidencia()" />
-    </div>
-  </p-dialog>
-
-  <div class="inferior-derecha">
-    <p-button icon="pi pi-plus" [rounded]="true" (click)="incidencias.nuevo()" />
-  </div>
-  <app-procesando *ngIf="incidencias.procesando"></app-procesando>
+<div class="conversacion-contenedor">  
+  <app-lista-conversacion *ngIf="!incidencias.procesando() && incidencias.vista() === 'lista'"></app-lista-conversacion>
+  <app-detalle-conversacion *ngIf="!incidencias.procesando() && incidencias.vista() === 'detalle'"></app-detalle-conversacion>
+  <app-procesando *ngIf="incidencias.procesando()"></app-procesando>
+  <app-seleccione-nodo *ngIf="!incidencias.idNodo"></app-seleccione-nodo>
 </div>

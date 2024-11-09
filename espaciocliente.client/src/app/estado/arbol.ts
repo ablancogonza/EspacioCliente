@@ -7,6 +7,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../servicios/mensajes.service";
 import { FiltroActivo } from "./filtro";
 
+
 export class Arbol {
  
   arbol$: BehaviorSubject<TreeNode[]> = new BehaviorSubject([{}]); //  = signal<TreeNode[]>([]);
@@ -28,7 +29,7 @@ export class Arbol {
           });
         });
         this.arbol$.next(raiz);
-        if (raiz.length > 0) this.nodoSeleccionado$.next(raiz[0]);
+        //if (raiz.length > 0) this.nodoSeleccionado$.next(raiz[0]);
         if (raiz.length == 1) {
           this.cargaDescendientes(raiz[0]);
         }

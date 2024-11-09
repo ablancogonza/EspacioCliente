@@ -11,7 +11,7 @@ export class Mapa {
   idNodo: number | undefined = undefined;
   inicio: number | undefined = undefined;
   fin: number | undefined = undefined
-  cargando = true;
+  cargando = false;
   constructor(private mapaService: MapaService) {
     this.options.set({
       mapId: "DEMO_MAP_ID",

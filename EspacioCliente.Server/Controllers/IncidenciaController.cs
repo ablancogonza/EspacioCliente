@@ -1,5 +1,6 @@
 ﻿using EspacioCliente.Data.Models;
 using EspacioCliente.Server.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace EspacioCliente.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class IncidenciaController : ControllerBase
     {
         private readonly EspacioClienteContext context;
@@ -17,11 +19,11 @@ namespace EspacioCliente.Server.Controllers
             this.context = context;
         }
 
-        [HttpGet("lista")]
-        public string? Lista()
+        [HttpGet("lista/{id}")]
+        public string? Lista(int id)
         {
             int idUsuario = User.IdUsuario();
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasLista]({idUsuario}) as value").FirstOrDefault();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasLista]({idUsuario},{id}) as value").FirstOrDefault();
         }
 
         [HttpPost("crear")]

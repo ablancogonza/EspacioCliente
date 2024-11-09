@@ -1,0 +1,24 @@
+.contenedor {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecera {     
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.incidencia {
+    width: 100%;
+}
+
+.conversacion {
+  background-color: cornflowerblue;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}

@@ -15,7 +15,11 @@ export class IncidenciasService {
       IdNodo: idNodo, 
       Titulo: titulo
     };
-    return this.http.post<Incidencia>(`${environment.baseUrl}/incidencias/crear`, data);
+    return this.http.post<Incidencia>(`${environment.baseUrl}/incidencia/crear`, data);
+  }
+
+  recuperarIncidencias(idNodo: number): Observable<Incidencia[]> {
+    return this.http.get<Incidencia[]>(`${environment.baseUrl}/incidencia/lista/${idNodo}`);
   }
 
 }

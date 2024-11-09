@@ -4,9 +4,10 @@ import { FiltroActivo } from "./filtro";
 import { TreeNode } from "primeng/api";
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from "primeng/selectbutton";
 import { Observable, Subject, Subscription, switchMap } from "rxjs";
+import { MensajesService } from "../servicios/mensajes.service";
 
 export class Grafico {
-
+ 
   nodo?: TreeNode;
   filtroActivo?: FiltroActivo;
   data = signal<any>(undefined);
@@ -19,7 +20,7 @@ export class Grafico {
   cargando = true;
   readonly tiposDeGraficos = [{ label: 'Medio', value: 1 }, { label: 'Descendientes', value: 2 }, { label: 'Temporal', value: 3 }];
 
-  constructor(private inversionService: InversionService) {
+  constructor(private inversionService: InversionService, private mesnsajeService: MensajesService) {
     this.obtenerGrafico$ = this.peticionRefrescoGrafico$.pipe(
       switchMap(filtro => this.recuperarDatosGrafico(filtro))
     );
@@ -31,6 +32,10 @@ export class Grafico {
 
   destroy() {
     this.subs.forEach(s => s?.unsubscribe());
+  }
+
+  sinNodoSeleccionado() {
+    this.cargando = false;    
   }
 
   setNodo(n: TreeNode) {
@@ -45,7 +50,7 @@ export class Grafico {
 
   vistaSeleccionada(e: any) {
     this.tipoGrafico.set(e.value);
-    this.recalcularGrafico();
+    if (this.nodo && this.nodo.data) this.recalcularGrafico();
   }
 
   filtro(): FiltroActivo {
