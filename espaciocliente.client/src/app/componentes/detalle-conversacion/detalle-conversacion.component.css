@@ -31,10 +31,17 @@
     overflow: hidden;
 }
 
+.mensajes-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
 .pie {
-    display: grid;
-    grid-template-columns: auto 40px 40px;
-    align-items: center;
-    gap: 10px;
-    padding: 0 10px;
+  display: grid;
+  grid-template-columns: auto 40px 40px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
 }

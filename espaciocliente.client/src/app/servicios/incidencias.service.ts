@@ -25,12 +25,12 @@ export class IncidenciasService {
     return this.http.get<Mensaje[]>(`${environment.baseUrl}/incidencia/mensajes/${id}`);
   }
 
-  publicarMensaje(idIncidencia: number, texto: string): Observable<Mensaje> {
+  publicarMensaje(idIncidencia: number, texto: string): Observable<Mensaje[]> {
     const data = {
       IdIncidencia: idIncidencia,
       Texto: texto
     };
-    return this.http.post<Mensaje>(`${environment.baseUrl}/incidencia/mensaje`, data);
+    return this.http.post<Mensaje[]>(`${environment.baseUrl}/incidencia/mensaje`, data);
   }
 
 

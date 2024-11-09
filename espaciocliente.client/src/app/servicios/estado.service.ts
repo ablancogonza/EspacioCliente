@@ -46,7 +46,7 @@ export class EstadoService {
     this.grafico?.destroy();
     this.grafico = new Grafico(this.inversionService, this.mensajesService);
     this.mapa = new Mapa(this.mapaService);
-    this.incidencias = new Incidencias(this.incidenciasService);
+    this.incidencias = new Incidencias(this.incidenciasService, email);
   }
 
   postInit() {    

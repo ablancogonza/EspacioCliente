@@ -1,6 +1,8 @@
 import { signal } from "@angular/core";
 import { Incidencia, IncidenciasService, Mensaje } from "../servicios/incidencias.service";
 import { TipoEntradaMensaje } from "../enumerados/tipo-entrada-mensaje";
+import { Fecha } from "../utils/fecha";
+import { Subject } from "rxjs";
 
 export class Incidencias {
 
@@ -12,9 +14,14 @@ export class Incidencias {
   vista = signal<string>('lista');
   seleccionada: Incidencia | undefined;
   cargandoMensajes = signal<boolean>(false);
-  mensajes = signal < EntradaMensaje[]>([]);
+  listaMensajes: Mensaje[] = [];
+  mensajes = signal<EntradaMensaje[]>([]);
+  email: string;
+  actualizarScroll$: Subject<undefined> = new Subject();
 
-  constructor(private incidenciasService: IncidenciasService) { }
+  constructor(private incidenciasService: IncidenciasService, email: string) {
+    this.email = email;
+  }
 
   setNodo(id: number) {
     this.vista.set('lista');    
@@ -27,7 +34,7 @@ export class Incidencias {
     this.procesando.set(true);    
     this.incidenciasService.recuperarIncidencias(id).subscribe({
       next: (lista: Incidencia[]) => {        
-        this.lista.set(lista ?? []);        
+        this.lista.set(lista ?? []);
         this.procesando.set(false);
       },
       error: (err) => {
@@ -49,6 +56,7 @@ export class Incidencias {
         this.lista.update(prev => [...prev, incidencia]);
         console.log('nueva lista: ', this.lista());
         this.procesando.set(false);
+        this.actualizarScroll$.next(undefined);
       },
       error: (err) => {
         console.log('error al crear: ', err);
@@ -70,6 +78,10 @@ export class Incidencias {
     this.procesando.set(true);
     this.incidenciasService.publicarMensaje(this.seleccionada!.id, texto).subscribe({
       next: (msg) => {
+        console.log('msg: ', msg);
+        this.listaMensajes = [...this.listaMensajes, msg[0]];
+        console.log('nueva lista: ', this.listaMensajes);
+        this.mensajes.set(this.mensajesProcesados(this.listaMensajes)); 
         this.procesando.set(false);
       }
     })
@@ -79,26 +91,43 @@ export class Incidencias {
     console.log('cargar mensajes: ', id);
     this.incidenciasService.recuperarMensajes(id).subscribe({
       next: (lista: Mensaje[]) => {
-        this.mensajes.set(this.mensajesProcesados(lista));
-        //console.log('mensajes: ', lista);
+        this.listaMensajes = lista;
+        this.mensajes.set(this.mensajesProcesados(lista));        
       }
     })
   }
 
   mensajesProcesados(lista: Mensaje[]): EntradaMensaje[] {
     const res: EntradaMensaje[] = [];
-    if (lista.length === 0) return res;
-    let fecha = lista[0].fecha;
-    console.log('fecha: ', fecha.getFullYear());
-
+    if (!lista || lista.length === 0) return res;
+    
+    let fecha = new Date(lista[0].fecha);
+    res.push({ tipo: TipoEntradaMensaje.fecha, fecha: Fecha.formato(fecha) });
+    let index = 0;
+    do {
+      let fechaActual = new Date(lista[index].fecha);
+      if (!Fecha.mismoDia(fechaActual, fecha)) {
+        fecha = fechaActual;
+        res.push({ tipo: TipoEntradaMensaje.fecha, fecha: Fecha.formato(fecha) });
+      }
+      res.push({
+        tipo: lista[index].usuario === this.email ? TipoEntradaMensaje.mio : TipoEntradaMensaje.otro,
+        texto: lista[index].texto,
+        imagen: lista[index].imagen,
+        usuario: lista[index].usuario,
+        hora: Fecha.hora(fechaActual)
+      });
+      index++;
+    } while (index < lista.length);
     return res;
   }
 }
 
 export interface EntradaMensaje {
   tipo: TipoEntradaMensaje,
-  fecha: string,
-  hora: string,
-  texto: string,
-  imagen: string
+  fecha?: string,
+  hora?: string,
+  usuario?: string,
+  texto?: string,
+  imagen?: string
 }
