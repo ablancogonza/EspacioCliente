@@ -1,12 +1,13 @@
 import { signal } from "@angular/core";
 import { MapaService, Valla } from "../servicios/mapa.service";
 import { BehaviorSubject } from "rxjs";
+import { VallaExt } from "../utils/valla";
 
 export class Mapa {
 
   vallas = signal<Valla[]>([]);
   options = signal<google.maps.MapOptions>({});
-  markers = signal<any[]>([]);
+  markers = signal<Valla[]>([]);
   limites$: BehaviorSubject<any> = new BehaviorSubject(undefined);
   idNodo: number | undefined = undefined;
   inicio: number | undefined = undefined;
@@ -19,19 +20,19 @@ export class Mapa {
       zoom: 6,
     });
   }
-
+ 
   recuperarVallas(idNodo: number, inicio: number, fin: number) {
     this.cargando = true;
     setTimeout(() => {
       this.mapaService.vallas(idNodo, inicio, fin).subscribe({
         next: (vallas) => {
           if (!vallas) vallas = [];
-          this.vallas.set(vallas);
-          const marcas: any[] = [];
+          //this.vallas.set(vallas);
+          //const marcas: any[] = [];
           vallas.forEach(valla => {
-            marcas.push({ position: { lat: parseFloat(valla.lat), lng: parseFloat(valla.lon) } });
+            valla.pos = VallaExt.position(valla)            
           });          
-          this.markers.set(marcas);
+          this.markers.set(vallas);
           this.limites$.next(this.getBounds(this.markers()));
           this.cargando = false;
         }
@@ -67,10 +68,10 @@ export class Mapa {
     };
 
     for (const marker of markers) {     
-      north = north !== undefined ? Math.max(north, marker.position.lat) : marker.position.lat;
-      south = south !== undefined ? Math.min(south, marker.position.lat) : marker.position.lat;
-      east = east !== undefined ? Math.max(east, marker.position.lng) : marker.position.lng;
-      west = west !== undefined ? Math.min(west, marker.position.lng) : marker.position.lng;
+      north = north !== undefined ? Math.max(north, marker.pos.lat) : marker.pos.lat;
+      south = south !== undefined ? Math.min(south, marker.pos.lat) : marker.pos.lat;
+      east = east !== undefined ? Math.max(east, marker.pos.lng) : marker.pos.lng;
+      west = west !== undefined ? Math.min(west, marker.pos.lng) : marker.pos.lng;
     };
 
     const bounds = { north, south, east, west };

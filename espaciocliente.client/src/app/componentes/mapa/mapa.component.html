@@ -2,12 +2,21 @@
   <google-map height="100%" width="100%" [options]="mapa.options()">
     @if (mapa.markers()) {
       @for (valla of mapa.markers(); track valla) {
-      <map-advanced-marker #markerElem="mapAdvancedMarker"
-                           [position]="valla?.position"
-                           [title]="valla.des" />
+      <map-advanced-marker #marker="mapAdvancedMarker"
+                           [position]="valla?.pos"
+                           [title]="valla.des"                           
+                           (mapClick)="onVallaClick(marker, valla)"/>
       }
     }
   </google-map>
+  <map-info-window #infoWindow>
+    <app-detalle-valla [valla]="valla"
+                       [idNodo]="mapa.idNodo"
+                       [inicio]="mapa.inicio"
+                       [fin]="mapa.fin"
+                       >
+    </app-detalle-valla>    
+  </map-info-window>
   <div class="contenedor-procesando" *ngIf="mapa?.cargando">
     <app-procesando ></app-procesando>
   </div>  

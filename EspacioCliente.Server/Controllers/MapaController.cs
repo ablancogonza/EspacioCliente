@@ -24,5 +24,12 @@ namespace EspacioCliente.Server.Controllers
             var idUsuario = new SqlParameter("idUsuario", User.IdUsuario());
             return context.Database.SqlQuery<string>($"SELECT [dbo].[MapaEntradas]({idUsuario},{id},{inicio},{fin}) as value").FirstOrDefault();
         }
+
+        [HttpGet("info/{id}/{inicio}/{fin}/{idValla}")]
+        public string? Info(int id, int inicio, int fin, int idValla)
+        {
+            var idUsuario = new SqlParameter("idUsuario", User.IdUsuario());
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[MapaInfo]({idUsuario},{id},{inicio},{fin},{idValla}) as value").FirstOrDefault();
+        }
     }
 }
