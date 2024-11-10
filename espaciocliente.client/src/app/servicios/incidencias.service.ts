@@ -9,12 +9,12 @@ import { environment } from '../../environments/environment';
 export class IncidenciasService {
   constructor(private http: HttpClient) { }
 
-  crear(idNodo: number, titulo: string): Observable<Incidencia> {
+  crear(idNodo: number, titulo: string): Observable<Incidencia[]> {
     const data = {
       IdNodo: idNodo, 
       Titulo: titulo
     };
-    return this.http.post<Incidencia>(`${environment.baseUrl}/incidencia/crear`, data);
+    return this.http.post<Incidencia[]>(`${environment.baseUrl}/incidencia/crear`, data);
   }
 
   recuperarIncidencias(idNodo: number): Observable<Incidencia[]> {
@@ -32,8 +32,6 @@ export class IncidenciasService {
     };
     return this.http.post<Mensaje[]>(`${environment.baseUrl}/incidencia/mensaje`, data);
   }
-
-
 }
 
 export interface Incidencia {

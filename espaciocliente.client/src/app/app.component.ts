@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     registerLocaleData(es);
 
     const token = localStorage.getItem('token')??'';

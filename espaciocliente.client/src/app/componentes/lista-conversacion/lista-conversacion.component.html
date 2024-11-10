@@ -2,7 +2,7 @@
   <div class="contenedor-entradas" *ngIf="!incidencias.procesando()">
     <app-incidencia *ngFor="let inc of incidencias.lista()" [incidencia]="inc" (seleccionada)="incidencias.onSeleccionada($event)"></app-incidencia>
     <div *ngIf="incidencias.idNodo && incidencias?.lista()?.length === 0">
-      No hay incidnecias
+      No hay incidencias
     </div>
   </div>
 

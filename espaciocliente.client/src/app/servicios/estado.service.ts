@@ -49,7 +49,8 @@ export class EstadoService {
     this.incidencias = new Incidencias(this.incidenciasService, email);
   }
 
-  postInit() {    
+  postInit() {
+    console.log('postInit');
     this.filtro.init();
     this.arbol.init();
   }

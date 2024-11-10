@@ -51,9 +51,10 @@ export class Incidencias {
   aceptaNuevaIncidencia() {
     this.procesando.set(true);
     this.incidenciasService.crear(this.idNodo!, this.titulo).subscribe({
-      next: (incidencia) => {
-        console.log('incidencia creada: ', incidencia);
-        this.lista.update(prev => [...prev, incidencia]);
+      next: (incidencias: Incidencia[]) => {
+        console.log('incidencia creada: ', incidencias);
+        const copia = [...incidencias, ...this.lista()];
+        this.lista.set(copia);        
         console.log('nueva lista: ', this.lista());
         this.procesando.set(false);
         this.actualizarScroll$.next(undefined);

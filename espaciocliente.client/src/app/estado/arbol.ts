@@ -14,7 +14,7 @@ export class Arbol {
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
   constructor(private arbolService: ArbolService, private mensajesService: MensajesService) { }
 
-  init() {
+  init() {    
     this.arbolService.raiz().subscribe({
       next: (nodos) => {
         const raiz: TreeNode[] = [];        

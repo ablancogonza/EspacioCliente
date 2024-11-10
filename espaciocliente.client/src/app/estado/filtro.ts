@@ -33,7 +33,8 @@ export class Filtro {
           activo: true
         };
         elems.push(elem);
-      });      
+      });
+      console.log('elems filtro: ', elems);
       this.elementosFiltro$.next(elems);
     });
   }

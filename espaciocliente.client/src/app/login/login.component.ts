@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   procesando: boolean = true;
 
   constructor(private router: Router, private authService: AuthService, private estadoService: EstadoService, private mensajesService: MensajesService) {
+
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
     if (this.estadoService.sesion.tieneCredenciales()) {
       this.authService.isTokenValid().subscribe({
         next: () => {
@@ -68,7 +70,8 @@ export class LoginComponent implements OnInit {
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {
           localStorage.setItem('email', this.email?.value);
-          this.estadoService.init(this.email?.value, t.token);          
+          this.estadoService.init(this.email?.value, t.token);
+          this.estadoService.postInit();
           this.procesando = false;
           this.router.navigateByUrl('/principal');
         },
