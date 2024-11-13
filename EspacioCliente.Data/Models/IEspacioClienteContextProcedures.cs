@@ -15,5 +15,6 @@ namespace EspacioCliente.Data.Models
     {
         Task<int> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> IncidenciasCrearAsync(int? idUsuario, int? idNodo, string titulo, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> IncidenciasFinalizarAsync(int? idUsuario, int? idIncidencia, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }
 }

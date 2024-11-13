@@ -1,0 +1,16 @@
+.contenedor-responsive {
+  display: grid;
+  grid-template-rows: 40px auto;
+  gap: 5px;
+  color:black;
+  height: 100%;
+  width: 100%;
+}
+
+.todo {
+    height: 400px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

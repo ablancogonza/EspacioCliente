@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MensajeComponent } from '../mensaje/mensaje.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MensajesService } from '../../servicios/mensajes.service';
+import { Incidencia } from '../../servicios/incidencias.service';
 
 @Component({
   selector: 'app-detalle-conversacion',
@@ -58,5 +59,10 @@ export class DetalleConversacionComponent implements AfterViewInit {
     if (event.key === "Enter" && this.texto) {
       this.publicar();
     }
+  }
+
+  finalizar(inc: Incidencia) {
+    this.estadoService.incidencias.finalizar(inc.id);
+    this.volver();
   }
 }

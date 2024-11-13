@@ -51,9 +51,19 @@ namespace EspacioCliente.Server.Controllers
             return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasListaMensajes]({idUsuario},{id}) as value").FirstOrDefault();
         }
 
+        [HttpPost("finalizar")]
+        public async Task<bool> FinalizarIncidencia([FromBody] PeticionFinalizarIncidencia incidencia)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<string> salida = new OutputParameter<string>();
+            await this.context.Procedures.IncidenciasFinalizarAsync(idUsuario, incidencia.IdIncidencia, salida);
+            return salida.Value == "1";
+        }
+
     }
 
     public record PeticionCrearIncidencia(int IdNodo, string Titulo);
 
     public record PeticionCrearMensaje(int IdIncidencia, string Texto);
+    public record PeticionFinalizarIncidencia(int IdIncidencia);
 }

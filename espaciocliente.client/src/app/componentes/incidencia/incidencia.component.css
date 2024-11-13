@@ -12,11 +12,20 @@
 .titulo {
   font-size: 1.1rem;
   font-weight: bold;
+  text-align: right;
 }
 
 .des {
   font-size: 0.9rem;
-  font-weight: normal;
+  font-weight: bold;
+}
+
+.dos-contenidos {
+    display: flex;
+    flex-direction:row;
+    gap: 10px;
+    align-items: center;
+    justify-content:space-between;
 }
 
 .seleccionable {
@@ -27,3 +36,13 @@
     color: white;
     cursor: pointer;
   }
+
+.terminada {
+    background-color: lightsalmon;
+}
+
+.finalizar {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}

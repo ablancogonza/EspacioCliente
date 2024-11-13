@@ -147,5 +147,47 @@ namespace EspacioCliente.Data.Models
 
             return _;
         }
+
+        public virtual async Task<int> IncidenciasFinalizarAsync(int? idUsuario, int? idIncidencia, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parametersalida = new SqlParameter
+            {
+                ParameterName = "salida",
+                Size = -1,
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = salida?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idUsuario",
+                    Value = idUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "idIncidencia",
+                    Value = idIncidencia ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parametersalida,
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[IncidenciasFinalizar] @idUsuario = @idUsuario, @idIncidencia = @idIncidencia, @salida = @salida OUTPUT", sqlParameters, cancellationToken);
+
+            salida.SetValue(parametersalida.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
     }
 }

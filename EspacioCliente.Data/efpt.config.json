@@ -33,6 +33,10 @@
       {
          "Name": "[dbo].[IncidenciasCrear]",
          "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[IncidenciasFinalizar]",
+         "ObjectType": 1
       }
    ],
    "UiHint": null,

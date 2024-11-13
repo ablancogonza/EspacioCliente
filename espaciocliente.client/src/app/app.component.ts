@@ -10,6 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { EstadoService } from './servicios/estado.service';
 import es from '@angular/common/locales/es';
 import { AuthService } from './servicios/auth.service';
+import { Fecha } from './utils/fecha';
 
 
 interface WeatherForecast {
@@ -38,7 +39,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private estadoService: EstadoService,
     private router: Router) {
     config.setTranslation({
-      monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+      monthNamesShort: Fecha.meses,
+      accept: 'Aceptar',
+      reject: 'Cancelar'
     });
     this.subs.push(this.mensajesService.mensaje$.subscribe({
       next: (m) => { this.messageService.add(m); },

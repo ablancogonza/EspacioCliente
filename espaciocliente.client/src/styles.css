@@ -6,7 +6,9 @@
 body {
     margin: 0;
     height: 100svh;
-    width: 100svw; 
+    width: 100svw;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
 }
 
 .tree {

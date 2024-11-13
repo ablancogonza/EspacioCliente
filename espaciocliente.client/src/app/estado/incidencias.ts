@@ -5,7 +5,7 @@ import { Fecha } from "../utils/fecha";
 import { Subject } from "rxjs";
 
 export class Incidencias {
-
+ 
   idNodo: number | undefined = undefined;
   titulo: string = '';
   visibleNuevaIncidencia: boolean = false;
@@ -121,6 +121,20 @@ export class Incidencias {
       index++;
     } while (index < lista.length);
     return res;
+  }
+
+  finalizar(id: number) {
+    this.procesando.set(true);
+    this.incidenciasService.finalizarIncidencia(id).subscribe({
+      next: (resp) => {
+        if (resp) {
+
+        } else {
+
+        }
+        this.procesando.set(false);
+      }
+    })
   }
 }
 

@@ -32,6 +32,13 @@ export class IncidenciasService {
     };
     return this.http.post<Mensaje[]>(`${environment.baseUrl}/incidencia/mensaje`, data);
   }
+
+  finalizarIncidencia(idIncidencia: number): Observable<boolean> {
+    const data = {
+      IdIncidencia: idIncidencia      
+    };
+    return this.http.post<boolean>(`${environment.baseUrl}/incidencia/finalizar`, data);
+  }
 }
 
 export interface Incidencia {
