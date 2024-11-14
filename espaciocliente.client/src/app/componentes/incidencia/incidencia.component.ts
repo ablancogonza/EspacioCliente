@@ -39,6 +39,7 @@ export class IncidenciaComponent {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",      
       accept: () => {
+        console.log('emit finalizar');
         this.finalizar.emit(this.incidencia);
       },
       reject: () => {

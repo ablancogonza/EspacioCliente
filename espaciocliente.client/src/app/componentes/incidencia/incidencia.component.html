@@ -12,7 +12,7 @@
     <div *ngIf="incidencia?.fecha">Últ: {{ formatoFechaHora(incidencia?.fecha) }}</div>
   </div>
   <div class="finalizar" *ngIf="!seleccionable && !incidencia?.finalizado">
-    <p-button label="Cerrar incidencia" icon="pi pi-lock" (click)="confirmar($event)" />
+    <p-button label="Cerrar incidencia" icon="pi pi-lock" severity="warning" (click)="confirmar($event)" />
   </div>
 </div>
 <p-confirmDialog />

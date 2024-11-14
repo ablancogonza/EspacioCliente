@@ -52,12 +52,12 @@ namespace EspacioCliente.Server.Controllers
         }
 
         [HttpPost("finalizar")]
-        public async Task<bool> FinalizarIncidencia([FromBody] PeticionFinalizarIncidencia incidencia)
+        public async Task<string?> FinalizarIncidencia([FromBody] PeticionFinalizarIncidencia incidencia)
         {
             int idUsuario = User.IdUsuario();
             OutputParameter<string> salida = new OutputParameter<string>();
-            await this.context.Procedures.IncidenciasFinalizarAsync(idUsuario, incidencia.IdIncidencia, salida);
-            return salida.Value == "1";
+            await this.context.Procedures.IncidenciasFinalizarAsync(idUsuario, incidencia.IdIncidencia, incidencia.IdNodo, salida);
+            return salida.Value;
         }
 
     }
@@ -65,5 +65,5 @@ namespace EspacioCliente.Server.Controllers
     public record PeticionCrearIncidencia(int IdNodo, string Titulo);
 
     public record PeticionCrearMensaje(int IdIncidencia, string Texto);
-    public record PeticionFinalizarIncidencia(int IdIncidencia);
+    public record PeticionFinalizarIncidencia(int IdIncidencia, int IdNodo);
 }

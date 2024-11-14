@@ -124,16 +124,14 @@ export class Incidencias {
   }
 
   finalizar(id: number) {
+    console.log('finalizando...');
     this.procesando.set(true);
-    this.incidenciasService.finalizarIncidencia(id).subscribe({
-      next: (resp) => {
-        if (resp) {
-
-        } else {
-
-        }
+    this.incidenciasService.finalizarIncidencia(id, this.idNodo!).subscribe({
+      next: (lista: Incidencia[]) => {
+        console.log('respuesta finalizando: ', lista);
+        this.lista.set(lista ?? []);
         this.procesando.set(false);
-      }
+      },
     })
   }
 }

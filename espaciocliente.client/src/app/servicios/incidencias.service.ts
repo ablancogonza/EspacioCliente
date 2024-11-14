@@ -33,11 +33,12 @@ export class IncidenciasService {
     return this.http.post<Mensaje[]>(`${environment.baseUrl}/incidencia/mensaje`, data);
   }
 
-  finalizarIncidencia(idIncidencia: number): Observable<boolean> {
+  finalizarIncidencia(idIncidencia: number, idNodo: number): Observable<Incidencia[]> {
     const data = {
-      IdIncidencia: idIncidencia      
+      IdIncidencia: idIncidencia,
+      IdNodo: idNodo
     };
-    return this.http.post<boolean>(`${environment.baseUrl}/incidencia/finalizar`, data);
+    return this.http.post<Incidencia[]>(`${environment.baseUrl}/incidencia/finalizar`, data);
   }
 }
 

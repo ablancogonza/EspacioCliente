@@ -30,8 +30,7 @@ export class DetalleConversacionComponent implements AfterViewInit {
         next: () => {
           setTimeout(() => { this.scrollToBottom(); }, 100);
         }
-      })
-      
+      })      
   }
 
   ngAfterViewInit(): void {
@@ -50,11 +49,7 @@ export class DetalleConversacionComponent implements AfterViewInit {
   publicar() {
     this.incidencias.publicar(this.texto);
   }
-
-  noimplementado() {
-    this.mensajeService.info('Todavía no está implementado');
-  }
-
+ 
   onKeydown(event: KeyboardEvent) {
     if (event.key === "Enter" && this.texto) {
       this.publicar();
@@ -62,7 +57,9 @@ export class DetalleConversacionComponent implements AfterViewInit {
   }
 
   finalizar(inc: Incidencia) {
+    console.log('finalizar: ', inc);
     this.estadoService.incidencias.finalizar(inc.id);
+    console.log('después de finalizar');
     this.volver();
   }
 }
