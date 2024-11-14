@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'principal', component: ContenedorPrincipalComponent, canActivate: [autenticadoGuard] },
-
+  { path: '**', redirectTo: 'principal', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { signal } from "@angular/core";
 import { Incidencia, IncidenciasService, Mensaje } from "../servicios/incidencias.service";
 import { TipoEntradaMensaje } from "../enumerados/tipo-entrada-mensaje";
-import { Fecha } from "../utils/fecha";
+import { Fecha } from "../shared/utils/fecha";
 import { Subject } from "rxjs";
 
 export class Incidencias {

@@ -10,8 +10,8 @@ import { BehaviorSubject, Observable, Subject, switchMap } from 'rxjs';
 import { TreeNode } from 'primeng/api';
 import { FiltroActivo } from '../../estado/filtro';
 import { InversionService } from '../../servicios/inversion.service';
-import { Presupuesto } from '../../utils/presupuesto';
-import { Fecha } from '../../utils/fecha';
+import { Presupuesto } from '../../shared/utils/presupuesto';
+import { Fecha } from '../../shared/utils/fecha';
 
 @Component({
   selector: 'app-nodo-inversion',

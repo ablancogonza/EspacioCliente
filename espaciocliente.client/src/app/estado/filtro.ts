@@ -4,7 +4,7 @@ import { FiltroService } from "../servicios/filtro.service";
 import { initZone } from "zone.js/lib/zone-impl";
 import { MensajesService } from "../servicios/mensajes.service";
 import { signal } from "@angular/core";
-import { Presupuesto } from "../utils/presupuesto";
+import { Presupuesto } from "../shared/utils/presupuesto";
 
 export class Filtro {
   filtroInicial: FiltroActivo = { inicio: 202401, fin: 202412 };

@@ -8,6 +8,10 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\espaciocliente.client\browser\</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="src\media\**" />
+    <TypeScriptConfiguration Remove="src\media\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="src\app\interceptors\" />
   </ItemGroup>
 </Project>

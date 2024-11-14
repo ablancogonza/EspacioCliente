@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { EstadoService } from './servicios/estado.service';
 import es from '@angular/common/locales/es';
 import { AuthService } from './servicios/auth.service';
-import { Fecha } from './utils/fecha';
+import { Fecha } from './shared/utils/fecha';
 
 
 interface WeatherForecast {
