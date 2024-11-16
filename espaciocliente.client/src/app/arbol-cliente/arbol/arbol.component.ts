@@ -8,6 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { NodoComponent } from '../nodo/nodo.component';
 import { Arbol } from '../arbol';
+import { FiltroActivo } from '../../filtro/filtro-activo';
 
 @Component({
   selector: 'app-arbol',
@@ -23,7 +24,7 @@ export class ArbolComponent {
     this.arbol = estado.arbol;
     this.estado.filtro.filtroModificado$.
       pipe(takeUntilDestroyed(this.destroyRef)).
-      subscribe(f => estado.arbol.repintar(f));
+      subscribe((f: FiltroActivo) => estado.arbol.repintar(f));
     
   };
 

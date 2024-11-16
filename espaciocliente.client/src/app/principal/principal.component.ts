@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostListener } from '@angular/core';
-import { ContenedorResponsiveComponent } from '../shared/components/contenedor-responsive/contenedor-responsive.component';
+
 import { ContenedorComponent } from '../shared/components/contenedor/contenedor.component';
 import { NodoInversionComponent } from '../shared/components/nodo-inversion/nodo-inversion.component';
 
@@ -21,7 +21,6 @@ import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/di
   selector: 'app-principal',
   standalone: true,
   imports: [CommonModule,
-    ContenedorResponsiveComponent,
     ContenedorComponent,
     NodoInversionComponent,
     GraficosComponent,
@@ -40,7 +39,8 @@ import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/di
 export class PrincipalComponent implements AfterViewInit {
   @HostListener('window:resize', ['$event.target.innerWidth'])
   onResize(width: number) {
-    this.ancho = width;    
+    this.ancho = width;
+    this.estadoService?.dispositivoMovil$.next(width < 768);
   }
   public vista = VistaSeleccionada;
   ancho: number = 0;
@@ -49,6 +49,7 @@ export class PrincipalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.ancho = window.innerWidth;
+    this.estadoService?.dispositivoMovil$.next(this.ancho < 768);
   }
 
   anchoCambiado(width: number) {

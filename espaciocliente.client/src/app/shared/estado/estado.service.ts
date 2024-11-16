@@ -13,9 +13,9 @@ import { MensajesService } from '../servicios/mensajes.service';
 
 import { InversionService } from '../servicios/inversion.service';
 import { SelectorVista } from './selector-vista';
-import { Dispositivo } from './dispositivo';
 import { Filtro } from '../../filtro/filtro';
 import { FiltroService } from '../../filtro/filtro.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +25,11 @@ export class EstadoService {
   sesion!: Sesion;
   arbol!: Arbol;
   selectorVista!: SelectorVista;
-  dispositivo!: Dispositivo;
   filtro!: Filtro;
   grafico!: Grafico;
   mapa!: Mapa;
   incidencias!: Incidencias;
+  dispositivoMovil$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private arbolService: ArbolService,
     private filtroService: FiltroService,
@@ -41,8 +41,7 @@ export class EstadoService {
   init(email: string, token: string) {
     this.sesion = new Sesion();
     this.sesion.setEmail(email);
-    this.sesion.setToken(token);
-    this.dispositivo = new Dispositivo();
+    this.sesion.setToken(token);    
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);

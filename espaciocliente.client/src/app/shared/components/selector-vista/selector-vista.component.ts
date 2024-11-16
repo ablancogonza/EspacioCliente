@@ -20,7 +20,7 @@ export class SelectorVistaComponent {
   seleccionado: Observable<VistaSeleccionada>;
   
   constructor(private estadoService: EstadoService, private destroyRef: DestroyRef) {
-    estadoService.dispositivo.esPequenio$
+    estadoService.dispositivoMovil$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(p => this.cambiaDispositivo(p));
     this.seleccionado = estadoService.selectorVista.vista$;
@@ -31,11 +31,11 @@ export class SelectorVistaComponent {
     this.estadoService.guardar();
   }
 
-  cambiaDispositivo(p: boolean) {
-    if (!p && this.estadoService.selectorVista.vista$.value === VistaSeleccionada.arbol) {
+  cambiaDispositivo(movil: boolean) {
+    if (!movil && this.estadoService.selectorVista.vista$.value === VistaSeleccionada.arbol) {
       this.estadoService.selectorVista.vista$.next(VistaSeleccionada.grafico);
     }
-    this.visibles = p ? Object.values(VistaSeleccionada).filter(r => typeof r === 'number') as number[] :
+    this.visibles = movil ? Object.values(VistaSeleccionada).filter(r => typeof r === 'number') as number[] :
         Object.values(VistaSeleccionada).filter(r => typeof r === 'number' && r !== VistaSeleccionada.arbol) as number[];
   }
 
