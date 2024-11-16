@@ -10,7 +10,7 @@ import { EstadoService } from '../../shared/estado/estado.service';
 import { MensajesService } from '../../shared/servicios/mensajes.service';
 import { Incidencia } from '../incidencia';
 import { IncidenciasDetalleComponent } from '../incidencias-detalle/incidencias-detalle.component';
-import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
+import { FileUploadErrorEvent, FileUploadModule, UploadEvent } from 'primeng/fileupload';
 import { environment } from '../../../environments/environment';
 import { HttpResponse } from '@angular/common/http';
 import { Mensaje } from '../mensaje';
@@ -28,9 +28,10 @@ export class ListaMensajesComponent implements AfterViewInit {
   incidencias: Incidencias;
   texto: string = '';
   
-  constructor(private estadoService: EstadoService, private mensajeService: MensajesService, private destroyRef: DestroyRef) {
-    this.incidencias = estadoService.incidencias;
-    //this.url = `${environment.baseUrl}/incidencia/upload/${this.incidencias.seleccionada!.id}/prueba`;
+  constructor(private estadoService: EstadoService,
+    private mensajeService: MensajesService,
+    private destroyRef: DestroyRef) {
+    this.incidencias = estadoService.incidencias;    
     this.incidencias.actualizarScroll$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
@@ -74,8 +75,11 @@ export class ListaMensajesComponent implements AfterViewInit {
     this.texto = '';
     setTimeout(() => {
       this.scrollToBottom();      
-    }, 100);
-    
+    }, 100);    
+  }
+
+  errorEnUpload(event: FileUploadErrorEvent) {
+    this.mensajeService.error('Error al subir la imagen');
   }
 
   finalizar(inc: Incidencia) {

@@ -7,10 +7,11 @@ import { IncidenciasService } from "./incidencias.service";
 import { Incidencia } from "./incidencia";
 import { Mensaje } from "./mensaje";
 import { EntradaMensaje } from "./entrada-mensaje";
+import { Nodo } from "../arbol-cliente/nodo";
 
 export class Incidencias {
  
-  idNodo: number | undefined = undefined;
+  nodo: Nodo | undefined = undefined;
   titulo: string = '';
   visibleNuevaIncidencia: boolean = false;
   procesando = signal<boolean>(false);
@@ -27,11 +28,10 @@ export class Incidencias {
     this.email = email;
   }
 
-  setNodo(id: number) {
+  setNodo(nodo: Nodo | undefined) {
     this.vista.set('lista');    
-    this.idNodo = id;
-    this.recuperarIncidencias(id);
-    
+    this.nodo = nodo;
+    if (nodo) this.recuperarIncidencias(nodo!.Id);    
   }
 
   recuperarIncidencias(id: number) {
@@ -54,7 +54,7 @@ export class Incidencias {
 
   aceptaNuevaIncidencia() {
     this.procesando.set(true);
-    this.incidenciasService.crear(this.idNodo!, this.titulo).subscribe({
+    this.incidenciasService.crear(this.nodo!.Id, this.titulo).subscribe({
       next: (incidencias: Incidencia[]) => {
         console.log('incidencia creada: ', incidencias);
         const copia = [...incidencias, ...this.lista()];
@@ -134,7 +134,7 @@ export class Incidencias {
   finalizar(id: number) {
     console.log('finalizando...');
     this.procesando.set(true);
-    this.incidenciasService.finalizarIncidencia(id, this.idNodo!).subscribe({
+    this.incidenciasService.finalizarIncidencia(id, this.nodo!.Id).subscribe({
       next: (lista: Incidencia[]) => {
         console.log('respuesta finalizando: ', lista);
         this.lista.set(lista ?? []);

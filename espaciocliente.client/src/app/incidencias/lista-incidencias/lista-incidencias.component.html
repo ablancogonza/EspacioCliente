@@ -2,7 +2,7 @@
   <div class="contenedor-entradas" *ngIf="!incidencias.procesando()">
     <app-incidencias-detalle *ngFor="let inc of incidencias.lista()" [incidencia]="inc"
                              (seleccionada)="incidencias.onSeleccionada($event)"></app-incidencias-detalle>
-    <div *ngIf="incidencias.idNodo && incidencias?.lista()?.length === 0">
+    <div *ngIf="incidencias.nodo?.Id && incidencias?.lista()?.length === 0">
       No hay incidencias
     </div>
   </div>
@@ -20,6 +20,7 @@
   </p-dialog>
 
   <div class="inferior-derecha">
-    <p-button icon="pi pi-plus" [rounded]="true" (click)="incidencias.nuevo()" [disabled]="incidencias.idNodo === undefined" />
+    <p-button icon="pi pi-plus" [rounded]="true" (click)="incidencias.nuevo()"
+              [disabled]="incidencias.nodo?.Id === undefined" />
   </div>
 </div>

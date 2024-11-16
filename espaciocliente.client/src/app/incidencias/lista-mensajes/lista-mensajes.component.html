@@ -24,8 +24,9 @@
                     [url]="url()"
                     accept="image/*"
                     [auto]="true"                   
-                    maxFileSize="2000000"
-                    (onUpload)="onUpload($event)" />
+                    maxFileSize="9000000"
+                    (onUpload)="onUpload($event)"
+                    (onError)="errorEnUpload($event)"/>
       <p-button icon="pi pi-caret-right" [rounded]="true" [text]="true" [raised]="true" title="Publicar"
                 [disabled]="!texto || texto.length === 0 || texto.length > 1000"
                 (click)="publicar()" />

@@ -31,7 +31,7 @@ export class IncidenciasComponent {
       subscribe({
         next: (seleccionado: TreeNode) => {
           if (seleccionado && seleccionado.data) {
-            this.incidencias.setNodo(seleccionado.data.Id);
+            this.incidencias.setNodo(seleccionado.data);
           }
         }
       });

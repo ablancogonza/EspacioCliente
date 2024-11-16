@@ -18,12 +18,25 @@ export class SelectorVistaComponent {
   
   visibles: number[] = Object.values(VistaSeleccionada).filter(r => typeof r === 'number') as number[];
   seleccionado: Observable<VistaSeleccionada>;
-  
+  nivelNodo = 0;
+
   constructor(private estadoService: EstadoService, private destroyRef: DestroyRef) {
     estadoService.dispositivoMovil$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(p => this.cambiaDispositivo(p));
     this.seleccionado = estadoService.selectorVista.vista$;
+    estadoService.arbol.nodoSeleccionado$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(n => {
+        this.nivelNodo = n?.data?.IdTipoNodo ?? 0;
+        if ((this.estadoService.selectorVista.vista$.value === VistaSeleccionada.listaChat &&
+          this.nivelNodo !== 6) ||
+          (this.estadoService.selectorVista.vista$.value === VistaSeleccionada.listaBriefing &&
+            this.nivelNodo !== 5)) {
+              this.estadoService.selectorVista.vista$.next(VistaSeleccionada.grafico);
+            }
+        //console.log('nodo seleccionado en selector vista: ', n);
+      });
   }
 
   selecciona(id: VistaSeleccionada): void {
@@ -49,6 +62,8 @@ export class SelectorVistaComponent {
         return 'pi pi-compass';
       case VistaSeleccionada.listaChat:
         return 'pi pi-envelope';
+      case VistaSeleccionada.listaBriefing:
+        return 'pi pi-book';
       default:        
         return '';
     }
