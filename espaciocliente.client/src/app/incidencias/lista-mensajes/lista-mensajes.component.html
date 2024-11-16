@@ -1,0 +1,34 @@
+<div class="contenedor">
+  <div class="cabecera">
+    <div>
+      <p-button icon="pi pi-angle-left" [rounded]="true" [outlined]="true" (click)="volver()" />
+    </div>
+    <div class="incidencia">
+      <app-incidencias-detalle [incidencia]="incidencias.seleccionada" [seleccionable]="false"
+                               (finalizar)="finalizar($event)"></app-incidencias-detalle>
+    </div>
+  </div>
+  <div class="conversacion">
+    <div class="mensajes">
+      <div class="mensajes-scroll" #divscroll>
+        <app-mensaje [mensaje]="msg" *ngFor="let msg of incidencias.mensajes()"></app-mensaje>
+      </div>
+    </div>
+    <div class="pie">
+      <input type="text" pInputText [(ngModel)]="texto" (keydown)="onKeydown($event)" />
+      <!--<p-button icon="pi pi-paperclip" [rounded]="true" [text]="true" [raised]="true" title="Adjuntar imagen" />-->
+      <p-fileUpload mode="basic"
+                    chooseLabel=""
+                    chooseIcon="pi pi-paperclip"
+                    name="fichero"
+                    [url]="url()"
+                    accept="image/*"
+                    [auto]="true"                   
+                    maxFileSize="2000000"
+                    (onUpload)="onUpload($event)" />
+      <p-button icon="pi pi-caret-right" [rounded]="true" [text]="true" [raised]="true" title="Publicar"
+                [disabled]="!texto || texto.length === 0 || texto.length > 1000"
+                (click)="publicar()" />
+    </div>
+  </div>  
+</div>

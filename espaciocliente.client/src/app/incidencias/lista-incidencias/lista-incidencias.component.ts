@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { IncidenciaComponent } from '../incidencias-detalle/incidencias-detalle.component';
-import { Incidencias } from '../../estado/incidencias';
-import { EstadoService } from '../../servicios/estado.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TreeNode } from 'primeng/api';
+import { Incidencias } from '../incidencias';
+import { EstadoService } from '../../shared/estado/estado.service';
+import { IncidenciasDetalleComponent } from '../incidencias-detalle/incidencias-detalle.component';
 
 @Component({
   selector: 'app-lista-incidencias',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, DialogModule, InputTextModule, IncidenciaComponent],
+  imports: [CommonModule, FormsModule, ButtonModule, DialogModule, InputTextModule, IncidenciasDetalleComponent],
   templateUrl: './lista-incidencias.component.html',
   styleUrl: './lista-incidencias.component.css'
 })

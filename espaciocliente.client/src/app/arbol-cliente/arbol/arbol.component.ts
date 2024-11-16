@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef } from '@angular/core';
-
 import { TreeModule } from 'primeng/tree';
-import { EstadoService } from '../../servicios/estado.service';
-import { Arbol } from '../../estado/arbol';
-import { NodoComponent } from './nodo/nodo.component';
-import { ArbolService } from '../../servicios/arbol.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TreeNode } from 'primeng/api';
 import { pipe } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EstadoService } from '../../shared/estado/estado.service';
+import { NodoComponent } from '../nodo/nodo.component';
+import { Arbol } from '../arbol';
 
 @Component({
   selector: 'app-arbol',

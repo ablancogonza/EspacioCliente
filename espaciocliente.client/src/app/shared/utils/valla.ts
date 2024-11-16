@@ -1,4 +1,5 @@
-import { Valla } from "../../servicios/mapa.service";
+import { Valla } from "../../mapa/valla";
+
 
 export class VallaExt {
   static position(valla: Valla) {

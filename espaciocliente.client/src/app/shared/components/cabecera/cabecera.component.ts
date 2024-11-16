@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EstadoService } from '../../../servicios/estado.service';
+
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { EstadoService } from '../../estado/estado.service';
 
 @Component({
   selector: 'app-cabecera',

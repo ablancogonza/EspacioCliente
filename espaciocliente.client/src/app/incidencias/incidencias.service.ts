@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Incidencia } from './incidencia';
+import { Mensaje } from './mensaje';
 
 @Injectable({
   providedIn: 'root'
@@ -42,19 +44,3 @@ export class IncidenciasService {
   }
 }
 
-export interface Incidencia {
-  id: number,
-  des: string,
-  usuario: string,
-  titulo: string,
-  fecha: Date,
-  finalizado: boolean
-}
-
-export interface Mensaje {
-  id: number,
-  fecha: Date,
-  usuario: string,
-  texto: string,  
-  imagen: any
-}

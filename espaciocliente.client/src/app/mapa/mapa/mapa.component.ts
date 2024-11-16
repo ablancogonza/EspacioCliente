@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, GoogleMapsModule, MapAdvancedMarker, MapInfoWindow } from "@angular/google-maps";
-import { EstadoService } from '../../servicios/estado.service';
-import { Mapa } from '../../estado/mapa';
+
+
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TreeNode } from 'primeng/api';
-import { ProcesandoComponent } from '../procesando/procesando.component';
 import { DetalleVallaComponent } from '../detalle-valla/detalle-valla.component';
-import { Valla } from '../../servicios/mapa.service';
+import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
+import { EstadoService } from '../../shared/estado/estado.service';
+import { Mapa } from '../mapa';
+import { Valla } from '../valla';
+
 
 @Component({
   selector: 'app-mapa',

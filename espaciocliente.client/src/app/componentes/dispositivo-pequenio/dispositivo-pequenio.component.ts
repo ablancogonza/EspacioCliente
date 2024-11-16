@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { CabeceraComponent } from '../cabecera/cabecera.component';
-import { ArbolComponent } from '../arbol/arbol.component';
-import { SelectorVistaComponent } from '../selector-vista/selector-vista.component';
-import { MapaComponent } from '../mapa/mapa.component';
-import { ContenedorGraficosComponent } from '../contenedor-graficos/contenedor-graficos.component';
-import { ContenedorConversacionesComponent } from '../contenedor-conversaciones/contenedor-conversaciones.component';
+
+import { SelectorVistaComponent } from '../../shared/components/selector-vista/selector-vista.component';
+
 import { Observable } from 'rxjs';
-import { VistaSeleccionada } from '../../enumerados/vista-seleccionada';
-import { EstadoService } from '../../servicios/estado.service';
-import { NodoInversionComponent } from '../nodo-inversion/nodo-inversion.component';
+
+import { NodoInversionComponent } from '../../shared/components/nodo-inversion/nodo-inversion.component';
+import { MapaComponent } from '../../mapa/mapa/mapa.component';
+import { ArbolComponent } from '../../arbol-cliente/arbol/arbol.component';
+import { CabeceraComponent } from '../../shared/components/cabecera/cabecera.component';
+import { VistaSeleccionada } from '../../shared/enumerados/vista-seleccionada';
+import { EstadoService } from '../../shared/estado/estado.service';
+import { GraficosComponent } from '../../graficos/graficos/graficos.component';
+import { IncidenciasComponent } from '../../incidencias/incidencias/incidencias.component';
 
 @Component({
   selector: 'app-dispositivo-pequenio',
@@ -19,10 +22,10 @@ import { NodoInversionComponent } from '../nodo-inversion/nodo-inversion.compone
     ArbolComponent,
     SelectorVistaComponent,
     ArbolComponent,
-    MapaComponent,
-    ContenedorGraficosComponent,
-    ContenedorConversacionesComponent,
-    NodoInversionComponent
+    MapaComponent,    
+    NodoInversionComponent,
+    GraficosComponent,
+    IncidenciasComponent
   ],
   templateUrl: './dispositivo-pequenio.component.html',
   styleUrl: './dispositivo-pequenio.component.css'

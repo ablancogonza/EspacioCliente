@@ -2,16 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ContenedorResponsiveComponent } from '../shared/components/contenedor-responsive/contenedor-responsive.component';
 import { ContenedorComponent } from '../shared/components/contenedor/contenedor.component';
-import { NodoInversionComponent } from '../componentes/nodo-inversion/nodo-inversion.component';
-import { ContenedorGraficosComponent } from '../componentes/contenedor-graficos/contenedor-graficos.component';
-import { ContenedorConversacionesComponent } from '../componentes/contenedor-conversaciones/contenedor-conversaciones.component';
-import { SelectorVistaComponent } from '../componentes/selector-vista/selector-vista.component';
+import { NodoInversionComponent } from '../shared/components/nodo-inversion/nodo-inversion.component';
+
+import { SelectorVistaComponent } from '../shared/components/selector-vista/selector-vista.component';
 import { SplitterModule } from 'primeng/splitter';
-import { ArbolComponent } from '../componentes/arbol/arbol.component';
-import { MapaComponent } from '../componentes/mapa/mapa.component';
+import { GraficosComponent } from '../graficos/graficos/graficos.component';
 import { CabeceraComponent } from '../shared/components/cabecera/cabecera.component';
-import { EstadoService } from '../servicios/estado.service';
-import { VistaSeleccionada } from '../enumerados/vista-seleccionada';
+import { ListaIncidenciasComponent } from '../incidencias/lista-incidencias/lista-incidencias.component';
+import { ArbolComponent } from '../arbol-cliente/arbol/arbol.component';
+import { MapaComponent } from '../mapa/mapa/mapa.component';
+import { VistaSeleccionada } from '../shared/enumerados/vista-seleccionada';
+import { EstadoService } from '../shared/estado/estado.service';
+import { DispositivoPequenioComponent } from '../componentes/dispositivo-pequenio/dispositivo-pequenio.component';
+import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/dispositivo-grande.component';
+
 
 @Component({
   selector: 'app-principal',
@@ -20,14 +24,15 @@ import { VistaSeleccionada } from '../enumerados/vista-seleccionada';
     ContenedorResponsiveComponent,
     ContenedorComponent,
     NodoInversionComponent,
-    ContenedorGraficosComponent,
-    ContenedorConversacionesComponent,
+    GraficosComponent,
+    ListaIncidenciasComponent,
     SelectorVistaComponent,
     SplitterModule,
     ArbolComponent,
     MapaComponent,
     CabeceraComponent,
-
+    DispositivoPequenioComponent,
+    DispositivoGrandeComponent
   ],
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.css'

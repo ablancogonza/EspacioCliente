@@ -3,6 +3,8 @@ import { TreeNode } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { InfoValla } from './info-valla';
+import { Valla } from './valla';
 
 @Injectable({
   providedIn: 'root'
@@ -20,23 +22,6 @@ export class MapaService {
   }
 }
 
-export interface Valla {
-  id: number,
-  lat: string,
-  lon: string,
-  des: string,
-  pos?: any
-}
 
-export interface InfoValla {
-  impAnual?: number,
-  impPeriodo?: number,
-  impProdFij?: number,
-  fechaUltCambio?: Date,
-  fechaFinContrato?: Date,
-  valoracionQualy?: number,
-  puntuacion?: number,
-  impactos?: number,
-  individuos?: number,
-  imagen?: string
-}
+
+

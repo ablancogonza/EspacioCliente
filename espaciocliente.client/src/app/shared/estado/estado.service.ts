@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Sesion } from '../estado/sesion';
-import { Arbol } from '../estado/arbol';
-import { ArbolService } from './arbol.service';
-import { SelectorVista } from '../estado/selector-vista';
-import { Dispositivo } from '../estado/dispositivo';
-import { Filtro } from '../estado/filtro';
-import { FiltroService } from './filtro.service';
-import { MensajesService } from './mensajes.service';
-import { Grafico } from '../estado/grafico';
-import { InversionService } from './inversion.service';
-import { Mapa } from '../estado/mapa';
-import { MapaService } from './mapa.service';
-import { Incidencias } from '../estado/incidencias';
-import { IncidenciasService } from './incidencias.service';
+import { Sesion } from '../../auth/sesion';
+import { Arbol } from '../../arbol-cliente/arbol';
+import { Incidencias } from '../../incidencias/incidencias';
+import { ArbolService } from '../../arbol-cliente/arbol.service';
+
+
+import { Mapa } from '../../mapa/mapa';
+import { Grafico } from '../../graficos/grafico';
+import { MapaService } from '../../mapa/mapa.service';
+import { IncidenciasService } from '../../incidencias/incidencias.service';
+import { MensajesService } from '../servicios/mensajes.service';
+
+import { InversionService } from '../servicios/inversion.service';
+import { SelectorVista } from './selector-vista';
+import { Dispositivo } from './dispositivo';
+import { Filtro } from '../../filtro/filtro';
+import { FiltroService } from '../../filtro/filtro.service';
 
 @Injectable({
   providedIn: 'root'

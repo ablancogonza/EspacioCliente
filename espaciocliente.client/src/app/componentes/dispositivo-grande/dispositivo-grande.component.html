@@ -13,9 +13,9 @@
         </div>
         <app-nodo-inversion></app-nodo-inversion>
         <div class="variable-contenido">
-          <app-contenedor-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-contenedor-graficos>
+          <app-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-graficos>
           <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
-          <app-contenedor-conversaciones *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
+          <app-incidencias *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-incidencias>
         </div>
       </div>
     </ng-template>

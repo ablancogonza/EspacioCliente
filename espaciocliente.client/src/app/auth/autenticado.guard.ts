@@ -1,6 +1,7 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { EstadoService } from '../servicios/estado.service';
+
 import { inject } from '@angular/core';
+import { EstadoService } from '../shared/estado/estado.service';
 
 
 export const autenticadoGuard: CanActivateFn = (route, state) => { 

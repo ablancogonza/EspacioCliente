@@ -1,8 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { EstadoService } from '../servicios/estado.service';
+
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { EstadoService } from '../shared/estado/estado.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 

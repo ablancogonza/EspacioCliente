@@ -4,12 +4,15 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { AuthService, TokenResponse } from '../servicios/auth.service';
-import { ProcesandoComponent } from '../componentes/procesando/procesando.component';
+
 import { Router } from '@angular/router';
-import { MensajesService } from '../servicios/mensajes.service';
+
 import { HttpErrorResponse } from '@angular/common/http';
-import { EstadoService } from '../servicios/estado.service';
+import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
+import { AuthService } from '../auth.service';
+import { EstadoService } from '../../shared/estado/estado.service';
+import { MensajesService } from '../../shared/servicios/mensajes.service';
+
 
 @Component({
   selector: 'app-login',

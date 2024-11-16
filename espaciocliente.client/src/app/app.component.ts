@@ -5,12 +5,12 @@ import { ButtonModule } from 'primeng/button';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
-import { MensajesService } from './servicios/mensajes.service';
+import { MensajesService } from './shared/servicios/mensajes.service';
 import { Router, RouterModule } from '@angular/router';
-import { EstadoService } from './servicios/estado.service';
 import es from '@angular/common/locales/es';
-import { AuthService } from './servicios/auth.service';
 import { Fecha } from './shared/utils/fecha';
+import { EstadoService } from './shared/estado/estado.service';
+import { AuthService } from './auth/auth.service';
 
 
 interface WeatherForecast {

@@ -1,9 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { InfoValla, MapaService, Valla } from '../../servicios/mapa.service';
+
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
-import { ProcesandoComponent } from '../procesando/procesando.component';
+
 import { FormsModule } from '@angular/forms';
+import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
+import { InfoValla } from '../info-valla';
+import { Valla } from '../valla';
+import { MapaService } from '../mapa.service';
 
 @Component({
   selector: 'app-detalle-valla',

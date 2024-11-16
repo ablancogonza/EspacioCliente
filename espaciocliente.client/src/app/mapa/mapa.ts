@@ -1,7 +1,9 @@
 import { signal } from "@angular/core";
-import { MapaService, Valla } from "../servicios/mapa.service";
+
 import { BehaviorSubject } from "rxjs";
 import { VallaExt } from "../shared/utils/valla";
+import { Valla } from "./valla";
+import { MapaService } from "./mapa.service";
 
 export class Mapa {
 

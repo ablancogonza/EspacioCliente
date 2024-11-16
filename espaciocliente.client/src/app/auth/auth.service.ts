@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { TokenResponse } from './token-response';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,4 @@ export class AuthService {
 
 }
 
-export interface TokenResponse {
-  token: string;
-}
+

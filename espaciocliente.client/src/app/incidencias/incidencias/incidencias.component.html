@@ -1,0 +1,6 @@
+<div class="conversacion-contenedor">
+  <app-lista-incidencias *ngIf="incidencias.idNodo && !incidencias.procesando() && incidencias.vista() === 'lista'"></app-lista-incidencias>
+  <app-lista-mensajes *ngIf="incidencias.idNodo && !incidencias.procesando() && incidencias.vista() === 'detalle'"></app-lista-mensajes>
+  <app-procesando *ngIf="incidencias.procesando()"></app-procesando>
+  <app-seleccione-nodo *ngIf="!incidencias.idNodo"></app-seleccione-nodo>
+</div>

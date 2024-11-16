@@ -60,10 +60,25 @@ namespace EspacioCliente.Server.Controllers
             return salida.Value;
         }
 
+        [HttpPost("upload/{id}/{texto}")]
+        public async Task<string?> Upload(int id, IFormFile fichero, string? texto = "")
+        {
+            int idUsuario = User.IdUsuario();
+            if (texto == "SINTEXTO") texto = string.Empty;
+
+            byte[] ficheroBytes;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                fichero.OpenReadStream().CopyTo(ms);
+                ficheroBytes = ms.ToArray();
+            }            
+            OutputParameter<string> salida = new OutputParameter<string>();
+            await this.context.Procedures.IncidenciasConversacionCrearEntradaAsync(idUsuario, id, texto, ficheroBytes, salida);
+            return salida.Value;
+        }       
     }
 
     public record PeticionCrearIncidencia(int IdNodo, string Titulo);
-
     public record PeticionCrearMensaje(int IdIncidencia, string Texto);
-    public record PeticionFinalizarIncidencia(int IdIncidencia, int IdNodo);
+    public record PeticionFinalizarIncidencia(int IdIncidencia, int IdNodo);    
 }

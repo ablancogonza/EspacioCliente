@@ -7,7 +7,9 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { authInterceptor } from './app/interceptors/auth.interceptor';
+import { authInterceptor } from './app/auth/auth.interceptor';
+
+
 
 
 bootstrapApplication(AppComponent, {

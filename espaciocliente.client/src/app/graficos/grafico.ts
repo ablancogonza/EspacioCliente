@@ -1,10 +1,12 @@
 import { signal } from "@angular/core";
-import { InversionData, InversionService } from "../servicios/inversion.service";
-import { FiltroActivo } from "./filtro";
+import { InversionData, InversionService } from "../shared/servicios/inversion.service";
+
 import { TreeNode } from "primeng/api";
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from "primeng/selectbutton";
 import { Observable, Subject, Subscription, switchMap } from "rxjs";
-import { MensajesService } from "../servicios/mensajes.service";
+import { MensajesService } from "../shared/servicios/mensajes.service";
+import { FiltroActivo } from "../filtro/filtro-activo";
+
 
 export class Grafico {
  

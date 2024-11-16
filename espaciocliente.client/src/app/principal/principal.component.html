@@ -1,42 +1,45 @@
-<app-contenedor-responsive (ancho)="anchoCambiado($event)" class="contenedor-responsive">
-  <app-cabecera></app-cabecera>
-  <!--<app-contenedor *ngIf="ancho < 768">-->
-    <div class="todo">pequeño</div>
-  <!--</app-contenedor>-->
-  <!--<app-contenedor class="contenido-variable" *ngIf="ancho < 768">
-    <app-nodo-inversion></app-nodo-inversion>
-    <app-contenedor>
-      <app-arbol *ngIf="(estadoService.selectorVista.vista$ | async) === vista.arbol"></app-arbol>
-      <app-contenedor-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-contenedor-graficos>
-      <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
-      <app-contenedor-conversaciones *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
-    </app-contenedor>
-    <app-contenedor>
-      <app-selector-vista></app-selector-vista>
-    </app-contenedor>
-  </app-contenedor>-->
-  <!--<app-contenedor *ngIf="ancho >= 768">
-    <div >grande</div>
-  </app-contenedor>-->
-  <!--<p-splitter [style]="{ height: '100%' }" [panelSizes]="[40, 60]" * ngIf="ancho >= 768">
-    <ng-template pTemplate>
-      <app-contenedor>
-        <app-arbol></app-arbol>
-      </app-contenedor>
-    </ng-template>
-    <ng-template pTemplate>
-      <div class="contenido-variable">
-        <div class="variable-cabecera">
-          <app-selector-vista></app-selector-vista>
-        </div>
-        <app-nodo-inversion></app-nodo-inversion>
-        <div class="variable-contenido">
-          <app-contenedor-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-contenedor-graficos>
-          <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
-          <app-contenedor-conversaciones *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
-        </div>
-      </div>
-    </ng-template>
-  </p-splitter>-->
+<app-dispositivo-pequenio *ngIf="(estadoService.dispositivo.esPequenio$ | async) === true"></app-dispositivo-pequenio>
+<app-dispositivo-grande *ngIf="(estadoService.dispositivo.esPequenio$ | async) === false"></app-dispositivo-grande>
 
-</app-contenedor-responsive>
+
+<!--<app-contenedor-responsive (ancho)="anchoCambiado($event)" class="contenedor-responsive">
+  <app-cabecera></app-cabecera>-->
+<!--<app-contenedor *ngIf="ancho < 768">-->
+<!--<div class="todo">pequeño</div>-->
+<!--</app-contenedor>-->
+<!--<app-contenedor class="contenido-variable" *ngIf="ancho < 768">
+  <app-nodo-inversion></app-nodo-inversion>
+  <app-contenedor>
+    <app-arbol *ngIf="(estadoService.selectorVista.vista$ | async) === vista.arbol"></app-arbol>
+    <app-contenedor-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-contenedor-graficos>
+    <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
+    <app-contenedor-conversaciones *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
+  </app-contenedor>
+  <app-contenedor>
+    <app-selector-vista></app-selector-vista>
+  </app-contenedor>
+</app-contenedor>-->
+<!--<app-contenedor *ngIf="ancho >= 768">
+  <div >grande</div>
+</app-contenedor>-->
+<!--<p-splitter [style]="{ height: '100%' }" [panelSizes]="[40, 60]" * ngIf="ancho >= 768">
+  <ng-template pTemplate>
+    <app-contenedor>
+      <app-arbol></app-arbol>
+    </app-contenedor>
+  </ng-template>
+  <ng-template pTemplate>
+    <div class="contenido-variable">
+      <div class="variable-cabecera">
+        <app-selector-vista></app-selector-vista>
+      </div>
+      <app-nodo-inversion></app-nodo-inversion>
+      <div class="variable-contenido">
+        <app-contenedor-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-contenedor-graficos>
+        <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
+        <app-contenedor-conversaciones *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-contenedor-conversaciones>
+      </div>
+    </div>
+  </ng-template>
+</p-splitter>-->
+<!--</app-contenedor-responsive>-->

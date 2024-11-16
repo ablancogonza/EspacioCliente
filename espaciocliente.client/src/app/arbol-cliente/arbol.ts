@@ -1,12 +1,12 @@
 import { signal } from "@angular/core";
 import { TreeNode } from "primeng/api";
-import { ArbolService, Nodo } from "../servicios/arbol.service";
 import { TreeNodeExpandEvent, TreeNodeSelectEvent } from "primeng/tree";
 import { BehaviorSubject } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
-import { MensajesService } from "../servicios/mensajes.service";
-import { FiltroActivo } from "./filtro";
-
+import { MensajesService } from "../shared/servicios/mensajes.service";
+import { ArbolService } from "./arbol.service";
+import { Nodo } from "./nodo";
+import { FiltroActivo } from "../filtro/filtro-activo";
 
 export class Arbol {
  

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Nodo } from './nodo';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +39,4 @@ export class ArbolService {
 
 }
 
-export interface Nodo {
-  Id: number;
-  IdNodoPadre: number | undefined;
-  Descripcion: string;
-  IdTipoNodo: number;
-}
+
