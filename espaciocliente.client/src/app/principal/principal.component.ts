@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { ContenedorResponsiveComponent } from '../shared/components/contenedor-responsive/contenedor-responsive.component';
 import { ContenedorComponent } from '../shared/components/contenedor/contenedor.component';
 import { NodoInversionComponent } from '../shared/components/nodo-inversion/nodo-inversion.component';
@@ -37,12 +37,19 @@ import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/di
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.css'
 })
-export class PrincipalComponent {
-
+export class PrincipalComponent implements AfterViewInit {
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  onResize(width: number) {
+    this.ancho = width;    
+  }
   public vista = VistaSeleccionada;
   ancho: number = 0;
 
   constructor(public estadoService: EstadoService) { }
+
+  ngAfterViewInit(): void {
+    this.ancho = window.innerWidth;
+  }
 
   anchoCambiado(width: number) {
     this.ancho = width;

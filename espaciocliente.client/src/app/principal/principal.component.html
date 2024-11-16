@@ -1,5 +1,5 @@
-<app-dispositivo-pequenio *ngIf="(estadoService.dispositivo.esPequenio$ | async) === true"></app-dispositivo-pequenio>
-<app-dispositivo-grande *ngIf="(estadoService.dispositivo.esPequenio$ | async) === false"></app-dispositivo-grande>
+<app-dispositivo-pequenio *ngIf="ancho < 768"></app-dispositivo-pequenio>
+<app-dispositivo-grande *ngIf="ancho >= 768"></app-dispositivo-grande>
 
 
 <!--<app-contenedor-responsive (ancho)="anchoCambiado($event)" class="contenedor-responsive">
