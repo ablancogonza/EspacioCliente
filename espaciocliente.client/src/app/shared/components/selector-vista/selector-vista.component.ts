@@ -68,4 +68,21 @@ export class SelectorVistaComponent {
         return '';
     }
   }
+
+  title(i: number): string {
+    switch (i) {
+      case VistaSeleccionada.arbol:
+        return 'Árbol de cliente';
+      case VistaSeleccionada.grafico:
+        return 'Gráficos';
+      case VistaSeleccionada.mapa:
+        return 'Mapa';
+      case VistaSeleccionada.listaChat:
+        return 'Incidencias';
+      case VistaSeleccionada.listaBriefing:
+        return 'Briefing';
+      default:
+        return '';
+    }
+  }
 }
