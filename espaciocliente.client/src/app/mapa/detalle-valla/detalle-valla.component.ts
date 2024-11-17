@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
-
+import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
 import { InfoValla } from '../info-valla';
@@ -12,7 +12,7 @@ import { MapaService } from '../mapa.service';
 @Component({
   selector: 'app-detalle-valla',
   standalone: true,
-  imports: [CommonModule, FormsModule, RatingModule, ProcesandoComponent],
+  imports: [CommonModule, FormsModule, RatingModule, ProcesandoComponent, ImageModule],
   templateUrl: './detalle-valla.component.html',
   styleUrl: './detalle-valla.component.css'
 })
@@ -33,8 +33,8 @@ export class DetalleVallaComponent implements OnChanges {
       this.mapaService.infoValla(this.idNodo!, this.inicio!, this.fin!, this.valla!.id).subscribe({
         next: (info) => {
           this.info = info[0];
-          this.imagen = `data:image/jpeg;base64,${this.info.imagen}`;
-          this.cargando = false;          
+          this.imagen = this.info?.imagen ? `data:image/jpeg;base64,${this.info.imagen}` : '';
+          this.cargando = false;         
         }
       });
     }

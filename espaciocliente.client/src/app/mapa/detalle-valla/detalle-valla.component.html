@@ -4,7 +4,14 @@
 </div>
 <div *ngIf="!cargando">
   <div class="contenedor-imagen">
-    <img [src]="imagen" />
+   <div *ngIf="!imagen">
+     Imagen no disponible
+   </div>
+    <p-image *ngIf="imagen"
+             [src]="imagen"
+             alt="Imagen de la valla"
+             appendTo="body"
+             [preview]="true" />
   </div>
   <div class="datos">
     <div>Importe anual: <span class="data">{{ info?.impAnual | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
