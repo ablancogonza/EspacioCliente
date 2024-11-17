@@ -1,7 +1,5 @@
 <div class="cargando-contenedor">
-  <div class="cargando-fondo"></div>
-  <div class="cargando-progreso">
-    <img src="/assets/images/progreso.gif" alt="imagen cargando petición" class="cargando-img" />
-  </div>
+  <i *ngIf="pequenio" class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>
+  <i *ngIf="!pequenio" class="pi pi-spin pi-spinner" style="font-size: 6rem"></i>
 </div>
 

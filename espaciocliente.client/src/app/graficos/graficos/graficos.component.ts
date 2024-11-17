@@ -11,11 +11,13 @@ import { ProcesandoComponent } from '../../shared/components/procesando/procesan
 import { SeleccioneNodoComponent } from '../../shared/components/seleccione-nodo/seleccione-nodo.component';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { Grafico } from '../grafico';
+import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
 
 @Component({
   selector: 'app-graficos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule, ProcesandoComponent, SeleccioneNodoComponent],
+  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule, ProcesandoComponent,
+    SeleccioneNodoComponent, CargandoComponent],
   templateUrl: './graficos.component.html',
   styleUrl: './graficos.component.css'
 })

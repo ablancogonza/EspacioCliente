@@ -26,9 +26,8 @@ export class NodoInversionComponent {
   nodo?: TreeNode;
   filtroActivo?: FiltroActivo; 
   rangoFechas: string = '';
-  inversion: number | undefined = undefined;
-  cargando = false;
-
+  inversion: number | undefined | null = null;
+  
   constructor(private estadoService: EstadoService,
     private inversionService: InversionService,
     private destroyRef: DestroyRef) {
@@ -53,13 +52,11 @@ export class NodoInversionComponent {
 
   recalculaInversion() {    
     if (!this.filtroActivo || !this.nodo || !this.nodo?.key) return;
-    this.inversion = undefined;
-    this.cargando = true;
+    this.inversion = undefined;    
     setTimeout(() => {
       this.inversionService.inversion({ id: parseInt(this.nodo?.key!), inicio: this.filtroActivo!.inicio, fin: this.filtroActivo!.fin }).
         subscribe((inv: number) => {
-          this.inversion = inv;
-          this.cargando = false;
+          this.inversion = inv;          
         });
     });
     

@@ -11,8 +11,8 @@
   
   <div class="dcha">    
     <div>
-      <img src="/assets/images/progreso-p.gif"  [ngClass]="{'oculto': !cargando}" />
-      <div class="bold">{{ inversion | currency:'EUR':'symbol':'1.2-2':'es' }}</div>
+      <i *ngIf="inversion === undefined" class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>      
+      <div *ngIf="inversion" class="bold">{{ inversion | currency:'EUR':'symbol':'1.2-2':'es' }}</div>
     </div>        
     <p-button icon="pi pi-filter" severity="primary" title="Filtro" (click)="filtroVisible = true" />
   </div>

@@ -8,7 +8,12 @@ import { PrincipalComponent } from './principal/principal.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'principal', component: PrincipalComponent, canActivate: [autenticadoGuard] },
+  {
+    path: 'principal',
+    loadComponent: () => import('./principal/principal.component').
+      then(m => m.PrincipalComponent),
+      canActivate: [autenticadoGuard]
+  },
   { path: '**', redirectTo: 'principal', pathMatch: 'full' },
 ];
 

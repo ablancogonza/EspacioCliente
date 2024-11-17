@@ -9,6 +9,6 @@
     <p-chart [type]="grafico.tipo()" [data]="grafico.data()" [options]="grafico.options()" />
   </div>
   <app-seleccione-nodo *ngIf="!grafico.nodo || !grafico.nodo.data"></app-seleccione-nodo>
-  <app-procesando *ngIf="grafico?.cargando"></app-procesando>
-
+  <!--<app-procesando *ngIf="grafico?.cargando"></app-procesando>-->  
+  <app-cargando *ngIf="grafico?.cargando"></app-cargando> 
 </div>
