@@ -41,11 +41,13 @@ export class PrincipalComponent implements AfterViewInit {
   public vista = VistaSeleccionada;
   ancho: number = 0;
 
-  constructor(public estadoService: EstadoService) { }
-
-  ngAfterViewInit(): void {
+  constructor(public estadoService: EstadoService) {
     this.ancho = window.innerWidth;
     this.estadoService?.dispositivoMovil$.next(this.ancho < 768);
+  }
+
+  ngAfterViewInit(): void {
+   
   }
 
   anchoCambiado(width: number) {

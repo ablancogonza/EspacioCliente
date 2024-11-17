@@ -7,7 +7,6 @@ import { Observable, Subject, switchMap } from 'rxjs';
 import { ChartModule } from 'primeng/chart';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
 import { SeleccioneNodoComponent } from '../../shared/components/seleccione-nodo/seleccione-nodo.component';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { Grafico } from '../grafico';
@@ -16,7 +15,7 @@ import { CargandoComponent } from '../../shared/components/cargando/cargando.com
 @Component({
   selector: 'app-graficos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule, ProcesandoComponent,
+  imports: [CommonModule, FormsModule, ChartModule, SelectButtonModule,
     SeleccioneNodoComponent, CargandoComponent],
   templateUrl: './graficos.component.html',
   styleUrl: './graficos.component.css'

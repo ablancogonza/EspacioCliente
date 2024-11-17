@@ -4,15 +4,15 @@ import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
-import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
 import { InfoValla } from '../info-valla';
 import { Valla } from '../valla';
 import { MapaService } from '../mapa.service';
+import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
 
 @Component({
   selector: 'app-detalle-valla',
   standalone: true,
-  imports: [CommonModule, FormsModule, RatingModule, ProcesandoComponent, ImageModule],
+  imports: [CommonModule, FormsModule, RatingModule, CargandoComponent, ImageModule],
   templateUrl: './detalle-valla.component.html',
   styleUrl: './detalle-valla.component.css'
 })

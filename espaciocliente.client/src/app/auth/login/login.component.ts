@@ -8,16 +8,17 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 
 import { HttpErrorResponse } from '@angular/common/http';
-import { ProcesandoComponent } from '../../shared/components/procesando/procesando.component';
+
 import { AuthService } from '../auth.service';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { MensajesService } from '../../shared/servicios/mensajes.service';
+import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CardModule, InputTextModule, ButtonModule, ProcesandoComponent],
+  imports: [CommonModule, ReactiveFormsModule, CardModule, InputTextModule, ButtonModule, CargandoComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

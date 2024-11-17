@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './cargando.component.css'
 })
 export class CargandoComponent {
-  @Input() pequenio: boolean = false;
+ 
 }

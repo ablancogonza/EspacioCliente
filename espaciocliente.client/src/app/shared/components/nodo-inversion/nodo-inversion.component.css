@@ -6,22 +6,19 @@
     padding-left: 5px;
     padding-right: 5px;
     background-color: #eee;
+    width: 100%;
+    overflow: hidden;
 }
 
 .bold {
     font-weight: bold;
 }
 
-.suspensivos {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-
 .contenedor-izq {
     display: flex;
     flex-direction: column;    
     align-items: start;
+    flex-shrink: 3;
 }
 
 .rango-fechas {
@@ -29,7 +26,7 @@
     color:#333;
 }
 
-.dcha {
+.contenedor-dcha {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -37,6 +34,39 @@
   align-items: center;
 }
 
-.oculto {
-    display: none;
+i {
+    color: var(--primary-color);
+}
+
+.ellipsis {
+  width: 100%;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+}
+
+@media (max-width: 376px) {
+  .ellipsis {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ellipsis {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ellipsis {
+    max-width: 592px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ellipsis {
+    max-width: 848px;
+  }
 }
