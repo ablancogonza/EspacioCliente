@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostListener } from '@angular/core';
-
-import { ContenedorComponent } from '../shared/components/contenedor/contenedor.component';
 import { NodoInversionComponent } from '../shared/components/nodo-inversion/nodo-inversion.component';
-
 import { SelectorVistaComponent } from '../shared/components/selector-vista/selector-vista.component';
 import { SplitterModule } from 'primeng/splitter';
 import { GraficosComponent } from '../graficos/graficos/graficos.component';
@@ -21,7 +18,6 @@ import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/di
   selector: 'app-principal',
   standalone: true,
   imports: [CommonModule,
-    ContenedorComponent,
     NodoInversionComponent,
     GraficosComponent,
     ListaIncidenciasComponent,

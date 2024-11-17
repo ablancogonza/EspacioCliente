@@ -1,0 +1,29 @@
+<div class="contenedor">
+  <div class="contenedor-formulario">
+    <div class="titulo">
+      <h2>Alta de Briefing</h2>
+    </div>
+    <div class="campos">      
+      <div class="campo">
+        <label for="descripcion">Descripción (aparecerá en el árbol)</label>
+        <textarea id="descripcion" [(ngModel)]="briefing.descripcion"></textarea>
+      </div>
+      <div class="campo">
+        <label for="presupuesto">Presupuesto</label>
+        <input type="date" id="presupuesto" [(ngModel)]="briefing.presupuesto" />
+      </div>
+      <div class="campo">
+        <label for="cliente">Periodo</label>
+        <input type="text" id="cliente" [(ngModel)]="briefing.cliente" />
+      </div>
+      <div class="campo">
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" [(ngModel)]="briefing.estado" />
+      </div>
+      <div class="campo">
+        <label for="prioridad">Prioridad</label>
+        <input type="text" id="prioridad" [(ngModel)]="briefing.prioridad" />
+      </div>      
+    </div>
+  </div>
+</div>

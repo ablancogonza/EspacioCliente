@@ -21,3 +21,9 @@
 .data {
     font-weight: bold;
 }
+
+img {  
+  max-height: 350px;  
+  width: 100%;
+  height: auto;
+}

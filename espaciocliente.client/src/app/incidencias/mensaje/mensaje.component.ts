@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
+import { ImageModule } from 'primeng/image';
 import { EntradaMensaje } from '../entrada-mensaje';
 import { TipoEntradaMensaje } from '../../shared/enumerados/tipo-entrada-mensaje';
 
@@ -8,7 +8,7 @@ import { TipoEntradaMensaje } from '../../shared/enumerados/tipo-entrada-mensaje
 @Component({
   selector: 'app-mensaje',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImageModule],
   templateUrl: './mensaje.component.html',
   styleUrl: './mensaje.component.css'
 })

@@ -6,7 +6,12 @@
 <div *ngIf="mensaje?.tipo === TipoEntradaMensaje.mio" class="mio">
   <div class="entrda-mio">
     <div *ngIf="mensaje?.imagen">
-      <img [src]="imagen" class="imagen" />
+      <!--<img [src]="imagen" class="imagen" />-->
+      <p-image [src]="imagen"
+               alt="Image"
+               class="imagen"
+               width="80%"
+               [preview]="true" />
     </div>
     <div>{{ mensaje?.texto }}</div>
     <div class="hora">{{ mensaje?.hora }}</div>
