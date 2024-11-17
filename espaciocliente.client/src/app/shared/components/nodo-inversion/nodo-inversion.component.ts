@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, LOCALE_ID } from '@angular/core';
+import { Component, DestroyRef, LOCALE_ID, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { BuscadorFiltroComponent } from '../../../filtro/buscador-filtro/buscador-filtro.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, Observable, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, switchMap, tap } from 'rxjs';
 import { TreeNode } from 'primeng/api';
 import { InversionService } from '../../servicios/inversion.service';
 import { Presupuesto } from '../../utils/presupuesto';
@@ -24,10 +24,10 @@ import { FiltroActivo } from '../../../filtro/filtro-activo';
 export class NodoInversionComponent {
   filtroVisible: boolean = false;
   nodo?: TreeNode;
-  filtroActivo?: FiltroActivo;
-  peticionRefrescoInversion$: Subject<FiltroActivo> = new Subject();
-  obtenerInversion$: Observable<number>;
+  filtroActivo?: FiltroActivo; 
   rangoFechas: string = '';
+  inversion: number | undefined = undefined;
+  cargando = false;
 
   constructor(private estadoService: EstadoService,
     private inversionService: InversionService,
@@ -48,16 +48,22 @@ export class NodoInversionComponent {
           this.rangoFechas = `${Fecha.mesAnio(Presupuesto.presupuestoToDate(filtro.inicio))} - ${Fecha.mesAnio(Presupuesto.presupuestoToDate(filtro.fin))}`;
           this.recalculaInversion();
         }
-      });
-    this.obtenerInversion$ = this.peticionRefrescoInversion$.pipe(
-      switchMap(filtro => this.inversionService.inversion(filtro))
-    );    
+      });    
   }
 
-  recalculaInversion() {
+  recalculaInversion() {    
+    if (!this.filtroActivo || !this.nodo || !this.nodo?.key) return;
+    this.inversion = undefined;
+    this.cargando = true;
+    setTimeout(() => {
+      this.inversionService.inversion({ id: parseInt(this.nodo?.key!), inicio: this.filtroActivo!.inicio, fin: this.filtroActivo!.fin }).
+        subscribe((inv: number) => {
+          this.inversion = inv;
+          this.cargando = false;
+        });
+    });
     
-    if (!this.filtroActivo || !this.nodo) return;
-    this.peticionRefrescoInversion$.next({ id: parseInt(this.nodo.key!), inicio: this.filtroActivo.inicio, fin: this.filtroActivo.fin });    
+//    this.peticionRefrescoInversion$.next({ id: parseInt(this.nodo.key!), inicio: this.filtroActivo.inicio, fin: this.filtroActivo.fin });    
   }
 
   eliminar() {

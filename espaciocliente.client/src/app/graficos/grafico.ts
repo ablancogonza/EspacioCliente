@@ -86,6 +86,7 @@ export class Grafico {
       labels: labels,
       datasets: [
         {
+          label: 'Inversión',
           data: data,
           //backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
           //hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]

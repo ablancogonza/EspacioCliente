@@ -9,8 +9,11 @@
     </div>
   </div>
   
-  <div class="dcha">
-    <div class="bold">{{ obtenerInversion$ | async | currency:'EUR':'symbol':'1.2-2':'es' }}</div>
+  <div class="dcha">    
+    <div>
+      <img src="/assets/images/progreso-p.gif"  [ngClass]="{'oculto': !cargando}" />
+      <div class="bold">{{ inversion | currency:'EUR':'symbol':'1.2-2':'es' }}</div>
+    </div>        
     <p-button icon="pi pi-filter" severity="primary" title="Filtro" (click)="filtroVisible = true" />
   </div>
 </div>
