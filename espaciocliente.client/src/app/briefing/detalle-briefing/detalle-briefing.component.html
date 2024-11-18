@@ -1,29 +1,39 @@
 <div class="contenedor">
-  <div class="contenedor-formulario">
-    <div class="titulo">
-      <h2>Alta de Briefing</h2>
+  <form [formGroup]="briefingForm">
+    <div class="contenedor-formulario">
+      <div class="titulo">
+        <h2>Briefing</h2>
+      </div>
+      <div class="campos">
+        <div class="campo">
+          <label for="descripcion">Descripción (aparecerá en el árbol)</label>
+          <input type="text" pInputText id="descripcion" formControlName="descripcion" />
+        </div>
+        <div class="campo">
+          <label for="presupuesto">Presupuesto</label>
+          <p-inputNumber formControlName="presupuesto"
+                         mode="currency"
+                         inputId="currency-germany"
+                         currency="EUR"
+                         locale="es-ES" />
+        </div>
+        <div class="campo">
+          <label for="inicio">Inicio</label>
+          <p-calendar id="inicio" dateFormat="dd/mm/yy" formControlName="inicio" />
+        </div>
+        <div class="campo">
+          <label for="fin">Fin</label>
+          <p-calendar id="fin" dateFormat="dd/mm/yy" formControlName="fin" />
+        </div>
+        <div class="campo">
+          <label for="medio">Medio</label>
+          <p-dropdown formControlName="medio"
+                      [options]="briefing.medios"
+                      optionLabel="Medio"
+                      placeholder="Seleccione el medio" />
+        </div>
+        <p-button label="Crear" />
+      </div>
     </div>
-    <div class="campos">      
-      <div class="campo">
-        <label for="descripcion">Descripción (aparecerá en el árbol)</label>
-        <textarea id="descripcion" [(ngModel)]="briefing.descripcion"></textarea>
-      </div>
-      <div class="campo">
-        <label for="presupuesto">Presupuesto</label>
-        <input type="date" id="presupuesto" [(ngModel)]="briefing.presupuesto" />
-      </div>
-      <div class="campo">
-        <label for="cliente">Periodo</label>
-        <input type="text" id="cliente" [(ngModel)]="briefing.cliente" />
-      </div>
-      <div class="campo">
-        <label for="estado">Estado</label>
-        <input type="text" id="estado" [(ngModel)]="briefing.estado" />
-      </div>
-      <div class="campo">
-        <label for="prioridad">Prioridad</label>
-        <input type="text" id="prioridad" [(ngModel)]="briefing.prioridad" />
-      </div>      
-    </div>
-  </div>
+  </form>
 </div>

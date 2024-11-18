@@ -15,7 +15,8 @@
         <div class="variable-contenido">
           <app-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-graficos>
           <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
-          <app-incidencias *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-incidencias>
+          <app-incidencias *ngIf="(estadoService.selectorVista.vista$ | async) === vista.incidencias"></app-incidencias>
+          <app-briefing *ngIf="(estadoService.selectorVista.vista$ | async) === vista.briefing"></app-briefing>
         </div>
       </div>
     </ng-template>

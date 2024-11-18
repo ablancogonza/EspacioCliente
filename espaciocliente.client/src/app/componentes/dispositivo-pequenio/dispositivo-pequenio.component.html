@@ -6,7 +6,8 @@
       <app-arbol *ngIf="(estadoService.selectorVista.vista$ | async) === vista.arbol"></app-arbol>
       <app-graficos *ngIf="(estadoService.selectorVista.vista$ | async) === vista.grafico"></app-graficos>
       <app-mapa *ngIf="(estadoService.selectorVista.vista$ | async) === vista.mapa"></app-mapa>
-      <app-incidencias *ngIf="(estadoService.selectorVista.vista$ | async) === vista.listaChat"></app-incidencias>
+      <app-incidencias *ngIf="(estadoService.selectorVista.vista$ | async) === vista.incidencias"></app-incidencias>
+      <app-briefing *ngIf="(estadoService.selectorVista.vista$ | async) === vista.briefing"></app-briefing>
     </div>
     <div class="variable-cabecera">
       <app-selector-vista></app-selector-vista>

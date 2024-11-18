@@ -40,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router) {
     config.setTranslation({
       monthNamesShort: Fecha.meses,
+      monthNames: Fecha.mesesLargo,
       accept: 'Aceptar',
       reject: 'Cancelar'
     });

@@ -11,6 +11,7 @@ import { VistaSeleccionada } from '../../shared/enumerados/vista-seleccionada';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { GraficosComponent } from '../../graficos/graficos/graficos.component';
 import { IncidenciasComponent } from '../../incidencias/incidencias/incidencias.component';
+import { BriefingComponent } from '../../briefing/briefing/briefing.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { IncidenciasComponent } from '../../incidencias/incidencias/incidencias.
     MapaComponent,
     GraficosComponent,
     NodoInversionComponent,
-    IncidenciasComponent    
+    IncidenciasComponent,
+    BriefingComponent
   ],
   templateUrl: './dispositivo-grande.component.html',
   styleUrl: './dispositivo-grande.component.css'

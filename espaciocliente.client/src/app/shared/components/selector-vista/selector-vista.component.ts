@@ -29,9 +29,9 @@ export class SelectorVistaComponent {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(n => {
         this.nivelNodo = n?.data?.IdTipoNodo ?? 0;
-        if ((this.estadoService.selectorVista.vista$.value === VistaSeleccionada.listaChat &&
+        if ((this.estadoService.selectorVista.vista$.value === VistaSeleccionada.incidencias &&
           this.nivelNodo !== 6) ||
-          (this.estadoService.selectorVista.vista$.value === VistaSeleccionada.listaBriefing &&
+          (this.estadoService.selectorVista.vista$.value === VistaSeleccionada.briefing &&
             this.nivelNodo !== 5)) {
               this.estadoService.selectorVista.vista$.next(VistaSeleccionada.grafico);
             }
@@ -60,9 +60,9 @@ export class SelectorVistaComponent {
         return 'pi pi-chart-pie';
       case VistaSeleccionada.mapa:        
         return 'pi pi-compass';
-      case VistaSeleccionada.listaChat:
+      case VistaSeleccionada.incidencias:
         return 'pi pi-envelope';
-      case VistaSeleccionada.listaBriefing:
+      case VistaSeleccionada.briefing:
         return 'pi pi-book';
       default:        
         return '';
@@ -77,9 +77,9 @@ export class SelectorVistaComponent {
         return 'Gráficos';
       case VistaSeleccionada.mapa:
         return 'Mapa';
-      case VistaSeleccionada.listaChat:
+      case VistaSeleccionada.incidencias:
         return 'Incidencias';
-      case VistaSeleccionada.listaBriefing:
+      case VistaSeleccionada.briefing:
         return 'Briefing';
       default:
         return '';

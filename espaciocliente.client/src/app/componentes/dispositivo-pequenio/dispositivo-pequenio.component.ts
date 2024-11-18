@@ -13,6 +13,7 @@ import { VistaSeleccionada } from '../../shared/enumerados/vista-seleccionada';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { GraficosComponent } from '../../graficos/graficos/graficos.component';
 import { IncidenciasComponent } from '../../incidencias/incidencias/incidencias.component';
+import { BriefingComponent } from '../../briefing/briefing/briefing.component';
 
 @Component({
   selector: 'app-dispositivo-pequenio',
@@ -25,7 +26,8 @@ import { IncidenciasComponent } from '../../incidencias/incidencias/incidencias.
     MapaComponent,    
     NodoInversionComponent,
     GraficosComponent,
-    IncidenciasComponent
+    IncidenciasComponent,
+    BriefingComponent
   ],
   templateUrl: './dispositivo-pequenio.component.html',
   styleUrl: './dispositivo-pequenio.component.css'
