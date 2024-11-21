@@ -1,0 +1,22 @@
+<div class="contenedor">
+  <div class="cabecera">
+    <div>
+      <p-button icon="pi pi-angle-left" [rounded]="true" [outlined]="true" (click)="briefing.vista.set('lista')" title="Volver" />
+    </div>
+    <app-detalle-briefing [entrada]="briefing.entrada" [seleccionable]="false" class="width-100"></app-detalle-briefing>  
+  </div>
+  <div class="contenedor-adjuntos">
+    <div class="cabecera-adjuntos">
+      <div>Documentos adjuntos:</div>
+    </div>
+    <div class="lista-adjuntos">
+      <div class="lista-scroll">
+
+      </div>
+    </div>
+  </div>
+  <div class="inferior-derecha">
+    <p-button icon="pi pi-plus" [rounded]="true" (click)="briefing.nuevo()"
+              [disabled]="false" title="Añadir adjunto" />
+  </div>
+</div>

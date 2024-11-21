@@ -1,0 +1,43 @@
+<div class="contenedor">
+  <form [formGroup]="briefingForm">
+    <div class="contenedor-formulario">
+      <div class="titulo">
+        <h2>Briefing</h2>
+      </div>
+      <div class="campos">
+        <div class="campo">
+          <label for="descripcion">Descripción (aparecerá en el árbol)</label>
+          <input type="text" pInputText id="descripcion" formControlName="descripcion" />
+        </div>
+        <div class="campo">
+          <label for="presupuesto">Presupuesto</label>
+          <p-inputNumber formControlName="presupuesto"
+                         mode="currency"
+                         inputId="currency-germany"
+                         currency="EUR"
+                         locale="es-ES" />
+        </div>
+
+        <div class="fechas">
+          <div class="campo">
+            <label for="inicio">Inicio</label>
+            <p-calendar id="inicio" dateFormat="dd/mm/yy" formControlName="inicio" />
+          </div>
+          <div class="campo">
+            <label for="fin">Fin</label>
+            <p-calendar id="fin" dateFormat="dd/mm/yy" formControlName="fin" />
+          </div>
+        </div>
+        
+        <div class="campo">
+          <label for="medio">Medio</label>
+          <p-dropdown formControlName="medio"
+                      [options]="briefing.medios"
+                      optionLabel="Medio"
+                      placeholder="Seleccione el medio" />
+        </div>
+        <p-button label="Crear" (click)="crear()" [disabled]="!briefingForm.valid"/>
+      </div>
+    </div>
+  </form>
+</div>

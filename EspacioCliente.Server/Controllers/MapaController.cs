@@ -1,5 +1,6 @@
 ﻿using EspacioCliente.Data.Models;
 using EspacioCliente.Server.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -9,6 +10,7 @@ namespace EspacioCliente.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MapaController : ControllerBase
     {
         private readonly EspacioClienteContext context;

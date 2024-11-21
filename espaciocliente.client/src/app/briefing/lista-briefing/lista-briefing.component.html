@@ -1,8 +1,10 @@
 <div class="contenedor">
-  
 
+  <app-detalle-briefing *ngFor="let entrada of briefing.lista()" [entrada]="entrada" (click)="briefing.adjuntos(entrada)">
+  </app-detalle-briefing>
+    
   <div class="inferior-derecha">
     <p-button icon="pi pi-plus" [rounded]="true" (click)="briefing.nuevo()"
-              [disabled]="false" />
+              [disabled]="false" title="Nuevo briefing"/>
   </div>
 </div>

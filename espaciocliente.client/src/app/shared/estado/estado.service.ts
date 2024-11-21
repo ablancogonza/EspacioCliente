@@ -14,6 +14,7 @@ import { Filtro } from '../../filtro/filtro';
 import { FiltroService } from '../../filtro/filtro.service';
 import { BehaviorSubject } from 'rxjs';
 import { Briefing } from '../../briefing/briefing';
+import { BriefingService } from '../../briefing/briefing.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class EstadoService {
     private inversionService: InversionService,
     private mapaService: MapaService,
     private incidenciasService: IncidenciasService,
+    private briefingService: BriefingService,
     private mensajesService: MensajesService) { }
 
   init(email: string, token: string) {
@@ -48,7 +50,7 @@ export class EstadoService {
     this.grafico = new Grafico(this.inversionService, this.mensajesService);
     this.mapa = new Mapa(this.mapaService);
     this.incidencias = new Incidencias(this.incidenciasService, email);
-    this.briefing = new Briefing();
+    this.briefing = new Briefing(this.briefingService);
   }
 
   postInit() {

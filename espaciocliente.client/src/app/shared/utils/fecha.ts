@@ -26,4 +26,8 @@ export class Fecha {
     }
     return `${fecha.getDate()}/${Fecha.meses[fecha.getMonth()]}/${fecha.getFullYear()} ${fecha.getHours()}:${fecha.getMinutes().toString().padStart(2, '0')}`;
   }
+
+  static fechaSinHora(fecha: Date) {
+  return fecha.setHours(0, 0, 0, 0);
+}
 }

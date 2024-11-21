@@ -10,8 +10,8 @@ import { ArbolComponent } from '../arbol-cliente/arbol/arbol.component';
 import { MapaComponent } from '../mapa/mapa/mapa.component';
 import { VistaSeleccionada } from '../shared/enumerados/vista-seleccionada';
 import { EstadoService } from '../shared/estado/estado.service';
-import { DispositivoPequenioComponent } from '../componentes/dispositivo-pequenio/dispositivo-pequenio.component';
-import { DispositivoGrandeComponent } from '../componentes/dispositivo-grande/dispositivo-grande.component';
+import { DispositivoPequenioComponent } from '../shared/components/dispositivo-pequenio/dispositivo-pequenio.component';
+import { DispositivoGrandeComponent } from '../shared/components/dispositivo-grande/dispositivo-grande.component';
 
 
 @Component({

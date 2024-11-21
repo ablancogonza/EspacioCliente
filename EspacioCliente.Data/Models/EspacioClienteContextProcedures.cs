@@ -43,6 +43,81 @@ namespace EspacioCliente.Data.Models
             _context = context;
         }
 
+        public virtual async Task<int> BriefingCrearAsync(int? idNodo, string descrip, decimal? presupuesto, DateOnly? inicio, DateOnly? fin, int? medio, int? usuarioCreador, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parametersalida = new SqlParameter
+            {
+                ParameterName = "salida",
+                Size = -1,
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = salida?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idNodo",
+                    Value = idNodo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "descrip",
+                    Size = 600,
+                    Value = descrip ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "presupuesto",
+                    Precision = 19,
+                    Scale = 4,
+                    Value = presupuesto ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "inicio",
+                    Value = inicio ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "fin",
+                    Value = fin ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "medio",
+                    Value = medio ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "usuarioCreador",
+                    Value = usuarioCreador ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parametersalida,
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[BriefingCrear] @idNodo = @idNodo, @descrip = @descrip, @presupuesto = @presupuesto, @inicio = @inicio, @fin = @fin, @medio = @medio, @usuarioCreador = @usuarioCreador, @salida = @salida OUTPUT", sqlParameters, cancellationToken);
+
+            salida.SetValue(parametersalida.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<int> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parametersalida = new SqlParameter
