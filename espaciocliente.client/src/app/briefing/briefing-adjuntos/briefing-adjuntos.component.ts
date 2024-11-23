@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { BriefingAdjuntoDetalleComponent } from '../briefing-adjunto-detalle/briefing-adjunto-detalle.component';
+import { MensajesService } from '../../shared/servicios/mensajes.service';
 
 @Component({
   selector: 'app-briefing-adjuntos',
@@ -22,33 +23,24 @@ export class BriefingAdjuntosComponent {
   briefing: Briefing;
   descripcion: string = '';
 
-  constructor(private estadoService: EstadoService) {
+  constructor(private estadoService: EstadoService, private mensajeService: MensajesService) {
     this.briefing = estadoService.briefing;
   }
 
   onUpload(event: UploadEvent) {
     console.log('onFileUpload: ', event);
-    //const resp = event.originalEvent as HttpResponse<Mensaje[]>;
-    //const msg = (resp.body as Mensaje[])[0];
-    //this.incidencias.despuesDeImagenUpload(msg);
-    //this.texto = '';
-    //setTimeout(() => {
-    //  this.scrollToBottom();
-    //}, 100);
+    this.descripcion = '';
+    this.briefing.recuperarAdjuntos();    
   }
 
-  errorEnUpload(event: FileUploadErrorEvent) {
-    //this.mensajeService.error('Error al subir la imagen');
+  errorEnUpload(event: FileUploadErrorEvent) {    
     console.log('error file upload: ', event);
+    this.mensajeService.error('Se ha producido un error al subir el fichero');
   }
 
   url(): string {        
-    return `${environment.baseUrl}/briefing/upload/${this.briefing.activo?.data.Id}/${this.descripcion}`;
+    return `${environment.baseUrl}/briefing/upload/${this.briefing.entrada?.Id}/${this.descripcion}`;
   }
 
-  onKeydown(event: KeyboardEvent) {
-    if (event.key === "Enter" && this.descripcion) {
-      //this.publicar();
-    }
-  }
+  
 }

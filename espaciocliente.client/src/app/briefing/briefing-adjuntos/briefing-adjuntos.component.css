@@ -21,6 +21,7 @@
     height: 100%;
     display: grid;
     grid-template-rows: 40px auto;
+    overflow: hidden;
 }
 
 .cabecera-adjuntos {
@@ -39,6 +40,7 @@
 
 .lista-scroll {
     overflow: auto;
+    height: 100%;
 }
 
 .pie {
