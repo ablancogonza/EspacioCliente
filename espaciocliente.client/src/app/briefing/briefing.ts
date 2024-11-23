@@ -81,8 +81,7 @@ export class Briefing {
     });    
   };
 
-  nodoEjercicio(): boolean {
-    console.log('nodoEjercicio: ', this.activo);
+  nodoEjercicio(): boolean {    
     if (!this.activo || !this.activo.data?.IdTipoNodo) return false;
     return this.activo.data.IdTipoNodo === 5;
   }

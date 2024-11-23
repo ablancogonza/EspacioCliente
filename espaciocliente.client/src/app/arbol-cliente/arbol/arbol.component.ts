@@ -7,8 +7,9 @@ import { pipe } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { NodoComponent } from '../nodo/nodo.component';
-import { Arbol } from '../arbol';
 import { FiltroActivo } from '../../filtro/filtro-activo';
+import { Arbol } from '../arbol';
+import { Arbol as UtilsArbol } from '../../shared/utils/arbol';
 
 @Component({
   selector: 'app-arbol',
@@ -30,12 +31,12 @@ export class ArbolComponent {
 
   toolTipNodo(n: TreeNode): string {
     if (!n.data || !n.data.IdTipoNodo) return '';
-    return `${ Arbol.desTipoNodo(n.data.IdTipoNodo)}: ${n.label}`;
+    return `${ UtilsArbol.desTipoNodo(n.data.IdTipoNodo)}: ${n.label}`;
   }
 
   tipoNodo(n: TreeNode): string {
     if (!n.data || !n.data.IdTipoNodo) return '';
-    return Arbol.tipoNodo(n.data.IdTipoNodo);
+    return UtilsArbol.tipoNodo(n.data.IdTipoNodo);
   }
 
 

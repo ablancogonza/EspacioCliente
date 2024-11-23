@@ -12,7 +12,8 @@ import { Fecha } from '../../utils/fecha';
 import { FiltroComponent } from '../../../filtro/filtro/filtro.component';
 import { EstadoService } from '../../estado/estado.service';
 import { FiltroActivo } from '../../../filtro/filtro-activo';
-import { Arbol } from '../../../arbol-cliente/arbol';
+import { Arbol } from '../../utils/arbol';
+
 
 @Component({
   selector: 'app-nodo-inversion',
