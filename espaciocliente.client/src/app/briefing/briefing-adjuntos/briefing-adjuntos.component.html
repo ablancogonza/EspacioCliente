@@ -11,24 +11,29 @@
     </div>
     <div class="lista-adjuntos">
       <div class="lista-scroll">
-        <div class="fichero-adjunto" *ngFor="let adj of briefing?.listaAdjuntos()" (click)="briefing?.download(adj.Id,'prueba')">
-          Adjunto: {{ adj.Descripcion }}
-        </div>
+        <app-briefing-adjunto-detalle
+           [adjunto] ="adj"
+           *ngFor="let adj of briefing?.listaAdjuntos()"
+           (click)="briefing!.download(adj?.Id)">
+        </app-briefing-adjunto-detalle>       
       </div>
     </div>
   </div>
   <div class="pie">
-    <input type="text" pInputText [(ngModel)]="descripcion" (keydown)="onKeydown($event)" />    
-    <p-fileUpload mode="basic"
-                  chooseLabel=""
-                  chooseIcon="pi pi-paperclip"
-                  name="fichero"
-                  [url]="url()"                 
-                  [auto]="true"
-                  title="Añadir adjunto"
-                  maxFileSize="9000000"
-                  [disabled]="!descripcion"
-                  (onUpload)="onUpload($event)"
-                  (onError)="errorEnUpload($event)" />    
+    <div class="adjuntar">Adjuntar fichero: escriba la descripción y seleccione el archivo</div>
+    <div class="descripcion-adjunto">
+      <input type="text" pInputText [(ngModel)]="descripcion" (keydown)="onKeydown($event)" />
+      <p-fileUpload mode="basic"
+                    chooseLabel=""
+                    chooseIcon="pi pi-paperclip"
+                    name="fichero"
+                    [url]="url()"
+                    [auto]="true"
+                    title="Añadir adjunto"
+                    maxFileSize="9000000"
+                    [disabled]="!descripcion"
+                    (onUpload)="onUpload($event)"
+                    (onError)="errorEnUpload($event)" />
+    </div>
   </div> 
 </div>

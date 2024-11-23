@@ -8,11 +8,13 @@ import { FileUploadErrorEvent, FileUploadModule, UploadEvent } from 'primeng/fil
 import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { BriefingAdjuntoDetalleComponent } from '../briefing-adjunto-detalle/briefing-adjunto-detalle.component';
 
 @Component({
   selector: 'app-briefing-adjuntos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, DetalleBriefingComponent, FileUploadModule],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, FileUploadModule,
+    DetalleBriefingComponent, BriefingAdjuntoDetalleComponent],
   templateUrl: './briefing-adjuntos.component.html',
   styleUrl: './briefing-adjuntos.component.css'
 })

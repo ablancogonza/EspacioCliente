@@ -5,6 +5,7 @@ import { BriefingService } from "./briefing.service";
 import { signal } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { BriefingAdjuntoDto } from "../shared/dtos/briefing-adjunto-dto";
+import { BriefingFicheroAdjunto } from "../shared/dtos/briefing-fichero-adjunto";
 
 export class Briefing {
 
@@ -62,15 +63,22 @@ export class Briefing {
     })
   }
 
-  download(id: number, nombreFichero: string) {
-    const url = `${environment.baseUrl}/briefing/descargar/${id}`;
-    const link = document.createElement('a');
-    //link.setAttribute('target', '_blank');
-    link.setAttribute('href', url);
-    link.setAttribute('download', nombreFichero);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+  download(id?: number) {
+    if (!id) return;
+
+    this.briefingService.descargar(id).subscribe({
+      next: (ficheros: BriefingFicheroAdjunto[]) => {
+        console.log('ficheros: ', ficheros);
+        const fichero = ficheros[0];
+       
+        const downloadLink = document.createElement('a');
+        const fileName = `${fichero.Descripcion}${fichero.Extension}`;
+        const linkSource = `data:application/octet-stream;base64,${fichero.Contenido}`;
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      }
+    });    
   };
 
 }

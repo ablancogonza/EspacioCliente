@@ -36,21 +36,10 @@ namespace EspacioCliente.Server.Controllers
         }
 
         [HttpGet("descargar/{id}")]
-        public IActionResult Descargar(int id)
+        public string? Descargar(int id)
         {
             int idUsuario = User.IdUsuario();
-            var reg = context.BriefingDescargaFichero(idUsuario, id).FirstOrDefault();
-            if (reg != null)
-            {
-                var fileName = $"{reg?.Descripcion}.{reg?.Extension}";
-                
-                Response.Headers.Add("Content-Disposition", $"attachment; filename={fileName}");
-                Response.Headers.Add("Content-Length", reg.Contenido.Length.ToString());
-                Response.Headers.Add("Content-Type", "application/octet-stream");
-
-                return File(reg.Contenido, "application/octet-stream");
-            }
-            return BadRequest();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[BriefingDescargaFichero]({idUsuario},{id}) as value").FirstOrDefault();            
         }
 
         [HttpGet("adjuntos/{id}")]
