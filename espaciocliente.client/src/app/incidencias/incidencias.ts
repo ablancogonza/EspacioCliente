@@ -31,6 +31,7 @@ export class Incidencias {
   setNodo(nodo: Nodo | undefined) {
     this.vista.set('lista');    
     this.nodo = nodo;
+    console.log('setNodo incidencias: ', this.nodo);
     if (nodo) this.recuperarIncidencias(nodo!.Id);    
   }
 

@@ -28,5 +28,16 @@ export class ArbolComponent {
     
   };
 
+  toolTipNodo(n: TreeNode): string {
+    if (!n.data || !n.data.IdTipoNodo) return '';
+    return `${ Arbol.desTipoNodo(n.data.IdTipoNodo)}: ${n.label}`;
+  }
+
+  tipoNodo(n: TreeNode): string {
+    if (!n.data || !n.data.IdTipoNodo) return '';
+    return Arbol.tipoNodo(n.data.IdTipoNodo);
+  }
+
+
   
 }

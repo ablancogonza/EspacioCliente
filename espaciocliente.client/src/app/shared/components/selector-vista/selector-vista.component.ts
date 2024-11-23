@@ -15,7 +15,7 @@ import { EstadoService } from '../../estado/estado.service';
   styleUrl: './selector-vista.component.css'
 })
 export class SelectorVistaComponent {
-  
+
   visibles: number[] = Object.values(VistaSeleccionada).filter(r => typeof r === 'number') as number[];
   seleccionado: Observable<VistaSeleccionada>;
   nivelNodo = 0;
@@ -29,13 +29,10 @@ export class SelectorVistaComponent {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(n => {
         this.nivelNodo = n?.data?.IdTipoNodo ?? 0;
-        if ((this.estadoService.selectorVista.vista$.value === VistaSeleccionada.incidencias &&
-          this.nivelNodo !== 6) ||
-          (this.estadoService.selectorVista.vista$.value === VistaSeleccionada.briefing &&
-            this.nivelNodo !== 5)) {
-              this.estadoService.selectorVista.vista$.next(VistaSeleccionada.grafico);
-            }
-        //console.log('nodo seleccionado en selector vista: ', n);
+        if (this.estadoService.selectorVista.vista$.value === VistaSeleccionada.briefing &&
+          this.nivelNodo > 5) {
+          this.estadoService.selectorVista.vista$.next(VistaSeleccionada.incidencias);
+        }
       });
   }
 
@@ -49,22 +46,22 @@ export class SelectorVistaComponent {
       this.estadoService.selectorVista.vista$.next(VistaSeleccionada.grafico);
     }
     this.visibles = movil ? Object.values(VistaSeleccionada).filter(r => typeof r === 'number') as number[] :
-        Object.values(VistaSeleccionada).filter(r => typeof r === 'number' && r !== VistaSeleccionada.arbol) as number[];
+      Object.values(VistaSeleccionada).filter(r => typeof r === 'number' && r !== VistaSeleccionada.arbol) as number[];
   }
 
   icono(i: number): string {
     switch (i) {
-      case VistaSeleccionada.arbol:        
+      case VistaSeleccionada.arbol:
         return 'pi pi-folder-open';
-      case VistaSeleccionada.grafico:        
+      case VistaSeleccionada.grafico:
         return 'pi pi-chart-pie';
-      case VistaSeleccionada.mapa:        
+      case VistaSeleccionada.mapa:
         return 'pi pi-compass';
       case VistaSeleccionada.incidencias:
         return 'pi pi-envelope';
       case VistaSeleccionada.briefing:
         return 'pi pi-book';
-      default:        
+      default:
         return '';
     }
   }

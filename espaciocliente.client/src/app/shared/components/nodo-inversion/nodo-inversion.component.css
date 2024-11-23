@@ -38,6 +38,13 @@ i {
     color: var(--primary-color);
 }
 
+.des-nodo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .ellipsis {
   width: 100%;
   overflow: hidden;

@@ -6,11 +6,12 @@ import { Briefing } from '../briefing';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TreeNode } from 'primeng/api';
 import { BriefingAdjuntosComponent } from '../briefing-adjuntos/briefing-adjuntos.component';
+import { NuevoBriefingComponent } from '../nuevo-briefing/nuevo-briefing.component';
 
 @Component({
   selector: 'app-briefing',
   standalone: true,
-  imports: [CommonModule, ListaBriefingComponent, BriefingAdjuntosComponent],
+  imports: [CommonModule, ListaBriefingComponent, NuevoBriefingComponent, BriefingAdjuntosComponent],
   templateUrl: './briefing.component.html',
   styleUrl: './briefing.component.css'
 })

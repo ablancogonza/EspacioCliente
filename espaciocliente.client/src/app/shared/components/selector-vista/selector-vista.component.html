@@ -3,5 +3,5 @@
             [rounded]="true" size="large" *ngFor="let id of visibles"
             (click)="selecciona(id)"
             [title]="title(id)"
-            [disabled]="(id === 3 && nivelNodo !== 6) || (id === 4 && nivelNodo !== 5)"></p-button>
+            [disabled]="(id === 4 && nivelNodo > 5)"></p-button>
 </div>

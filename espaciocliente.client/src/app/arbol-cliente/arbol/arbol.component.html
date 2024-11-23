@@ -8,8 +8,18 @@
             [selection]="(arbol.nodoSeleccionado$ | async)"
             (onNodeExpand)="arbol.nodoExpandido($event)"
             (onNodeSelect)="arbol.nodeSelect($event)">
-      <ng-template let-node pTemplate="AG">
-        <app-nodo tooltip="Agencia" tipoNodo="AG" [texto]="node.label" [bold]="true" [loading]="false"></app-nodo>
+      <!--<ng-template let-node pTemplate="AG">
+    <app-nodo tooltip="Agencia" tipoNodo="AG" [texto]="node.label" [bold]="true" [loading]="false"></app-nodo>
+  </ng-template>-->
+      <ng-template let-node pTemplate="default">
+        <div class="nodo" [title]="toolTipNodo(node)">
+          <div class="tipo">
+            {{ tipoNodo(node) }}
+          </div>
+          <div class="label">
+            {{ node.label }}
+          </div>
+        </div>        
       </ng-template>
     </p-tree>
   </div>

@@ -44,7 +44,7 @@ export class NuevoBriefingComponent {
   crear() {
     if (this.briefingForm.valid) {
       const data: BriefingDto = {
-        IdNodo: this.estadoService.arbol.nodoSeleccionado$.value.data.Id,
+        Id: this.estadoService.arbol.nodoSeleccionado$.value.data.Id,
         Descripcion: this.descripcion.value,
         Presupuesto: this.presupuesto.value,
         Inicio: this.inicio.value,

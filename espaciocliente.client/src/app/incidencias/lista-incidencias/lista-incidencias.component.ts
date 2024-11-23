@@ -22,14 +22,6 @@ export class ListaIncidenciasComponent {
   incidencias: Incidencias;
 
   constructor(private estadoService: EstadoService, private destroyRef: DestroyRef) {
-    this.incidencias = estadoService.incidencias;
-
-    this.estadoService.arbol.nodoSeleccionado$.
-      pipe(takeUntilDestroyed(this.destroyRef)).
-      subscribe({
-        next: (seleccionado) => {
-          if (seleccionado) this.incidencias.setNodo(seleccionado.data.Id);
-        }
-      });
+    this.incidencias = estadoService.incidencias;    
   }
 }

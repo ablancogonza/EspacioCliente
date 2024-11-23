@@ -1,7 +1,7 @@
 <div class="contenedor">
   <div class="contenedor-izq">
-    <div class="bold">
-      <span class="ellipsis">{{ nodo?.data?.Descripcion }}</span>
+    <div class="des-nodo">
+      <span>{{ tipoNodo(nodo) }}</span> <span class="ellipsis bold">{{ nodo?.data?.Descripcion }}</span>
       <!--<<button (click)="eliminar()">Eliminar</button>-->
     </div>
     <div class="rango-fechas">

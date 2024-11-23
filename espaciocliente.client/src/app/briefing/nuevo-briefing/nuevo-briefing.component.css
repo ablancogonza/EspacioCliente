@@ -5,6 +5,14 @@
     padding: 1rem;
 }
 
+.cabecera {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 .campos {
     display: flex;
     flex-direction: column;
@@ -22,4 +30,9 @@
     flex-direction: row;
     justify-content: start;
     gap: 0.5rem;
+}
+
+.titulo {
+    font-weight: bold;
+    font-size: 1.2rem;   
 }

@@ -12,6 +12,7 @@ import { Fecha } from '../../utils/fecha';
 import { FiltroComponent } from '../../../filtro/filtro/filtro.component';
 import { EstadoService } from '../../estado/estado.service';
 import { FiltroActivo } from '../../../filtro/filtro-activo';
+import { Arbol } from '../../../arbol-cliente/arbol';
 
 @Component({
   selector: 'app-nodo-inversion',
@@ -65,5 +66,10 @@ export class NodoInversionComponent {
 
   eliminar() {
     this.estadoService.arbol.eliminar();
+  }
+
+  tipoNodo(n?: TreeNode): string {
+    if (!n?.data || !n?.data.IdTipoNodo) return '';
+    return Arbol.tipoNodo(n.data.IdTipoNodo);
   }
 }
