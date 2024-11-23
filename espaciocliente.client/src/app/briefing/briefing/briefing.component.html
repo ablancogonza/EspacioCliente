@@ -1,3 +1,4 @@
-<app-lista-briefing *ngIf="briefing?.vista() === 'lista'"></app-lista-briefing>
+<app-lista-briefing *ngIf="briefing?.activo && briefing?.vista() === 'lista'"></app-lista-briefing>
 <app-briefing-adjuntos *ngIf="briefing?.vista() === 'adjuntos'"></app-briefing-adjuntos>
 <app-nuevo-briefing *ngIf="briefing?.vista() === 'detalle'"></app-nuevo-briefing>
+<app-seleccione-nodo *ngIf="!briefing?.activo"></app-seleccione-nodo>

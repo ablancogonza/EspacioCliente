@@ -20,7 +20,7 @@ export class Briefing {
 
   setNodo(seleccionado: TreeNode<any>) {
     console.log('setNodo briefing: ', seleccionado);
-    if (seleccionado !== this.activo) {
+    if (seleccionado && seleccionado.data && seleccionado !== this.activo) {
       this.activo = seleccionado;
       this.recargaLista();
     }
@@ -33,8 +33,8 @@ export class Briefing {
   crear(briefing: BriefingDto) {
     console.log('crear briefing', briefing);
     this.briefingService.crearBriefing(briefing).subscribe({
-      next: (briefing: BriefingDto) => {
-        console.log('nuevo briefing: ', briefing);
+      next: (briefing: BriefingDto[]) => {
+        this.adjuntos(briefing[0]);        
       }
     });
   }
@@ -80,5 +80,11 @@ export class Briefing {
       }
     });    
   };
+
+  nodoEjercicio(): boolean {
+    console.log('nodoEjercicio: ', this.activo);
+    if (!this.activo || !this.activo.data?.IdTipoNodo) return false;
+    return this.activo.data.IdTipoNodo === 5;
+  }
 
 }

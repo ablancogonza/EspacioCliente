@@ -24,7 +24,7 @@ namespace EspacioCliente.Server.Controllers
         {
             int idUsuario = User.IdUsuario();
             OutputParameter<string> salida = new OutputParameter<string>();
-            await this.context.Procedures.BriefingCrearAsync(nueva.IdNodo, nueva.Descripcion, nueva.Presupuesto, DateOnly.FromDateTime(nueva.Inicio.ToLocalTime()), DateOnly.FromDateTime(nueva.Fin.ToLocalTime()), nueva.Medio, idUsuario, salida);
+            await this.context.Procedures.BriefingCrearAsync(nueva.Id, nueva.Descripcion, nueva.Presupuesto, DateOnly.FromDateTime(nueva.Inicio.ToLocalTime()), DateOnly.FromDateTime(nueva.Fin.ToLocalTime()), nueva.Medio, idUsuario, salida);
             return salida.Value;
         }
 
@@ -66,5 +66,5 @@ namespace EspacioCliente.Server.Controllers
         }
     }
 
-    public record PeticionCrearBriefing(int IdNodo, string Descripcion, decimal Presupuesto, DateTime Inicio, DateTime Fin, int Medio);
+    public record PeticionCrearBriefing(int Id, string Descripcion, decimal Presupuesto, DateTime Inicio, DateTime Fin, int Medio);
 }

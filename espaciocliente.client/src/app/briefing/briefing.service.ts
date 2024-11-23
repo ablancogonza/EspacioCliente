@@ -13,8 +13,8 @@ import { BriefingFicheroAdjunto } from '../shared/dtos/briefing-fichero-adjunto'
 export class BriefingService {
   constructor(private http: HttpClient) { }
 
-  crearBriefing(briefing: BriefingDto) {
-    return this.http.post<any>(`${environment.baseUrl}/briefing/crear`, briefing);
+  crearBriefing(briefing: BriefingDto): Observable<BriefingDto[]> {
+    return this.http.post<BriefingDto[]>(`${environment.baseUrl}/briefing/crear`, briefing);
   }
 
   recuperarBriefing(idNodo: number): Observable<BriefingDto[]> {

@@ -20,7 +20,8 @@
   </p-dialog>
 
   <div class="inferior-derecha">
+    <div class="aviso" *ngIf="!incidencias.nodoCampania()">Seleccione un nodo de tipo CA</div>
     <p-button icon="pi pi-plus" [rounded]="true" (click)="incidencias.nuevo()"
-              [disabled]="incidencias.nodo?.Id === undefined" />
+              [disabled]="!incidencias.nodoCampania()" />
   </div>
 </div>

@@ -1,9 +1,9 @@
 .entrada {
   border-radius: 0.5rem;
-  border: 1px solid darkgray;
+  border: 1px solid lightgray;
   background-color: #eee;
   padding: 1rem;
-  margin: 2px;
+  margin: 3px;
 }
 
 .mas-grande {

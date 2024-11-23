@@ -143,4 +143,9 @@ export class Incidencias {
       },
     })
   }
+
+  nodoCampania(): boolean {
+    if (!this.nodo) return false;
+    return this.nodo.IdTipoNodo === 6;       
+  }
 }

@@ -42,9 +42,10 @@ export class NuevoBriefingComponent {
   }
 
   crear() {
+    console.log('crear, activo: ', this.briefing.activo);
     if (this.briefingForm.valid) {
       const data: BriefingDto = {
-        Id: this.estadoService.arbol.nodoSeleccionado$.value.data.Id,
+        Id: this.briefing.activo?.data?.Id,
         Descripcion: this.descripcion.value,
         Presupuesto: this.presupuesto.value,
         Inicio: this.inicio.value,

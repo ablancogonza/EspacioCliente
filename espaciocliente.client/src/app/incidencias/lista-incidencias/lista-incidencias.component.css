@@ -9,6 +9,18 @@
   bottom: 40px;
   right: 40px;
   z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aviso {
+  background-color: #eee;
+  color: black;
+  padding: 0.3rem;
+  border: 1px solid darkgray;
+  border-radius: 0.5rem;
 }
 
 .contenedor-entradas {
