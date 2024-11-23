@@ -118,6 +118,59 @@ namespace EspacioCliente.Data.Models
             return _;
         }
 
+        public virtual async Task<int> BriefingSubirAdjuntoAsync(int? idUsuario, int? idBriefing, string descripcion, byte[] contenido, string extension, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idUsuario",
+                    Value = idUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "idBriefing",
+                    Value = idBriefing ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "descripcion",
+                    Size = 160,
+                    Value = descripcion ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "contenido",
+                    Size = -1,
+                    Value = contenido ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarBinary,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "extension",
+                    Size = 100,
+                    Value = extension ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[BriefingSubirAdjunto] @idUsuario = @idUsuario, @idBriefing = @idBriefing, @descripcion = @descripcion, @contenido = @contenido, @extension = @extension", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<int> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parametersalida = new SqlParameter

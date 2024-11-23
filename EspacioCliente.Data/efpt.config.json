@@ -31,6 +31,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[BriefingSubirAdjunto]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[IncidenciasConversacionCrearEntrada]",
          "ObjectType": 1
       },
@@ -41,6 +45,10 @@
       {
          "Name": "[dbo].[IncidenciasFinalizar]",
          "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[BriefingDescargaFichero]",
+         "ObjectType": 2
       }
    ],
    "UiHint": null,

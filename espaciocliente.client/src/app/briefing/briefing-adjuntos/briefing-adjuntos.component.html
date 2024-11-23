@@ -3,7 +3,7 @@
     <div>
       <p-button icon="pi pi-angle-left" [rounded]="true" [outlined]="true" (click)="briefing.vista.set('lista')" title="Volver" />
     </div>
-    <app-detalle-briefing [entrada]="briefing.entrada" [seleccionable]="false" class="width-100"></app-detalle-briefing>  
+    <app-detalle-briefing [entrada]="briefing.entrada" [seleccionable]="false" class="width-100"></app-detalle-briefing>
   </div>
   <div class="contenedor-adjuntos">
     <div class="cabecera-adjuntos">
@@ -11,12 +11,24 @@
     </div>
     <div class="lista-adjuntos">
       <div class="lista-scroll">
-
+        <div class="fichero-adjunto" *ngFor="let adj of briefing?.listaAdjuntos()" (click)="briefing?.download(adj.Id,'prueba')">
+          Adjunto: {{ adj.Descripcion }}
+        </div>
       </div>
     </div>
   </div>
-  <div class="inferior-derecha">
-    <p-button icon="pi pi-plus" [rounded]="true" (click)="briefing.nuevo()"
-              [disabled]="false" title="Añadir adjunto" />
-  </div>
+  <div class="pie">
+    <input type="text" pInputText [(ngModel)]="descripcion" (keydown)="onKeydown($event)" />    
+    <p-fileUpload mode="basic"
+                  chooseLabel=""
+                  chooseIcon="pi pi-paperclip"
+                  name="fichero"
+                  [url]="url()"                 
+                  [auto]="true"
+                  title="Añadir adjunto"
+                  maxFileSize="9000000"
+                  [disabled]="!descripcion"
+                  (onUpload)="onUpload($event)"
+                  (onError)="errorEnUpload($event)" />    
+  </div> 
 </div>

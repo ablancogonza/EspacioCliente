@@ -3,6 +3,8 @@ import { BriefingDto } from "../shared/dtos/briefing-dto";
 import { Medios } from "../shared/utils/medios";
 import { BriefingService } from "./briefing.service";
 import { signal } from "@angular/core";
+import { environment } from "../../environments/environment";
+import { BriefingAdjuntoDto } from "../shared/dtos/briefing-adjunto-dto";
 
 export class Briefing {
 
@@ -11,6 +13,7 @@ export class Briefing {
   activo: TreeNode<any> | undefined = undefined;
   lista = signal<BriefingDto[]>([]);
   entrada: BriefingDto | undefined = undefined;
+  listaAdjuntos = signal<BriefingAdjuntoDto[]>([]);
 
   constructor(private briefingService: BriefingService) { }
 
@@ -46,7 +49,28 @@ export class Briefing {
 
   adjuntos(e: BriefingDto) {
     this.entrada = e;
-    this.vista.set('adjuntos');    
+    this.vista.set('adjuntos');
+    this.recuperarAdjuntos();
   }
+
+  recuperarAdjuntos() {
+    console.log('entrada: ', this.entrada);
+    this.briefingService.recuperarAdjuntos(this.entrada!.Id!).subscribe({
+      next: (lista: BriefingAdjuntoDto[]) => {
+        this.listaAdjuntos.set(lista);        
+      }
+    })
+  }
+
+  download(id: number, nombreFichero: string) {
+    const url = `${environment.baseUrl}/briefing/descargar/${id}`;
+    const link = document.createElement('a');
+    //link.setAttribute('target', '_blank');
+    link.setAttribute('href', url);
+    link.setAttribute('download', nombreFichero);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
 
 }

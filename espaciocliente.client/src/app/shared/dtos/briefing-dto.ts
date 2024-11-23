@@ -1,5 +1,5 @@
 export interface BriefingDto {
-  IdNodo?: number,
+  Id?: number,
   Descripcion: string,
   Presupuesto: number,
   Usuario?: string,
