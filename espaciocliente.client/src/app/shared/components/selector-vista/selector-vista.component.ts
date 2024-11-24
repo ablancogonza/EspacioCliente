@@ -37,8 +37,7 @@ export class SelectorVistaComponent {
   }
 
   selecciona(id: VistaSeleccionada): void {
-    this.estadoService.selectorVista.vista$.next(id);
-    this.estadoService.guardar();
+    this.estadoService.selectorVista.vista$.next(id);    
   }
 
   cambiaDispositivo(movil: boolean) {

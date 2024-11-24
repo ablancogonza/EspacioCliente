@@ -65,13 +65,5 @@ export class EstadoService {
     this.grafico?.destroy();    
   }
 
-  guardar() {
-    const estado = {
-      token: this.sesion.getToken(),
-      arbol: this.arbol.arbol$.value,
-      nodoSeleccionado: this.arbol.nodoSeleccionado$.value,
-      vista: this.selectorVista.vista$.value
-    };
-    //localStorage.setItem('token', this.sesion.getToken());
-  } 
+ 
 }

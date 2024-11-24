@@ -1,5 +1,4 @@
 import { signal } from "@angular/core";
-
 import { TipoEntradaMensaje } from "../shared/enumerados/tipo-entrada-mensaje";
 import { Fecha } from "../shared/utils/fecha";
 import { Subject } from "rxjs";
@@ -29,7 +28,9 @@ export class Incidencias {
   }
 
   setNodo(nodo: Nodo | undefined) {
-    this.vista.set('lista');    
+    this.vista.set('lista');
+    this.lista.set([]);
+    this.listaMensajes = [];
     this.nodo = nodo;
     console.log('setNodo incidencias: ', this.nodo);
     if (nodo) this.recuperarIncidencias(nodo!.Id);    
