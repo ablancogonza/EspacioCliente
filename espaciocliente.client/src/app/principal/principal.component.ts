@@ -32,7 +32,7 @@ import { DispositivoGrandeComponent } from '../shared/components/dispositivo-gra
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.css'
 })
-export class PrincipalComponent implements AfterViewInit {
+export class PrincipalComponent {
   @HostListener('window:resize', ['$event.target.innerWidth'])
   onResize(width: number) {
     this.ancho = width;
@@ -44,10 +44,6 @@ export class PrincipalComponent implements AfterViewInit {
   constructor(public estadoService: EstadoService) {
     this.ancho = window.innerWidth;
     this.estadoService?.dispositivoMovil$.next(this.ancho < 768);
-  }
-
-  ngAfterViewInit(): void {
-   
   }
 
   anchoCambiado(width: number) {

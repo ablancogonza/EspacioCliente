@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { InversionData, InversionService } from '../../shared/servicios/inversion.service';
-import { TreeNode } from 'primeng/api';
-import { Observable, Subject, switchMap } from 'rxjs';
 import { ChartModule } from 'primeng/chart';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';

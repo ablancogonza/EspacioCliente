@@ -19,8 +19,6 @@ import { CargandoComponent } from '../../shared/components/cargando/cargando.com
   providers: [GoogleMap]
 })
 export class MapaComponent {
-  //@ViewChild(GoogleMap) map!: GoogleMap;
-  //@ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   mapa: Mapa;  

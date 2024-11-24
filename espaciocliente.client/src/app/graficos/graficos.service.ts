@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { FiltroActivo } from '../estado/filtro';
+import { FiltroActivo } from '../filtro/filtro-activo';
+
 
 @Injectable({
   providedIn: 'root'

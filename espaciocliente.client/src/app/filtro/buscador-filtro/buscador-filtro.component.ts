@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { BehaviorSubject, Observable, Subject, switchMap } from 'rxjs';
+import { Observable, Subject, switchMap } from 'rxjs';
 
 import { Nodo } from '../../arbol-cliente/nodo';
 import { FiltroService } from '../filtro.service';

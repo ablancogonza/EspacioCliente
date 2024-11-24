@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { ElementoFiltroDto } from '../shared/dtos/elemento-filtro-dto';
 import { Nodo } from './nodo';
+import { ElementoFiltroDto } from '../filtro/elemento-filtro-dto';
 
 
 

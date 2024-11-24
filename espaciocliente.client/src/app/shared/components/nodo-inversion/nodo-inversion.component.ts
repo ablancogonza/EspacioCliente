@@ -60,9 +60,7 @@ export class NodoInversionComponent {
         subscribe((inv: number) => {
           this.inversion = inv;          
         });
-    });
-    
-//    this.peticionRefrescoInversion$.next({ id: parseInt(this.nodo.key!), inicio: this.filtroActivo.inicio, fin: this.filtroActivo.fin });    
+    });   
   }
 
   eliminar() {

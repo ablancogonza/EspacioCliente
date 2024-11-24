@@ -1,11 +1,10 @@
 import { signal } from "@angular/core";
-import { InversionData, InversionService } from "../shared/servicios/inversion.service";
-
 import { TreeNode } from "primeng/api";
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from "primeng/selectbutton";
 import { Observable, Subject, Subscription, switchMap } from "rxjs";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { FiltroActivo } from "../filtro/filtro-activo";
+import { GraficosService, InversionData } from "./graficos.service";
 
 
 export class Grafico {
@@ -22,7 +21,7 @@ export class Grafico {
   cargando = true;
   readonly tiposDeGraficos = [{ label: 'Medio', value: 1 }, { label: 'Descendientes', value: 2 }, { label: 'Temporal', value: 3 }];
 
-  constructor(private inversionService: InversionService, private mesnsajeService: MensajesService) {
+  constructor(private graficosService: GraficosService, private mesnsajeService: MensajesService) {
     this.obtenerGrafico$ = this.peticionRefrescoGrafico$.pipe(
       switchMap(filtro => this.recuperarDatosGrafico(filtro))
     );
@@ -69,13 +68,13 @@ export class Grafico {
     switch (this.tipoGrafico()) {
       case 1:
         this.tipo.set("pie");
-        return this.inversionService.inversionMedio(this.filtro());
+        return this.graficosService.inversionMedio(this.filtro());
       case 2:
         this.tipo.set("bar");
-        return this.inversionService.inversionCampania(this.filtro());
+        return this.graficosService.inversionCampania(this.filtro());
       case 3:
         this.tipo.set("bar");
-        return this.inversionService.inversionTemporal(this.filtro());
+        return this.graficosService.inversionTemporal(this.filtro());
     }
   }
 

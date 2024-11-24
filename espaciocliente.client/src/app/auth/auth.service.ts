@@ -18,18 +18,7 @@ export class AuthService {
   isTokenValid(): Observable<string> {
     return this.http.get<any>(environment.baseUrl + '/auth/tokenvalid');
   }
-
-  //getForecasts() {
-  //  this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-  //    (result) => {
-  //      this.forecasts = result;
-  //    },
-  //    (error) => {
-  //      console.error(error);
-  //    }
-  //  );
-  //}
-
+ 
 }
 
 

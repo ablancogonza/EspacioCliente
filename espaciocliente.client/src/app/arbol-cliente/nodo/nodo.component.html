@@ -1,6 +1,0 @@
-<div class="tree-label-content" [ngStyle]="{ 'margin-left': (loading) ? '-1rem' : '0'}">
-  <i class="pi pi-spin pi-spinner color" style="font-size: 1rem" *ngIf="loading"></i>
-  <span class="borde-nodo" [title]="tooltip">{{ tipoNodo }}</span>
-  <span class="texto-nodo" *ngIf="!bold">{{ texto }}</span>
-  <span class="texto-nodo bold" *ngIf="bold">{{ texto }}</span>
-</div>

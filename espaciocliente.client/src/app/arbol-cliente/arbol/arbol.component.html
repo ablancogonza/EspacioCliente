@@ -7,10 +7,7 @@
             scrollHeight="100%" class="tree font-bold"
             [selection]="(arbol.nodoSeleccionado$ | async)"
             (onNodeExpand)="arbol.nodoExpandido($event)"
-            (onNodeSelect)="arbol.nodeSelect($event)">
-      <!--<ng-template let-node pTemplate="AG">
-    <app-nodo tooltip="Agencia" tipoNodo="AG" [texto]="node.label" [bold]="true" [loading]="false"></app-nodo>
-  </ng-template>-->
+            (onNodeSelect)="arbol.nodeSelect($event)">     
       <ng-template let-node pTemplate="default">
         <div class="nodo" [title]="toolTipNodo(node)">
           <div class="tipo">

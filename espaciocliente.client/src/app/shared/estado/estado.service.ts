@@ -8,13 +8,13 @@ import { Grafico } from '../../graficos/grafico';
 import { MapaService } from '../../mapa/mapa.service';
 import { IncidenciasService } from '../../incidencias/incidencias.service';
 import { MensajesService } from '../servicios/mensajes.service';
-import { InversionService } from '../servicios/inversion.service';
 import { SelectorVista } from './selector-vista';
 import { Filtro } from '../../filtro/filtro';
 import { FiltroService } from '../../filtro/filtro.service';
 import { BehaviorSubject } from 'rxjs';
 import { Briefing } from '../../briefing/briefing';
 import { BriefingService } from '../../briefing/briefing.service';
+import { GraficosService } from '../../graficos/graficos.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class EstadoService {
 
   constructor(private arbolService: ArbolService,
     private filtroService: FiltroService,
-    private inversionService: InversionService,
+    private graficoService: GraficosService,
     private mapaService: MapaService,
     private incidenciasService: IncidenciasService,
     private briefingService: BriefingService,
@@ -47,7 +47,7 @@ export class EstadoService {
     this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.grafico?.destroy();
-    this.grafico = new Grafico(this.inversionService, this.mensajesService);
+    this.grafico = new Grafico(this.graficoService, this.mensajesService);
     this.mapa = new Mapa(this.mapaService);
     this.incidencias = new Incidencias(this.incidenciasService, email);
     this.briefing = new Briefing(this.briefingService);
