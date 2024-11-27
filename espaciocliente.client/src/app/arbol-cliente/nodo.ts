@@ -4,3 +4,4 @@ export interface Nodo {
   Descripcion: string;
   IdTipoNodo: number;
 }
+

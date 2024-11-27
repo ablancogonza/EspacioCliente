@@ -23,7 +23,7 @@ namespace EspacioCliente.Server.Utils
                 issuer: _configuration["Jwt_Issuer"],
                 audience: _configuration["Jwt_Audience"],
                 claims: GetClaims(user),
-                expires: DateTime.UtcNow.AddHours(3).AddMinutes(Convert.ToDouble(
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(
                     _configuration["Sesion_Minutos"])),
                 signingCredentials: GetSigningCredentials());
             return jwt;

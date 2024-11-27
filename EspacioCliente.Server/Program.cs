@@ -42,7 +42,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ClockSkew = TimeSpan.Zero //required if the expire time is <5 minutes
+        ClockSkew = TimeSpan.Zero 
     };
 });
 

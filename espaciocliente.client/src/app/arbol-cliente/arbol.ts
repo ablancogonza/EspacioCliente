@@ -10,7 +10,7 @@ import { FiltroActivo } from "../filtro/filtro-activo";
 
 export class Arbol {
  
-  arbol$: BehaviorSubject<TreeNode[]> = new BehaviorSubject([{}]); //  = signal<TreeNode[]>([]);
+  arbol = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
   constructor(private arbolService: ArbolService, private mensajesService: MensajesService) { }
 
@@ -28,8 +28,7 @@ export class Arbol {
             loading: false
           });
         });
-        this.arbol$.next(raiz);
-        //if (raiz.length > 0) this.nodoSeleccionado$.next(raiz[0]);
+        this.arbol.set(raiz);
         if (raiz.length == 1) {
           this.cargaDescendientes(raiz[0]);
         }
@@ -55,8 +54,7 @@ export class Arbol {
           });
         });
         nodo.loading = false;
-        nodo.expanded = true;        
-        this.arbol$.next([...this.arbol$.value]);
+        nodo.expanded = true;               
         if (nodo.children.length === 1) {
           this.cargaDescendientes(nodo.children[0]);
         }
@@ -90,7 +88,7 @@ export class Arbol {
             loading: false
           });
         });
-        this.arbol$.next(raiz);
+        this.arbol.set(raiz);
         if (raiz.length > 0) this.nodoSeleccionado$.next(raiz[0]);
         if (raiz.length == 1) {
           this.cargaDescendientes(raiz[0]);

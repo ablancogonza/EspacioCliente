@@ -1,7 +1,7 @@
 <div class="arbol-container">
   <div class="arbol-scroll">
     <p-tree #tree
-            [value]="(arbol.arbol$ | async)"
+            [value]="arbol.arbol()"
             selectionMode="single"
             loadingMode="icon"
             scrollHeight="100%" class="tree font-bold"
