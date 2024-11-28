@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, ViewChild } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -7,6 +7,7 @@ import { EstadoService } from '../../shared/estado/estado.service';
 import { Arbol } from '../arbol';
 import { Arbol as UtilsArbol } from '../../shared/utils/arbol';
 import { FiltroNodo } from '../../filtro/filtro-nodo';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-arbol',
@@ -15,7 +16,8 @@ import { FiltroNodo } from '../../filtro/filtro-nodo';
   templateUrl: './arbol.component.html',
   styleUrl: './arbol.component.css'
 })
-export class ArbolComponent {
+export class ArbolComponent implements AfterViewInit {
+  @ViewChild('contenedor') contenedor!: ElementRef;
   arbol: Arbol;
   loading = false;
   constructor(private estado: EstadoService, private destroyRef: DestroyRef) {
@@ -25,6 +27,20 @@ export class ArbolComponent {
       subscribe((f: FiltroNodo) => estado.arbol.setNodo(f.nodo));
     
   };
+
+  ngAfterViewInit() {
+    this.contenedor.nativeElement.scrollTop = `${this.arbol.scrollArbol()}`;
+    const scrollStream = fromEvent(this.contenedor.nativeElement, 'scroll');
+    console.log('afterInit(): ', scrollStream);
+
+    scrollStream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (t: any) => {
+        console.log('scroll: ', t.srcElement.scrollTop);
+        this.arbol.scrollArbol.set(t.srcElement.scrollTop);
+      }
+    });    
+  }
+
 
   toolTipNodo(n: TreeNode): string {
     if (!n.data || !n.data.IdTipoNodo) return '';

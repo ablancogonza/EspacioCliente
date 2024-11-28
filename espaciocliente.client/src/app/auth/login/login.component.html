@@ -1,5 +1,5 @@
 <div class="login-container">
-  <p-card *ngIf="!procesando">
+  <p-card>
     <div class="login-form-container">
       <div class="login-header">
           <div>
@@ -44,7 +44,7 @@
     </div>
   </p-card>  
 </div>
-<div class="contenedor-procesando" *ngIf="procesando">
+<div class="contenedor-procesando" *ngIf="procesando()">
   <app-cargando></app-cargando>
 </div>
 

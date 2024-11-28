@@ -52,4 +52,7 @@
     left: 0;
     height: 100svh;
     width: 100svw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

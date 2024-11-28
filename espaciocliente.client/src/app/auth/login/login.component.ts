@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -25,7 +25,7 @@ import { CargandoComponent } from '../../shared/components/cargando/cargando.com
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string | undefined;
-  procesando: boolean = true;
+  procesando = signal<boolean>(false);
 
   constructor(private router: Router, private authService: AuthService, private estadoService: EstadoService, private mensajesService: MensajesService) {
 
@@ -36,24 +36,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.estadoService.sesion.tieneCredenciales()) {
-      this.authService.isTokenValid().subscribe({
-        next: () => {
-          this.estadoService.postInit();
-          setTimeout(() => {
-            this.router.navigateByUrl('/principal');
-          }, 300);
-        },
-        error: (e: any) => {
-          this.estadoService.cerrarSesion();
-          this.procesando = false;
-        }
-      })
-    } else {
-      this.procesando = false;
-    }
-    console.log('procesando: ', this.procesando);
+   
+    //console.log('procesando: ', this.procesando);
   }
 
   get email() {
@@ -65,7 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.procesando = true;
+    this.procesando.set(true);
     setTimeout(() => { this.acceder(); });
   }
 
@@ -75,12 +59,11 @@ export class LoginComponent implements OnInit {
         next: (t) => {
           localStorage.setItem('email', this.email?.value);
           this.estadoService.init(this.email?.value, t.token);
-          this.estadoService.postInit();
-          this.procesando = false;
+          this.estadoService.postInit();          
           this.router.navigateByUrl('/principal');
         },
         error: (e: HttpErrorResponse) => {         
-          this.procesando = false;
+          this.procesando.set(false);
           if (e.error.status === 401) {
             this.mensajesService.error('Las credenciales no son correctas');
           } else {

@@ -11,6 +11,7 @@ export class Arbol {
  
   arbol = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
+  scrollArbol = signal<number>(0);
   constructor(private arbolService: ArbolService, private mensajesService: MensajesService) { }
 
   init() {    
