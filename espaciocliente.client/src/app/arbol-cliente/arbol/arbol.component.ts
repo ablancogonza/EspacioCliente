@@ -4,9 +4,9 @@ import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EstadoService } from '../../shared/estado/estado.service';
-import { FiltroActivo } from '../../filtro/filtro-activo';
 import { Arbol } from '../arbol';
 import { Arbol as UtilsArbol } from '../../shared/utils/arbol';
+import { FiltroNodo } from '../../filtro/filtro-nodo';
 
 @Component({
   selector: 'app-arbol',
@@ -20,9 +20,9 @@ export class ArbolComponent {
   loading = false;
   constructor(private estado: EstadoService, private destroyRef: DestroyRef) {
     this.arbol = estado.arbol;
-    this.estado.filtro.filtroModificado$.
+    this.estado.filtro.filtroNodo$.
       pipe(takeUntilDestroyed(this.destroyRef)).
-      subscribe((f: FiltroActivo) => estado.arbol.repintar(f));
+      subscribe((f: FiltroNodo) => estado.arbol.setNodo(f.nodo));
     
   };
 

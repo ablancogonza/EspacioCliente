@@ -5,9 +5,9 @@
                   unselectable="true"
                   optionLabel="label"
                   optionValue="value" />
-  <div class="grafico" *ngIf="!grafico?.cargando && grafico.nodo && grafico.nodo.data">
+  <div class="grafico" *ngIf="!grafico?.cargando() && grafico.nodoArbolSeleccionado && grafico.nodoArbolSeleccionado.data">
     <p-chart [type]="grafico.tipo()" [data]="grafico.data()" [options]="grafico.options()" />
   </div>
-  <app-seleccione-nodo *ngIf="!grafico.nodo || !grafico.nodo.data"></app-seleccione-nodo> 
-  <app-cargando *ngIf="grafico?.cargando"></app-cargando> 
+  <app-seleccione-nodo *ngIf="!grafico.nodoArbolSeleccionado || !grafico.nodoArbolSeleccionado.data"></app-seleccione-nodo> 
+  <app-cargando *ngIf="grafico?.cargando()"></app-cargando> 
 </div>

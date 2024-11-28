@@ -8,6 +8,7 @@ import { EstadoService } from '../../shared/estado/estado.service';
 import { Mapa } from '../mapa';
 import { Valla } from '../valla';
 import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
+import { FiltroFechas } from '../../filtro/filtro-fechas';
 
 
 @Component({
@@ -32,10 +33,8 @@ export class MapaComponent {
         if (!limites || !this.map || limites.south === undefined) return;        
         setTimeout(() => {
           this.map?.googleMap?.fitBounds(limites);
-        }, 100);
-        
+        }, 100);        
       });
-
 
     this.estadoService.arbol.nodoSeleccionado$.
       pipe(takeUntilDestroyed(this.destroyRef)).
@@ -45,19 +44,17 @@ export class MapaComponent {
       }
       });
 
-    this.estadoService.filtro.filtroModificado$.
+    this.estadoService.filtro.filtroFechas$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
-        next: (filtro) => {
+        next: (filtro: FiltroFechas) => {
           this.mapa.recuperarVallasFiltro(filtro.inicio, filtro.fin);
         }
       });
   }
 
-  valla?: Valla;
-
   onVallaClick(marker: MapAdvancedMarker, valla: Valla) {       
-    this.valla = valla;
+    this.mapa.valla = valla;
     this.infoWindow.open(marker);
   }
   

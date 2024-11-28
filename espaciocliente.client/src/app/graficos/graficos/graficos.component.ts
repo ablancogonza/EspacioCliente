@@ -8,6 +8,7 @@ import { SeleccioneNodoComponent } from '../../shared/components/seleccione-nodo
 import { EstadoService } from '../../shared/estado/estado.service';
 import { Grafico } from '../grafico';
 import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
+import { FiltroFechas } from '../../filtro/filtro-fechas';
 
 @Component({
   selector: 'app-graficos',
@@ -31,17 +32,17 @@ export class GraficosComponent implements OnInit {
           this.grafico.setNodo(seleccionado);
         }
       });
-    this.estadoService.filtro.filtroModificado$.
+    this.estadoService.filtro.filtroFechas$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
-        next: (filtro) => {
-          this.grafico.setFiltro(filtro);
+        next: (fechas: FiltroFechas) => {
+          this.grafico.fechasCambiadas(fechas);
         }
       });
   }
 
   ngOnInit() {
-    if (this.grafico.nodo === undefined || this.grafico.nodo.data === undefined) {
+    if (this.grafico.nodoArbolSeleccionado === undefined || this.grafico.nodoArbolSeleccionado.data === undefined) {
       this.grafico.sinNodoSeleccionado();
     }
   }

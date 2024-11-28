@@ -6,7 +6,6 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { ArbolService } from "./arbol.service";
 import { Nodo } from "./nodo";
-import { FiltroActivo } from "../filtro/filtro-activo";
 
 export class Arbol {
  
@@ -65,13 +64,17 @@ export class Arbol {
     });
   }
 
-  repintar(f: FiltroActivo): void {
-    if (f.id) {
-      this.seccionArbol(f.id);
-    } else {
-      this.init();
-    }
+  setNodo(n: number | undefined): void {
+
   }
+
+  //repintar(f: FiltroActivo): void {
+  //  if (f.id) {
+  //    this.seccionArbol(f.id);
+  //  } else {
+  //    this.init();
+  //  }
+  //}
 
   seccionArbol(id: number) {
     this.arbolService.desdeNodo(id).subscribe({

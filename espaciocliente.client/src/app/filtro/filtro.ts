@@ -1,22 +1,24 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, ReplaySubject, Subject } from "rxjs";
 import { signal } from "@angular/core";
 import { Presupuesto } from "../shared/utils/presupuesto";
 import { FiltroService } from "./filtro.service";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { KeyValueDto } from "../shared/dtos/key-value-dto";
-import { FiltroActivo } from "./filtro-activo";
+import { FiltroFechas } from "./filtro-fechas";
 import { ElementoFiltro } from "./elemento-filtro";
+import { FiltroNodo } from "./filtro-nodo";
 
 export class Filtro {
-  filtroInicial: FiltroActivo = { inicio: 202401, fin: 202412 };
+  filtroInicial: FiltroFechas = { inicio: 202401, fin: 202412 };
   elementosFiltro$: BehaviorSubject<ElementoFiltro[]> = new BehaviorSubject<ElementoFiltro[]>([]);
   inicio = signal(Presupuesto.presupuestoToDate(this.filtroInicial.inicio));
-  fin = signal(Presupuesto.presupuestoToDate(this.filtroInicial.fin));  
-  filtroModificado$: BehaviorSubject<FiltroActivo>;
+  fin = signal(Presupuesto.presupuestoToDate(this.filtroInicial.fin));
+  filtroNodo$: BehaviorSubject<FiltroNodo> = new BehaviorSubject<FiltroNodo>({ nodo: undefined });
+  filtroFechas$: BehaviorSubject<FiltroFechas>;
 
   constructor(private filtroService: FiltroService, private mensajeService: MensajesService) {
 
-    this.filtroModificado$ = new BehaviorSubject<FiltroActivo>({
+    this.filtroFechas$ = new BehaviorSubject<FiltroFechas>({
       inicio: Presupuesto.dateToPresupuesto(this.inicio()),
       fin: Presupuesto.dateToPresupuesto(this.fin())
     });    
@@ -47,7 +49,7 @@ export class Filtro {
     } else {
       this.inicio.set(d);
     }
-    this.notificarFiltroCambiado();
+    this.notificarFechasCambiado();
   }
 
   finModificado(d: Date) {    
@@ -57,7 +59,7 @@ export class Filtro {
     } else {
       this.fin.set(d);
     }
-    this.notificarFiltroCambiado();
+    this.notificarFechasCambiado();
   }
 
   buscadorModificado(e: ElementoFiltro) {    
@@ -84,7 +86,7 @@ export class Filtro {
       nuevo.reverse();
       this.elementosFiltro$.next(nuevo);
     }
-    this.notificarFiltroCambiado();
+    //this.filtroNodo$.next();
   }
 
   idBuscador(): number | undefined {
@@ -96,13 +98,12 @@ export class Filtro {
     return undefined;
   }
 
-  notificarFiltroCambiado() {
-    const fa: FiltroActivo = {
-      id: this.idBuscador(),
+  notificarFechasCambiado() {
+    const fa: FiltroFechas = {      
       inicio: Presupuesto.dateToPresupuesto(this.inicio()),
       fin: Presupuesto.dateToPresupuesto(this.fin())
     };
-    this.filtroModificado$.next(fa);
+    this.filtroFechas$.next(fa);
   }
 }
 

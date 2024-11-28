@@ -46,7 +46,6 @@ export class EstadoService {
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
-    this.grafico?.destroy();
     this.grafico = new Grafico(this.graficoService, this.mensajesService);
     this.mapa = new Mapa(this.mapaService);
     this.incidencias = new Incidencias(this.incidenciasService, email);
@@ -61,8 +60,7 @@ export class EstadoService {
   
   cerrarSesion() {
     this.sesion.setToken('');
-    this.sesion.setEmail('');   
-    this.grafico?.destroy();    
+    this.sesion.setEmail('');       
   }
 
  

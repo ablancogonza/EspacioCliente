@@ -1,80 +1,79 @@
-import { signal } from "@angular/core";
+import { DestroyRef, signal } from "@angular/core";
 import { TreeNode } from "primeng/api";
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from "primeng/selectbutton";
 import { Observable, Subject, Subscription, switchMap } from "rxjs";
 import { MensajesService } from "../shared/servicios/mensajes.service";
-import { FiltroActivo } from "../filtro/filtro-activo";
 import { GraficosService, InversionData } from "./graficos.service";
+import { FiltroFechas } from "../filtro/filtro-fechas";
+import { EstadoService } from "../shared/estado/estado.service";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { FiltroActivo } from "../filtro/filtro-activo";
+import { HttpErrorResponse } from "@angular/common/http";
 
 
 export class Grafico {
  
-  nodo?: TreeNode;
-  filtroActivo?: FiltroActivo;
+  nodoArbolSeleccionado?: TreeNode;
+  filtroFechas?: FiltroFechas;
   data = signal<any>(undefined);
   options = signal<any>(undefined);
   tipo = signal<TipoGrafico>("pie");
   tipoGrafico = signal<number>(1);
-  peticionRefrescoGrafico$: Subject<FiltroActivo> = new Subject();
-  obtenerGrafico$: Observable<any>;
-  subs: Subscription[] = [];
-  cargando = true;
+  cargando = signal<boolean>(true);
+
   readonly tiposDeGraficos = [{ label: 'Medio', value: 1 }, { label: 'Descendientes', value: 2 }, { label: 'Temporal', value: 3 }];
 
-  constructor(private graficosService: GraficosService, private mesnsajeService: MensajesService) {
-    this.obtenerGrafico$ = this.peticionRefrescoGrafico$.pipe(
-      switchMap(filtro => this.recuperarDatosGrafico(filtro))
-    );
-
-    this.subs.push(this.obtenerGrafico$.subscribe((datos) => {
-      this.generarGrafico(datos);
-    }));
-  }
-
-  destroy() {
-    this.subs.forEach(s => s?.unsubscribe());
-  }
-
+  constructor(private graficosService: GraficosService, private mensajesService: MensajesService) { }
+ 
   sinNodoSeleccionado() {
-    this.cargando = false;    
+    this.cargando.set(false);    
   }
 
   setNodo(n: TreeNode) {
-    this.nodo = n;
+    this.nodoArbolSeleccionado = n;
     this.recalcularGrafico();
   }
 
-  setFiltro(f: FiltroActivo) {
-    this.filtroActivo = f;
+  fechasCambiadas(fechas: FiltroFechas) {
+    this.filtroFechas = fechas;
     this.recalcularGrafico();
   }
-
+  
   vistaSeleccionada(e: any) {
     this.tipoGrafico.set(e.value);
-    if (this.nodo && this.nodo.data) this.recalcularGrafico();
+    this.recalcularGrafico();
   }
 
-  filtro(): FiltroActivo {
-    return { id: parseInt(this.nodo?.key!), inicio: this.filtroActivo?.inicio!, fin: this.filtroActivo?.fin! };
+  private filtro(): FiltroActivo {
+    return { id: parseInt(this.nodoArbolSeleccionado?.key!), inicio: this.filtroFechas?.inicio!, fin: this.filtroFechas?.fin! };
   }
 
   recalcularGrafico() {
-    this.cargando = true;
-    if (!this.filtroActivo || !this.nodo || !this.nodo.key) return;    
-    const f = { id: parseInt(this.nodo.key!), inicio: this.filtroActivo.inicio, fin: this.filtroActivo.fin };    
-    this.peticionRefrescoGrafico$.next(f);
+    this.cargando.set(true);
+    if (!this.filtroFechas || !this.nodoArbolSeleccionado || !this.nodoArbolSeleccionado.key) return;    
+    const f = { id: parseInt(this.nodoArbolSeleccionado.key!), inicio: this.filtroFechas.inicio, fin: this.filtroFechas.fin };    
+    this.recuperarDatosGrafico(f).subscribe({
+      next: (data: InversionData[]) => {
+        this.generarGrafico(data);
+        this.cargando.set(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
+      }
+    });
   }
-  recuperarDatosGrafico(filtro: FiltroActivo): any {
-    switch (this.tipoGrafico()) {
-      case 1:
-        this.tipo.set("pie");
-        return this.graficosService.inversionMedio(this.filtro());
+
+  recuperarDatosGrafico(filtro: FiltroActivo): Observable<InversionData[]> {
+    switch (this.tipoGrafico()) {      
       case 2:
         this.tipo.set("bar");
         return this.graficosService.inversionCampania(this.filtro());
       case 3:
         this.tipo.set("bar");
         return this.graficosService.inversionTemporal(this.filtro());
+      default:
+        this.tipo.set("pie");
+        return this.graficosService.inversionMedio(this.filtro());
     }
   }
 
@@ -100,8 +99,7 @@ export class Grafico {
           }
         }
       }
-    });
-    this.cargando = false;
+    });    
   }
 }
 

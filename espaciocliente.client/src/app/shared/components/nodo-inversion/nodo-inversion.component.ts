@@ -11,7 +11,7 @@ import { Presupuesto } from '../../utils/presupuesto';
 import { Fecha } from '../../utils/fecha';
 import { FiltroComponent } from '../../../filtro/filtro/filtro.component';
 import { EstadoService } from '../../estado/estado.service';
-import { FiltroActivo } from '../../../filtro/filtro-activo';
+import { FiltroFechas } from '../../../filtro/filtro-fechas';
 import { Arbol } from '../../utils/arbol';
 
 
@@ -26,13 +26,14 @@ import { Arbol } from '../../utils/arbol';
 export class NodoInversionComponent {
   filtroVisible: boolean = false;
   nodo?: TreeNode;
-  filtroActivo?: FiltroActivo; 
+  filtroFechas?: FiltroFechas; 
   rangoFechas: string = '';
   inversion: number | undefined | null = null;
   
   constructor(private estadoService: EstadoService,
     private inversionService: InversionService,
     private destroyRef: DestroyRef) {
+
     this.estadoService.arbol.nodoSeleccionado$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
@@ -41,22 +42,23 @@ export class NodoInversionComponent {
           this.recalculaInversion();
         }
       });
-    this.estadoService.filtro.filtroModificado$.
+    this.estadoService.filtro.filtroFechas$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
         next: (filtro) => {
-          this.filtroActivo = filtro;
+          this.filtroFechas = filtro;
           this.rangoFechas = `${Fecha.mesAnio(Presupuesto.presupuestoToDate(filtro.inicio))} - ${Fecha.mesAnio(Presupuesto.presupuestoToDate(filtro.fin))}`;
           this.recalculaInversion();
         }
-      });    
+      });
+
   }
 
   recalculaInversion() {    
-    if (!this.filtroActivo || !this.nodo || !this.nodo?.key) return;
+    if (!this.filtroFechas || !this.nodo || !this.nodo?.key) return;
     this.inversion = undefined;    
     setTimeout(() => {
-      this.inversionService.inversion({ id: parseInt(this.nodo?.key!), inicio: this.filtroActivo!.inicio, fin: this.filtroActivo!.fin }).
+      this.inversionService.inversion({ id: parseInt(this.nodo?.key!), inicio: this.filtroFechas!.inicio, fin: this.filtroFechas!.fin }).
         subscribe((inv: number) => {
           this.inversion = inv;          
         });
