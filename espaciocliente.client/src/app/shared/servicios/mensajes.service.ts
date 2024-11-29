@@ -16,7 +16,7 @@ export class MensajesService {
         this.mensaje$.next({ severity: 'warning', summary: 'Sesiónm caducada', detail: 'Su sesión ha caducado. Deberá volver a iniciar sesión.' });
         break;
       default:
-        this.mensaje$.next({ severity: 'error', summary: 'Error', detail: error.message });
+        this.mensaje$.next({ severity: 'error', summary: 'Error', detail: 'Parece que no hay conexión' });
         break;
     }
   }

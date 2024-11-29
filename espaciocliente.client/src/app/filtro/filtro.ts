@@ -7,6 +7,7 @@ import { KeyValueDto } from "../shared/dtos/key-value-dto";
 import { FiltroFechas } from "./filtro-fechas";
 import { ElementoFiltro } from "./elemento-filtro";
 import { FiltroNodo } from "./filtro-nodo";
+import { HttpErrorResponse } from "@angular/common/http";
 
 export class Filtro {
   filtroInicial: FiltroFechas = { inicio: 202401, fin: 202412 };
@@ -16,7 +17,7 @@ export class Filtro {
   filtroNodo$: BehaviorSubject<FiltroNodo> = new BehaviorSubject<FiltroNodo>({ nodo: undefined });
   filtroFechas$: BehaviorSubject<FiltroFechas>;
 
-  constructor(private filtroService: FiltroService, private mensajeService: MensajesService) {
+  constructor(private filtroService: FiltroService, private mensajesService: MensajesService) {
 
     this.filtroFechas$ = new BehaviorSubject<FiltroFechas>({
       inicio: Presupuesto.dateToPresupuesto(this.inicio()),
@@ -25,27 +26,31 @@ export class Filtro {
   }
 
   init() {
-    this.filtroService.elementosFiltro().subscribe(elementos => {
-      const elems: ElementoFiltro[] = [];      
-      elementos?.map(e => {
-        const elem: ElementoFiltro = {
-          id: e.Id,
-          titulo: e.TipoNodo,
-          seleccionado: undefined,
-          coincidentes: [],
-          activo: true
-        };
-        elems.push(elem);
-      });
-      console.log('elems filtro: ', elems);
-      this.elementosFiltro$.next(elems);
+    this.filtroService.elementosFiltro().subscribe({
+      next: (elementos) => {
+        const elems: ElementoFiltro[] = [];
+        elementos?.map(e => {
+          const elem: ElementoFiltro = {
+            id: e.Id,
+            titulo: e.TipoNodo,
+            seleccionado: undefined,
+            coincidentes: [],
+            activo: true
+          };
+          elems.push(elem);
+        });
+        this.elementosFiltro$.next(elems);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
+      }
     });
   }
 
   inicioModificado(d: Date) {    
     if (Presupuesto.dateToPresupuesto(d) > Presupuesto.dateToPresupuesto(this.fin())) {
       this.inicio.set(this.fin());
-      this.mensajeService.warning('La fecha de inicio no puede ser posterior a la de fin');
+      this.mensajesService.warning('La fecha de inicio no puede ser posterior a la de fin');
     } else {
       this.inicio.set(d);
     }
@@ -55,7 +60,7 @@ export class Filtro {
   finModificado(d: Date) {    
     if (Presupuesto.dateToPresupuesto(d) < Presupuesto.dateToPresupuesto(this.inicio())) {
       this.fin.set(this.inicio());
-      this.mensajeService.warning('La fecha de fin no puede ser anterior a la de inicio');
+      this.mensajesService.warning('La fecha de fin no puede ser anterior a la de inicio');
     } else {
       this.fin.set(d);
     }

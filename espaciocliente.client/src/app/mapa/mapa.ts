@@ -4,6 +4,8 @@ import { BehaviorSubject } from "rxjs";
 import { VallaExt } from "../shared/utils/valla";
 import { Valla } from "./valla";
 import { MapaService } from "./mapa.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MensajesService } from "../shared/servicios/mensajes.service";
 
 export class Mapa {
 
@@ -16,7 +18,7 @@ export class Mapa {
   fin: number | undefined = undefined
   valla?: Valla;
   cargando = false;
-  constructor(private mapaService: MapaService) {
+  constructor(private mapaService: MapaService, private mensajesService: MensajesService) {
     this.options.set({
       mapId: "DEMO_MAP_ID",
       center: { lat: 36.675198, lng: -6.246548 },
@@ -29,15 +31,16 @@ export class Mapa {
     setTimeout(() => {
       this.mapaService.vallas(idNodo, inicio, fin).subscribe({
         next: (vallas) => {
-          if (!vallas) vallas = [];
-          //this.vallas.set(vallas);
-          //const marcas: any[] = [];
+          if (!vallas) vallas = [];         
           vallas.forEach(valla => {
             valla.pos = VallaExt.position(valla)            
           });          
           this.markers.set(vallas);
           this.limites$.next(this.getBounds(this.markers()));
           this.cargando = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.mensajesService.errorHttp(err);
         }
       });
     });    

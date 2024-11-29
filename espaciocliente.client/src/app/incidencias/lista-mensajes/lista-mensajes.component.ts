@@ -82,10 +82,8 @@ export class ListaMensajesComponent implements AfterViewInit {
     this.mensajeService.error('Error al subir la imagen');
   }
 
-  finalizar(inc: Incidencia) {
-    console.log('finalizar: ', inc);
-    this.estadoService.incidencias.finalizar(inc.id);
-    console.log('después de finalizar');
+  finalizar(inc: Incidencia) {    
+    this.estadoService.incidencias.finalizar(inc.id);    
     this.volver();
   }
 

@@ -19,7 +19,7 @@ import { fromEvent } from 'rxjs';
 export class ArbolComponent implements AfterViewInit {
   @ViewChild('contenedor') contenedor!: ElementRef;
   arbol: Arbol;
-  loading = false;
+  
   constructor(private estado: EstadoService, private destroyRef: DestroyRef) {
     this.arbol = estado.arbol;
     this.estado.filtro.filtroNodo$.
@@ -30,12 +30,10 @@ export class ArbolComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.contenedor.nativeElement.scrollTop = `${this.arbol.scrollArbol()}`;
-    const scrollStream = fromEvent(this.contenedor.nativeElement, 'scroll');
-    console.log('afterInit(): ', scrollStream);
+    const scrollStream = fromEvent(this.contenedor.nativeElement, 'scroll');   
 
     scrollStream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (t: any) => {
-        console.log('scroll: ', t.srcElement.scrollTop);
+      next: (t: any) => {        
         this.arbol.scrollArbol.set(t.srcElement.scrollTop);
       }
     });    

@@ -8,6 +8,8 @@ import { InfoValla } from '../info-valla';
 import { Valla } from '../valla';
 import { MapaService } from '../mapa.service';
 import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MensajesService } from '../../shared/servicios/mensajes.service';
 
 @Component({
   selector: 'app-detalle-valla',
@@ -26,7 +28,7 @@ export class DetalleVallaComponent implements OnChanges {
   imagen?: string;
   info?: InfoValla;
 
-  constructor(private mapaService: MapaService) { }
+  constructor(private mapaService: MapaService, private mensajesService: MensajesService) { }
 
   ngOnChanges(changes: SimpleChanges): void {    
     if (changes['valla'] && changes['valla'].currentValue) {
@@ -35,6 +37,8 @@ export class DetalleVallaComponent implements OnChanges {
           this.info = info[0];
           this.imagen = this.info?.imagen ? `data:image/jpeg;base64,${this.info.imagen}` : '';
           this.cargando = false;         
+        }, error: (err: HttpErrorResponse) => {
+          this.mensajesService.errorHttp(err);
         }
       });
     }

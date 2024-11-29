@@ -32,7 +32,8 @@ export class Arbol {
         if (raiz.length == 1) {
           this.cargaDescendientes(raiz[0]);
         }
-      }, error: (error: HttpErrorResponse) => {
+      },
+      error: (error: HttpErrorResponse) => {
         this.mensajesService.errorHttp(error);
       }
     });
@@ -79,8 +80,7 @@ export class Arbol {
 
   seccionArbol(id: number) {
     this.arbolService.desdeNodo(id).subscribe({
-      next: (nodos) => {
-        console.log('secciónArbol: ', nodos);
+      next: (nodos) => {        
         const raiz: TreeNode[] = [];
         nodos?.forEach((nodo: Nodo) => {
           raiz.push({
@@ -114,8 +114,5 @@ export class Arbol {
   nodeSelect(e: TreeNodeSelectEvent) {
     this.nodoSeleccionado$.next(e.node);
   }
-
-  eliminar() {
-    this.arbolService.eliminar(this.nodoSeleccionado$.value);
-  } 
+ 
 }

@@ -7,6 +7,8 @@ import { Incidencia } from "./incidencia";
 import { Mensaje } from "./mensaje";
 import { EntradaMensaje } from "./entrada-mensaje";
 import { Nodo } from "../arbol-cliente/nodo";
+import { MensajesService } from "../shared/servicios/mensajes.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 export class Incidencias {
  
@@ -23,7 +25,7 @@ export class Incidencias {
   email: string;
   actualizarScroll$: Subject<undefined> = new Subject();
 
-  constructor(private incidenciasService: IncidenciasService, email: string) {
+  constructor(private incidenciasService: IncidenciasService, private mensajesService: MensajesService, email: string) {
     this.email = email;
   }
 
@@ -31,8 +33,7 @@ export class Incidencias {
     this.vista.set('lista');
     this.lista.set([]);
     this.listaMensajes = [];
-    this.nodo = nodo;
-    console.log('setNodo incidencias: ', this.nodo);
+    this.nodo = nodo;    
     if (nodo) this.recuperarIncidencias(nodo!.Id);    
   }
 
@@ -43,9 +44,9 @@ export class Incidencias {
         this.lista.set(lista ?? []);
         this.procesando.set(false);
       },
-      error: (err) => {
-        console.log('error recuperar incidencias: ', err);
+      error: (err) => {        
         this.procesando.set(false);
+        this.mensajesService.errorHttp(err);
       }
     })
   }
@@ -57,17 +58,15 @@ export class Incidencias {
   aceptaNuevaIncidencia() {
     this.procesando.set(true);
     this.incidenciasService.crear(this.nodo!.Id, this.titulo).subscribe({
-      next: (incidencias: Incidencia[]) => {
-        console.log('incidencia creada: ', incidencias);
+      next: (incidencias: Incidencia[]) => {        
         const copia = [...incidencias, ...this.lista()];
-        this.lista.set(copia);        
-        console.log('nueva lista: ', this.lista());
+        this.lista.set(copia);                
         this.procesando.set(false);
         this.actualizarScroll$.next(undefined);
       },
-      error: (err) => {
-        console.log('error al crear: ', err);
+      error: (err) => {        
         this.procesando.set(false);
+        this.mensajesService.errorHttp(err);
       }
     });
 
@@ -88,6 +87,9 @@ export class Incidencias {
         this.listaMensajes = [...this.listaMensajes??[], msg[0]];        
         this.mensajes.set(this.mensajesProcesados(this.listaMensajes)); 
         this.procesando.set(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
       }
     })
   }
@@ -98,12 +100,14 @@ export class Incidencias {
     this.procesando.set(false);
   }
 
-  cargarMensajes(id: number) {
-    console.log('cargar mensajes: ', id);
+  cargarMensajes(id: number) {    
     this.incidenciasService.recuperarMensajes(id).subscribe({
       next: (lista: Mensaje[]) => {
         this.listaMensajes = lista;
         this.mensajes.set(this.mensajesProcesados(lista));        
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
       }
     })
   }
@@ -133,15 +137,16 @@ export class Incidencias {
     return res;
   }
 
-  finalizar(id: number) {
-    console.log('finalizando...');
+  finalizar(id: number) {   
     this.procesando.set(true);
     this.incidenciasService.finalizarIncidencia(id, this.nodo!.Id).subscribe({
-      next: (lista: Incidencia[]) => {
-        console.log('respuesta finalizando: ', lista);
+      next: (lista: Incidencia[]) => {        
         this.lista.set(lista ?? []);
         this.procesando.set(false);
       },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
+      }
     })
   }
 

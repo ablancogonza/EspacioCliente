@@ -41,8 +41,7 @@ export class NuevoBriefingComponent {
     });
   }
 
-  crear() {
-    console.log('crear, activo: ', this.briefing.activo);
+  crear() {    
     if (this.briefingForm.valid) {
       const data: BriefingDto = {
         Id: this.briefing.activo?.data?.Id,

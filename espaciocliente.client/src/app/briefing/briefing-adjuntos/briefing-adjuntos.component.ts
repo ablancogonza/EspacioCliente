@@ -27,14 +27,12 @@ export class BriefingAdjuntosComponent {
     this.briefing = estadoService.briefing;
   }
 
-  onUpload(event: UploadEvent) {
-    console.log('onFileUpload: ', event);
+  onUpload(event: UploadEvent) {    
     this.descripcion = '';
     this.briefing.recuperarAdjuntos();    
   }
 
-  errorEnUpload(event: FileUploadErrorEvent) {    
-    console.log('error file upload: ', event);
+  errorEnUpload(event: FileUploadErrorEvent) {       
     this.mensajeService.error('Se ha producido un error al subir el fichero');
   }
 

@@ -16,8 +16,7 @@ export class FiltroService {
     return this.http.get<ElementoFiltroDto[]>(environment.baseUrl + '/filtro/elementosFiltro');
   }
 
-  buscar(nivel: number, texto: string): Observable<Nodo[]> {
-    console.log(`buscar(${nivel},${texto})`);
+  buscar(nivel: number, texto: string): Observable<Nodo[]> {    
     return this.http.get<Nodo[]>(`${environment.baseUrl}/filtro/buscar?nivel=${nivel}&texto=${texto}`);
   }
 }

@@ -13,6 +13,8 @@ import { FiltroComponent } from '../../../filtro/filtro/filtro.component';
 import { EstadoService } from '../../estado/estado.service';
 import { FiltroFechas } from '../../../filtro/filtro-fechas';
 import { Arbol } from '../../utils/arbol';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MensajesService } from '../../servicios/mensajes.service';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class NodoInversionComponent {
   
   constructor(private estadoService: EstadoService,
     private inversionService: InversionService,
+    private mensajesService: MensajesService,
     private destroyRef: DestroyRef) {
 
     this.estadoService.arbol.nodoSeleccionado$.
@@ -59,14 +62,15 @@ export class NodoInversionComponent {
     this.inversion = undefined;    
     setTimeout(() => {
       this.inversionService.inversion({ id: parseInt(this.nodo?.key!), inicio: this.filtroFechas!.inicio, fin: this.filtroFechas!.fin }).
-        subscribe((inv: number) => {
-          this.inversion = inv;          
-        });
+        subscribe({
+          next: (inv: number) => {
+            this.inversion = inv;
+          },
+          error: (err: HttpErrorResponse) => {
+            this.mensajesService.errorHttp(err);
+          }
+      });
     });   
-  }
-
-  eliminar() {
-    this.estadoService.arbol.eliminar();
   }
 
   tipoNodo(n?: TreeNode): string {

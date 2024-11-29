@@ -47,7 +47,6 @@ export class PrincipalComponent {
   }
 
   anchoCambiado(width: number) {
-    this.ancho = width;
-    console.log('ancho: ', this.ancho);
+    this.ancho = width;    
   }
 }

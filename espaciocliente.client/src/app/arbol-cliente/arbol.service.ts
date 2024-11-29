@@ -24,19 +24,6 @@ export class ArbolService {
     return this.http.get<Nodo[]>(`${environment.baseUrl}/arbol/nodoFiltrado?id=${id}`);
   }
 
-
-  eliminar(value: TreeNode<any>) {
-    console.log('eliminar: ', value.key);
-    return this.http.get<string>(`${environment.baseUrl}/arbol/eliminar?id=${value.key}`).subscribe({
-      next: () => {
-        console.log('completado');
-      },
-      error: (e) => {
-        console.log('error: ',e);
-      }
-    });
-  }  
-
 }
 
 

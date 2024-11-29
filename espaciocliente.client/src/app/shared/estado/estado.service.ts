@@ -47,13 +47,12 @@ export class EstadoService {
     this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
     this.grafico = new Grafico(this.graficoService, this.mensajesService);
-    this.mapa = new Mapa(this.mapaService);
-    this.incidencias = new Incidencias(this.incidenciasService, email);
-    this.briefing = new Briefing(this.briefingService);
+    this.mapa = new Mapa(this.mapaService, this.mensajesService);
+    this.incidencias = new Incidencias(this.incidenciasService, this.mensajesService, email);
+    this.briefing = new Briefing(this.briefingService, this.mensajesService);
   }
 
-  postInit() {
-    console.log('postInit');
+  postInit() {   
     this.filtro.init();
     this.arbol.init();
   }

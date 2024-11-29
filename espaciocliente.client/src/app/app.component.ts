@@ -49,27 +49,20 @@ export class AppComponent implements OnInit {
 
     const token = localStorage.getItem('token')??'';
     const email = localStorage.getItem('email')??'';        
-    this.estadoService.init(email, token);
-
-    console.log('login ngOnInit');
+    this.estadoService.init(email, token);   
 
     if (this.estadoService.sesion.tieneCredenciales()) {
       this.authService.isTokenValid().subscribe({
-        next: () => {
-          console.log('login ngOnInit OK');
+        next: () => {          
           this.estadoService.postInit();
           setTimeout(() => {
             this.router.navigateByUrl('/principal');
           }, 300);
         },
-        error: (e: any) => {
-          console.log('login ngOnInit KO');
-          this.estadoService.cerrarSesion();
-          
+        error: (e: any) => {          
+          this.estadoService.cerrarSesion();          
         }
       })
-    } else {
-      
     }
   }
   

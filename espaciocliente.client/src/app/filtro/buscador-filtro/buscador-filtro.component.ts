@@ -9,6 +9,8 @@ import { Observable, Subject, switchMap } from 'rxjs';
 import { Nodo } from '../../arbol-cliente/nodo';
 import { FiltroService } from '../filtro.service';
 import { ElementoFiltro } from '../elemento-filtro';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MensajesService } from '../../shared/servicios/mensajes.service';
 
 
 @Component({
@@ -27,16 +29,18 @@ export class BuscadorFiltroComponent implements OnChanges {
   resultados: string[] = [];
   formGroup!: FormGroup;
 
-  constructor(private filtroService: FiltroService) {
+  constructor(private filtroService: FiltroService, private mensajesService: MensajesService) {
     this.buscaCadena$ = this.nuevaCadena$.pipe(
       switchMap(cadena => this.filtroService.buscar(this.buscador.id, cadena))    
     );
 
     this.buscaCadena$.subscribe({
-      next: (r) => {
-        console.log('Resultado buscar: ', r);
+      next: (r) => {        
         this.buscador.coincidentes = [];
         r?.map(t => this.buscador.coincidentes.push({ key: t.Id, value: t.Descripcion }));
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
       }
     });
   }
@@ -55,7 +59,6 @@ export class BuscadorFiltroComponent implements OnChanges {
 
   seleccionado(n: AutoCompleteSelectEvent) {
     this.buscador.seleccionado = n.value;
-    console.log('Seleccionado: ', n.value);
     this.buscadorModificado.emit(this.buscador);
   }
 

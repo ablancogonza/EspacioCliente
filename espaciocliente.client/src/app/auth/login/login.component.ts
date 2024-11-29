@@ -22,7 +22,7 @@ import { CargandoComponent } from '../../shared/components/cargando/cargando.com
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm: FormGroup;
   error: string | undefined;
   procesando = signal<boolean>(false);
@@ -33,11 +33,6 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
-  }
-
-  ngOnInit() {
-   
-    //console.log('procesando: ', this.procesando);
   }
 
   get email() {

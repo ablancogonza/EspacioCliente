@@ -23,28 +23,28 @@ namespace EspacioCliente.Server.Controllers
         public decimal Inversion(int id, int inicio, int fin)
         {
             int idUsuario = User.IdUsuario();
-            return context.Database.SqlQuery<decimal>($"SELECT [dbo].[Inversion]({id},{inicio},{fin}) as value").FirstOrDefault();
+            return context.Database.SqlQuery<decimal>($"SELECT [dbo].[Inversion]({idUsuario},{id},{inicio},{fin}) as value").FirstOrDefault();
         }
 
         [HttpGet("inversionMedio")]
         public string? InversionMedio(int id, int inicio, int fin)
         {
             int idUsuario = User.IdUsuario();
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionMedio]({id},{inicio},{fin}) as value").FirstOrDefault();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionMedio]({idUsuario},{id},{inicio},{fin}) as value").FirstOrDefault();
         }
 
         [HttpGet("inversionCampania")]
         public string? InversionCampania(int id, int inicio, int fin)
         {
             int idUsuario = User.IdUsuario();
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionCampania]({id},{inicio},{fin}) as value").FirstOrDefault();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionCampania]({idUsuario},{id},{inicio},{fin}) as value").FirstOrDefault();
         }
 
         [HttpGet("inversionTemporal")]
         public string? InversionTemporal(int id, int inicio, int fin)
         {
             int idUsuario = User.IdUsuario();
-            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionTemporal]({id},{inicio},{fin}) as value").FirstOrDefault();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[InversionTemporal]({idUsuario},{id},{inicio},{fin}) as value").FirstOrDefault();
         }
     }
 
