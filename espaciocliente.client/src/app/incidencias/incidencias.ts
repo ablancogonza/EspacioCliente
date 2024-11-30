@@ -154,4 +154,9 @@ export class Incidencias {
     if (!this.nodo) return false;
     return this.nodo.IdTipoNodo === 6;       
   }
+
+  buscaNuevosMensajes() {   
+    if (!this.seleccionada) return;
+    this.cargarMensajes(this.seleccionada!.id);
+  }
 }

@@ -14,6 +14,7 @@ import { FileUploadErrorEvent, FileUploadModule, UploadEvent } from 'primeng/fil
 import { environment } from '../../../environments/environment';
 import { HttpResponse } from '@angular/common/http';
 import { Mensaje } from '../mensaje';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-lista-mensajes',
@@ -40,6 +41,13 @@ export class ListaMensajesComponent implements AfterViewInit {
         next: () => {
           setTimeout(() => { this.scrollToBottom(); }, 100);
         }
+      });
+
+    interval(30 * 1000).pipe(takeUntilDestroyed(this.destroyRef)).
+      subscribe({
+        next: () => {
+          this.incidencias.buscaNuevosMensajes();
+        }
       })
   }
 
@@ -51,8 +59,6 @@ export class ListaMensajesComponent implements AfterViewInit {
     const container = this.divscroll!.nativeElement;
     container.scrollTop = container.scrollHeight;
   }
-
-
 
   volver() {
     this.incidencias.vista.set('lista');
