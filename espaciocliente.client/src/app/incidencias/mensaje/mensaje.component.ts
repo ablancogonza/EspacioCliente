@@ -18,7 +18,7 @@ export class MensajeComponent implements OnChanges {
   imagen: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['mensaje'] && changes['mensaje'].currentValue) {
+    if (changes['mensaje'] && changes['mensaje'].currentValue && this.mensaje?.imagen) {
       this.imagen = `data:image/jpeg;base64,${this.mensaje!.imagen}`;
     }
   }

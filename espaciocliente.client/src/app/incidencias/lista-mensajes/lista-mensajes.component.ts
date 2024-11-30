@@ -31,7 +31,9 @@ export class ListaMensajesComponent implements AfterViewInit {
   constructor(private estadoService: EstadoService,
     private mensajeService: MensajesService,
     private destroyRef: DestroyRef) {
-    this.incidencias = estadoService.incidencias;    
+
+    this.incidencias = estadoService.incidencias;
+    
     this.incidencias.actualizarScroll$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
@@ -49,6 +51,8 @@ export class ListaMensajesComponent implements AfterViewInit {
     const container = this.divscroll!.nativeElement;
     container.scrollTop = container.scrollHeight;
   }
+
+
 
   volver() {
     this.incidencias.vista.set('lista');

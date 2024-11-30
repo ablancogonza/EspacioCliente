@@ -56,6 +56,5 @@ export class MapaComponent {
   onVallaClick(marker: MapAdvancedMarker, valla: Valla) {       
     this.mapa.valla = valla;
     this.infoWindow.open(marker);
-  }
-  
+  }  
 }

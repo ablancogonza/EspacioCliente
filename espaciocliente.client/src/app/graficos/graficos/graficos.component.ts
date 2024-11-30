@@ -46,5 +46,4 @@ export class GraficosComponent implements OnInit {
       this.grafico.sinNodoSeleccionado();
     }
   }
-
 }

@@ -37,7 +37,8 @@ export class DetalleVallaComponent implements OnChanges {
           this.info = info[0];
           this.imagen = this.info?.imagen ? `data:image/jpeg;base64,${this.info.imagen}` : '';
           this.cargando = false;         
-        }, error: (err: HttpErrorResponse) => {
+        },
+        error: (err: HttpErrorResponse) => {
           this.mensajesService.errorHttp(err);
         }
       });
