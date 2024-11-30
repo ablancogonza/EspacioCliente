@@ -4,5 +4,6 @@ export interface Incidencia {
   usuario: string,
   titulo: string,
   fecha: Date,
-  finalizado: boolean
+  finalizado: boolean,
+  noLeidos: number
 }

@@ -323,5 +323,43 @@ namespace EspacioCliente.Data.Models
 
             return _;
         }
+
+        public virtual async Task<int> IncidenciasMarcarLeidoAsync(int? idUsuario, int? idIncidencia, int? ultimoLeido, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idUsuario",
+                    Value = idUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "idIncidencia",
+                    Value = idIncidencia ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ultimoLeido",
+                    Value = ultimoLeido ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[IncidenciasMarcarLeido] @idUsuario = @idUsuario, @idIncidencia = @idIncidencia, @ultimoLeido = @ultimoLeido", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
     }
 }

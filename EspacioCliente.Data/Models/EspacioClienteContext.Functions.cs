@@ -11,14 +11,13 @@ namespace EspacioCliente.Data.Models
     {
 
         [DbFunction("BriefingDescargaFichero", "dbo")]
-        public IQueryable<BriefingDescargaFicheroResult> BriefingDescargaFichero(int? idUsuario, int? id)
+        public static string BriefingDescargaFichero(int? idUsuario, int? id)
         {
-            return FromExpression(() => BriefingDescargaFichero(idUsuario, id));
+            throw new NotSupportedException("This method can only be called from Entity Framework Core queries");
         }
 
         protected void OnModelCreatingGeneratedFunctions(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BriefingDescargaFicheroResult>().HasNoKey();
         }
     }
 }

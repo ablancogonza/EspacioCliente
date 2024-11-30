@@ -3,6 +3,9 @@
     <div>
       <i class="pi pi-lock" *ngIf="incidencia?.finalizado"></i>      
       INC:{{ incidencia?.id }}
+    <span *ngIf="(incidencia?.noLeidos??0) > 0">
+      <p-badge [value]="incidencia!.noLeidos"  />
+    </span>
     </div>
     <div class="titulo">{{ incidencia?.titulo }}</div>  
   </div>  

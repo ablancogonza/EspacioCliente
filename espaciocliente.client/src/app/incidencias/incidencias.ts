@@ -77,7 +77,7 @@ export class Incidencias {
   onSeleccionada(i: Incidencia) {
     this.vista.set('detalle');
     this.seleccionada = i;
-    this.cargarMensajes(i.id);
+    this.cargarMensajes(i.id);   
   }
 
   publicar(texto: string) {
@@ -104,7 +104,12 @@ export class Incidencias {
     this.incidenciasService.recuperarMensajes(id).subscribe({
       next: (lista: Mensaje[]) => {
         this.listaMensajes = lista;
-        this.mensajes.set(this.mensajesProcesados(lista));        
+        this.mensajes.set(this.mensajesProcesados(lista));
+        if (this.seleccionada && (this.seleccionada?.noLeidos??0) > 0 && lista.length > 0) {
+          this.seleccionada!.noLeidos = 0;
+          const ultimo = lista[lista.length - 1].id;
+          this.incidenciasService.marcarLeidos(this.seleccionada!.id, ultimo).subscribe();
+        }
       },
       error: (err: HttpErrorResponse) => {
         this.mensajesService.errorHttp(err);

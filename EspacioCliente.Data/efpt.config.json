@@ -47,6 +47,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[IncidenciasMarcarLeido]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[BriefingDescargaFichero]",
          "ObjectType": 2
       }

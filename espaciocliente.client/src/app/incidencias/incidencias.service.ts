@@ -9,6 +9,7 @@ import { Mensaje } from './mensaje';
   providedIn: 'root'
 })
 export class IncidenciasService {
+
   constructor(private http: HttpClient) { }
 
   crear(idNodo: number, titulo: string): Observable<Incidencia[]> {
@@ -41,6 +42,14 @@ export class IncidenciasService {
       IdNodo: idNodo
     };
     return this.http.post<Incidencia[]>(`${environment.baseUrl}/incidencia/finalizar`, data);
+  }
+
+  marcarLeidos(id: number, ultimo: number) {
+    const data = {
+      IdIncidencia: id,
+      UltimoLeido: ultimo
+    };
+    return this.http.post<Incidencia[]>(`${environment.baseUrl}/incidencia/marcar`, data);
   }
 }
 

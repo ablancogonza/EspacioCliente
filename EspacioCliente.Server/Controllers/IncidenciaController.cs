@@ -75,10 +75,18 @@ namespace EspacioCliente.Server.Controllers
             OutputParameter<string> salida = new OutputParameter<string>();
             await this.context.Procedures.IncidenciasConversacionCrearEntradaAsync(idUsuario, id, texto, ficheroBytes, salida);
             return salida.Value;
-        }       
+        }
+
+        [HttpPost("marcar")]
+        public async Task Marcar([FromBody] PeticionMarcarLeidos marcar)
+        {
+            int idUsuario = User.IdUsuario();            
+            await this.context.Procedures.IncidenciasMarcarLeidoAsync(idUsuario, marcar.IdIncidencia, marcar.UltimoLeido);
+        }
     }
 
     public record PeticionCrearIncidencia(int IdNodo, string Titulo);
     public record PeticionCrearMensaje(int IdIncidencia, string Texto);
-    public record PeticionFinalizarIncidencia(int IdIncidencia, int IdNodo);    
+    public record PeticionFinalizarIncidencia(int IdIncidencia, int IdNodo);
+    public record PeticionMarcarLeidos(int IdIncidencia, int UltimoLeido);
 }

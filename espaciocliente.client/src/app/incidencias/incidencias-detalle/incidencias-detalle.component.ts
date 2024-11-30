@@ -6,13 +6,14 @@ import { Fecha } from '../../shared/utils/fecha';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { LogarithmicScale } from 'chart.js';
+import { BadgeModule } from 'primeng/badge';
 import { ConfirmationService } from 'primeng/api';
 import { Incidencia } from '../incidencia';
 
 @Component({
   selector: 'app-incidencias-detalle',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ConfirmDialogModule],
+  imports: [CommonModule, ButtonModule, ConfirmDialogModule, BadgeModule],
   templateUrl: './incidencias-detalle.component.html',
   styleUrl: './incidencias-detalle.component.css',
   providers: [ConfirmationService]
