@@ -139,6 +139,7 @@ export class Incidencias {
       });
       index++;
     } while (index < lista.length);
+    console.log('mensajes procesados: ', res);
     return res;
   }
 

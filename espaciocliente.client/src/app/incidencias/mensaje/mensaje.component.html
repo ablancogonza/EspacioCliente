@@ -19,6 +19,13 @@
 <div *ngIf="mensaje?.tipo === TipoEntradaMensaje.otro" class="otro">
   <div class="entrada-otro">
     <div class="usuario">{{ mensaje?.usuario }}</div>
+    <div *ngIf="mensaje?.imagen">
+      <p-image [src]="imagen"
+               alt="Image"
+               class="imagen"
+               width="80%"
+               [preview]="true" />
+    </div>
     <div>{{ mensaje?.texto }}</div>
     <div class="hora">{{ mensaje?.hora }}</div>
   </div>
