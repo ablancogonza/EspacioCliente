@@ -13,6 +13,11 @@
         <div class="campo">
           <label for="descripcion">Descripción (aparecerá en el árbol)</label>
           <input type="text" pInputText id="descripcion" formControlName="descripcion" />
+          <div *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)" class="error">
+            <div *ngIf="descripcion?.hasError('required')">
+              La descripción es un campo obligatorio
+            </div>            
+          </div>
         </div>
         <div class="campo">
           <label for="presupuesto">Presupuesto</label>
@@ -21,16 +26,31 @@
                          inputId="currency-germany"
                          currency="EUR"
                          locale="es-ES" />
+          <div *ngIf="presupuesto?.invalid && (presupuesto?.dirty || presupuesto?.touched)" class="error">
+            <div *ngIf="presupuesto?.hasError('required')">
+              El presupuesto es un campo obligatorio
+            </div>            
+          </div>
         </div>
 
         <div class="fechas">
           <div class="campo">
             <label for="inicio">Inicio</label>
             <p-calendar id="inicio" dateFormat="dd/mm/yy" formControlName="inicio" />
+            <div *ngIf="inicio?.invalid && (inicio?.dirty || inicio?.touched)" class="error">
+              <div *ngIf="inicio?.hasError('required')">
+                La fecha de inicio es un campo obligatorio
+              </div>
+            </div>
           </div>
           <div class="campo">
             <label for="fin">Fin</label>
             <p-calendar id="fin" dateFormat="dd/mm/yy" formControlName="fin" />
+            <div *ngIf="fin?.invalid && (fin?.dirty || fin?.touched)" class="error">
+              <div *ngIf="fin?.hasError('required')">
+                La fecha de fin es un campo obligatorio
+              </div>
+            </div>
           </div>
         </div>
 
@@ -40,6 +60,11 @@
                       [options]="briefing.medios"
                       optionLabel="Medio"
                       placeholder="Seleccione el medio" />
+          <div *ngIf="medio?.invalid && (medio?.dirty || medio?.touched)" class="error">
+            <div *ngIf="medio?.hasError('required')">
+              El medio es un campo obligatorio
+            </div>
+          </div>
         </div>
         <p-button label="Crear" (click)="crear()" [disabled]="!briefingForm.valid" />
       </div>

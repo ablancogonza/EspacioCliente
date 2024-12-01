@@ -10,6 +10,6 @@
     Presupuesto: <span class="bold">{{ entrada?.Presupuesto | currency:'EUR':'symbol':'1.2-2':'es' }}</span> - <span class="bold">{{ entrada?.DesMedio }}</span>
   </div>
   <div>
-    <span class="bold">{{ entrada?.Usuario }}</span> ({{ entrada?.FechaCreacion }})
+    <span class="bold">{{ entrada?.Usuario }}</span> ({{ entrada?.FechaCreacion  | date: 'dd/MM/yyyy' }})
   </div>
 </div>
