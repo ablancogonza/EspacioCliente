@@ -35,10 +35,10 @@ namespace EspacioCliente.Server.Controllers
         }
 
         [HttpPost("signIn")]
-        public async Task<IActionResult> AutenticarAsync([FromBody] PeticionAutenticacion request)
+        public IActionResult AutenticarAsync([FromBody] PeticionAutenticacion request)
         {
             this.logger.LogInformation($"login: {request.Email}");
-            Servicios.Usuario? usr = await this.authService.Autenticar(request.Email, request.Password);
+            Servicios.Usuario? usr = this.authService.Autenticar(request.Email, request.Password);
             if (usr is not null)
             {                
                 JwtSecurityToken token = jwtHandler.GetToken(usr);

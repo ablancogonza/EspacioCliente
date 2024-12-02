@@ -52,7 +52,6 @@ public partial class EspacioClienteContext : DbContext
                 .HasConstraintName("FK_UsuarioNodo_Usuario");
         });
 
-        OnModelCreatingGeneratedFunctions(modelBuilder);
         OnModelCreatingPartial(modelBuilder);
     }
 
