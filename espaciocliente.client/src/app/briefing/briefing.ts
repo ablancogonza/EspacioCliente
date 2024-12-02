@@ -8,6 +8,7 @@ import { BriefingAdjuntoDto } from "../shared/dtos/briefing-adjunto-dto";
 import { BriefingFicheroAdjunto } from "../shared/dtos/briefing-fichero-adjunto";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../shared/servicios/mensajes.service";
+import { Subject } from "rxjs";
 
 export class Briefing {
 
@@ -17,6 +18,7 @@ export class Briefing {
   lista = signal<BriefingDto[]>([]);
   entrada: BriefingDto | undefined = undefined;
   listaAdjuntos = signal<BriefingAdjuntoDto[]>([]);
+  recargarNodo$: Subject<void> = new Subject();
 
   constructor(private briefingService: BriefingService, private mensajesService: MensajesService) { }
 
@@ -34,7 +36,8 @@ export class Briefing {
   crear(briefing: BriefingDto) {    
     this.briefingService.crearBriefing(briefing).subscribe({
       next: (briefing: BriefingDto[]) => {
-        this.adjuntos(briefing[0]);        
+        this.adjuntos(briefing[0]);
+        this.recargarNodo$.next();
       },
       error: (err: HttpErrorResponse) => {
         this.mensajesService.errorHttp(err);

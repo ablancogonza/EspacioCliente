@@ -17,8 +17,8 @@
     <div>Importe anual: <span class="data">{{ info?.impAnual | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
     <div>Importe en el periodo seleccionado: <span class="data">{{ info?.impPeriodo | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
     <div>Coste de producción + fijación: <span class="data">{{ info?.impProdFij | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
-    <div>Fecha último contrato: <span class="data">{{ info?.fechaUltCambio }}</span></div>
-    <div>Fecha fin contrato: <span class="data">{{ info?.fechaFinContrato }}</span></div>
+    <div>Fecha último contrato: <span class="data">{{ info?.fechaUltCambio  | date: 'dd/MM/yyyy'  }}</span></div>
+    <div>Fecha fin contrato: <span class="data">{{ info?.fechaFinContrato   | date: 'dd/MM/yyyy' }}</span></div>
     <div>Valoración Qualy: <span class="data">{{ info?.valoracionQualy }}</span></div>
     <div>
       Puntuación: <p-rating [ngModel]="info?.puntuacion" [readonly]="true" [disabled]="true" [cancel]="false" />

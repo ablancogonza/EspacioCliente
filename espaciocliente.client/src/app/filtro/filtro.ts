@@ -91,7 +91,7 @@ export class Filtro {
       nuevo.reverse();
       this.elementosFiltro$.next(nuevo);
     }
-    //this.filtroNodo$.next();
+    this.filtroNodo$.next({ nodo: e.seleccionado?.key });
   }
 
   idBuscador(): number | undefined {

@@ -1,7 +1,7 @@
 import { signal } from "@angular/core";
 import { TreeNode } from "primeng/api";
 import { TreeNodeExpandEvent, TreeNodeSelectEvent } from "primeng/tree";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, timer } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { ArbolService } from "./arbol.service";
@@ -70,15 +70,16 @@ export class Arbol {
 
   }
 
-  //repintar(f: FiltroActivo): void {
-  //  if (f.id) {
-  //    this.seccionArbol(f.id);
-  //  } else {
-  //    this.init();
-  //  }
-  //}
+  nuevoArbol(id: number | undefined): void {
+    if (id) {
+      this.seccionArbol(id);
+    } else {
+      this.init();
+      this.nodoSeleccionado$.next({});
+    }    
+  }
 
-  seccionArbol(id: number) {
+  private seccionArbol(id: number) {
     this.arbolService.desdeNodo(id).subscribe({
       next: (nodos) => {        
         const raiz: TreeNode[] = [];
@@ -113,6 +114,18 @@ export class Arbol {
 
   nodeSelect(e: TreeNodeSelectEvent) {
     this.nodoSeleccionado$.next(e.node);
+  }
+
+  recargarNodo() {
+    const nodo = this.nodoSeleccionado$.value
+    if (nodo) {
+      nodo.children = [];
+      nodo.expanded = false;
+      this.cargaDescendientes(nodo);
+      //setTimeout(() => {
+      //  nodo.expanded = true;
+      //}, 1000);
+    }
   }
  
 }

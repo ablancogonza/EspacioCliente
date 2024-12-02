@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, DestroyRef, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { FechaValidators } from '../../shared/validators/FechaValidators';
 import { BriefingDto } from '../../shared/dtos/briefing-dto';
 import { TreeNode } from 'primeng/api';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-nuevo-briefing',
@@ -30,7 +31,7 @@ export class NuevoBriefingComponent {
   fin: FormControl = new FormControl(new Date(), [Validators.required, FechaValidators.mayorIgualQue(this.inicio)]);
   medio: FormControl = new FormControl('', [Validators.required]);
 
-  constructor(private estadoService: EstadoService) {
+  constructor(private estadoService: EstadoService, private destroyRef: DestroyRef) {
     this.briefing = estadoService.briefing;
     this.briefingForm = new FormGroup({
       descripcion: this.descripcion,
@@ -39,7 +40,16 @@ export class NuevoBriefingComponent {
       fin: this.fin,
       medio: this.medio
     });
+
+    this.briefing.recargarNodo$.
+      pipe(takeUntilDestroyed(this.destroyRef)).
+      subscribe({
+        next: () => {
+          this.estadoService.arbol.recargarNodo();
+        }
+      });
   }
+
 
   crear() {    
     if (this.briefingForm.valid) {
