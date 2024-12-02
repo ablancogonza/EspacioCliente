@@ -51,17 +51,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(builder.Configuration["DB_Conexion"]));
 
-//if (builder.Environment.IsDevelopment())
-//{
-//    string? connectionString = "Data Source=Window11vm;Initial Catalog=EspacioCliente;Integrated Security=True;Trust Server Certificate=True";
-//    builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(connectionString));
-//} 
-//else
-//{
-//    string? connectionString = "Server=tcp:espaciocliente.database.windows.net,1433;Initial Catalog=EspacioCliente;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;User ID=espaciocliente;Password=QaZwSx24.-;";
-//    builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(connectionString));
-//}
-
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<JwtHandler>();
 

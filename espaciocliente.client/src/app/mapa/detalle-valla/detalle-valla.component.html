@@ -1,29 +1,31 @@
-<h3>{{ valla?.des }}</h3>
-<div *ngIf="cargando" class="cargando">
-  <app-cargando></app-cargando>
-</div>
-<div *ngIf="!cargando">
-  <div class="contenedor-imagen">
-   <div *ngIf="!imagen">
-     Imagen no disponible
-   </div>
-    <p-image *ngIf="imagen"
-             [src]="imagen"
-             alt="Imagen de la valla"
-             appendTo="body"
-             [preview]="true" />
+<div class="contenedor">
+  <div class="direccion">{{ valla?.des }}</div>
+  <div *ngIf="cargando" class="cargando">
+    <app-cargando></app-cargando>
   </div>
-  <div class="datos">
-    <div>Importe anual: <span class="data">{{ info?.impAnual | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
-    <div>Importe en el periodo seleccionado: <span class="data">{{ info?.impPeriodo | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
-    <div>Coste de producción + fijación: <span class="data">{{ info?.impProdFij | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
-    <div>Fecha último contrato: <span class="data">{{ info?.fechaUltCambio  | date: 'dd/MM/yyyy'  }}</span></div>
-    <div>Fecha fin contrato: <span class="data">{{ info?.fechaFinContrato   | date: 'dd/MM/yyyy' }}</span></div>
-    <div>Valoración Qualy: <span class="data">{{ info?.valoracionQualy }}</span></div>
-    <div>
-      Puntuación: <p-rating [ngModel]="info?.puntuacion" [readonly]="true" [disabled]="true" [cancel]="false" />
+  <div *ngIf="!cargando">
+    <div class="contenedor-imagen">
+      <div *ngIf="!imagen">
+        Imagen no disponible
+      </div>
+      <p-image *ngIf="imagen"
+               [src]="imagen"
+               alt="Imagen de la valla"
+               appendTo="body"
+               [preview]="true" />
     </div>
-    <div>Impactos: <span class="data">{{ info?.impactos }}</span></div>
-    <div>Individuos: <span class="data">{{ info?.individuos }}</span></div>
+    <div class="datos">
+      <div>Importe anual: <span class="data">{{ info?.impAnual | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
+      <div>Importe en el periodo seleccionado: <span class="data">{{ info?.impPeriodo | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
+      <div>Coste de producción + fijación: <span class="data">{{ info?.impProdFij | currency:'EUR':'symbol':'1.2-2':'es'  }}</span></div>
+      <div>Fecha último contrato: <span class="data">{{ info?.fechaUltCambio  | date: 'dd/MM/yyyy'  }}</span></div>
+      <div>Fecha fin contrato: <span class="data">{{ info?.fechaFinContrato   | date: 'dd/MM/yyyy' }}</span></div>
+      <div>Valoración Qualy: <span class="data">{{ info?.valoracionQualy }}</span></div>
+      <div>
+        Puntuación: <p-rating [ngModel]="info?.puntuacion" [readonly]="true" [disabled]="true" [cancel]="false" />
+      </div>
+      <div>Impactos: <span class="data">{{ info?.impactos }}</span></div>
+      <div>Individuos: <span class="data">{{ info?.individuos }}</span></div>
+    </div>
   </div>
 </div>
