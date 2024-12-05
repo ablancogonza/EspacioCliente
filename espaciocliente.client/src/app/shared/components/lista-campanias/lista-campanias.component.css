@@ -1,0 +1,14 @@
+.contenedor {
+    max-height: 500px;
+    overflow: hidden;
+}
+.contenedor-botones {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;   
+    gap: 1rem;
+}
+
+.w-100 {
+    width: 100%;
+}

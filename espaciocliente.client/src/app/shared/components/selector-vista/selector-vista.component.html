@@ -1,7 +1,12 @@
-<div class="contenedor-botones">  
-  <p-button [icon]="icono(id)" [outlined]="((seleccionado | async) !== id)"
-            [rounded]="true" size="large" *ngFor="let id of visibles"
-            (click)="selecciona(id)"
-            [title]="title(id)"
-            [disabled]="(id === 4 && nivelNodo > 5)"></p-button>
+<div class="contenedor-botones">
+  <div *ngFor="let id of visibles" class="boton">
+    <p-button [icon]="icono(id)" [outlined]="((seleccionado | async) !== id)"
+              [rounded]="true" size="large" 
+              (click)="selecciona(id)"
+              [title]="title(id)"
+              ></p-button>
+    <span class="indice" *ngIf="id === VistaSeleccionada.incidencias && incidenciasNoLeidas()?.length??0 > 0">
+      {{ incidenciasNoLeidas().length }}
+    </span>
+  </div>
 </div>

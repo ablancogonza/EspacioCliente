@@ -46,7 +46,7 @@ export class BuscadorFiltroComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['buscador'] && changes['buscador'].currentValue) {
+    if (changes['buscador'] && changes['buscador'].currentValue) {      
       this.formGroup = new FormGroup({
         buscador: new FormControl({ value: this.buscador.seleccionado?.value??'', disabled: !this.buscador.activo })
       });

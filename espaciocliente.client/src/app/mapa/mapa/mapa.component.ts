@@ -39,8 +39,10 @@ export class MapaComponent {
     this.estadoService.arbol.nodoSeleccionado$.
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
-        next: (seleccionado: TreeNode) => {          
-          this.mapa.recuperarVallasNodo(seleccionado.data.Id);
+        next: (seleccionado: TreeNode) => {
+          if (seleccionado?.data?.Id) {
+            this.mapa.recuperarVallasNodo(seleccionado.data.Id);
+          }
       }
       });
 

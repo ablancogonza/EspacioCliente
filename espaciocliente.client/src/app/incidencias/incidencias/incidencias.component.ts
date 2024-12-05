@@ -26,13 +26,11 @@ export class IncidenciasComponent {
     this.incidencias = estadoService.incidencias;
 
     this.estadoService.arbol.nodoSeleccionado$.
-      pipe(takeUntilDestroyed(this.destroyRef)).
-      pipe(filter((v: TreeNode) => v.data)).
+      pipe(takeUntilDestroyed(this.destroyRef)).    
       subscribe({
         next: (seleccionado: TreeNode) => {
-          if (seleccionado && seleccionado.data) {
-            this.incidencias.setNodo(seleccionado.data);
-          }
+          console.log('incidencias nodo cambiado: ', seleccionado);
+          this.incidencias.setNodo(seleccionado.data);          
         }
       });
   }

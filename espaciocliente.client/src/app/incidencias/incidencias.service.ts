@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Incidencia } from './incidencia';
 import { Mensaje } from './mensaje';
+import { IncidenciasPendientes } from '../shared/dtos/incidencias-pendientes';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,10 @@ export class IncidenciasService {
     };
     return this.http.post<Incidencia[]>(`${environment.baseUrl}/incidencia/marcar`, data);
   }
+
+  recuperarMensajesPendientes(): Observable<IncidenciasPendientes[]> {
+    return this.http.get<IncidenciasPendientes[]>(`${environment.baseUrl}/incidencia/pendientes`);
+  }
+
 }
 

@@ -71,11 +71,13 @@ export class Arbol {
   }
 
   nuevoArbol(id: number | undefined): void {
+    console.log('nuevoArbol: ', id);
     if (id) {
       this.seccionArbol(id);
     } else {
       this.init();
       this.nodoSeleccionado$.next({});
+      console.log('nodo seleccionado vacío');
     }    
   }
 
@@ -121,10 +123,7 @@ export class Arbol {
     if (nodo) {
       nodo.children = [];
       nodo.expanded = false;
-      this.cargaDescendientes(nodo);
-      //setTimeout(() => {
-      //  nodo.expanded = true;
-      //}, 1000);
+      this.cargaDescendientes(nodo);      
     }
   }
  

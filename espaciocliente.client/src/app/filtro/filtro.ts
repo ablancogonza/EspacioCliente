@@ -8,6 +8,7 @@ import { FiltroFechas } from "./filtro-fechas";
 import { ElementoFiltro } from "./elemento-filtro";
 import { FiltroNodo } from "./filtro-nodo";
 import { HttpErrorResponse } from "@angular/common/http";
+import { KeyValue } from "@angular/common";
 
 export class Filtro {
   filtroInicial: FiltroFechas = { inicio: 202401, fin: 202412 };
@@ -71,9 +72,10 @@ export class Filtro {
     if (e.seleccionado !== undefined) {
       const nuevo: ElementoFiltro[] = this.elementosFiltro$.value.map(f => {
         if (f.id > e.id) return f;
-        if (f.id === e.id) return e;
+        if (f.id === e.id) return { ...e };
         return { ...f, activo: false };      
       });
+      console.log('nuevo: ', nuevo);
       this.elementosFiltro$.next(nuevo);
     } else {
       let existeFiltro = false;      
@@ -109,6 +111,15 @@ export class Filtro {
       fin: Presupuesto.dateToPresupuesto(this.fin())
     };
     this.filtroFechas$.next(fa);
+  }
+
+  establecerFiltroCampania(id: number, des: string): void {
+    const campania = this.elementosFiltro$.value.find(e => e.id === 6);
+    console.log('campaña: ', campania);
+    if (campania) {
+      campania.seleccionado = { key: id, value: des } as KeyValueDto;    
+      this.buscadorModificado(campania);
+    }      
   }
 }
 

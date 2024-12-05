@@ -30,8 +30,12 @@ export class Grafico {
   }
 
   setNodo(n: TreeNode) {
-    this.nodoArbolSeleccionado = n;
-    this.recalcularGrafico();
+    if (n && n.data) {
+      this.nodoArbolSeleccionado = n;
+      this.recalcularGrafico();
+    } else {
+      this.nodoArbolSeleccionado = undefined;
+    }
   }
 
   fechasCambiadas(fechas: FiltroFechas) {

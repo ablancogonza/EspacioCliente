@@ -26,6 +26,8 @@ export class Briefing {
     if (seleccionado && seleccionado.data && seleccionado !== this.activo) {
       this.activo = seleccionado;
       this.recargaLista();
+    } else {
+      this.activo = undefined;
     }
   }
     

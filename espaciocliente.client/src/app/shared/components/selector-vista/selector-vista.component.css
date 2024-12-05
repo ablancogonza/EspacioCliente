@@ -6,6 +6,18 @@
     height: 100%;
 }
 
+.boton {
+    display: flex;
+    flex-direction: row;
+}
+
+.indice {
+    color: var(--primary-color);
+    margin-top: -4px;
+    margin-left: -3px;
+    font-weight: bold;
+}
+
 @media (max-width: 768px) {
 
     .contenedor-botones {

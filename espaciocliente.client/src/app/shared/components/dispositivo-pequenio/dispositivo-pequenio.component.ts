@@ -34,9 +34,6 @@ import { BriefingComponent } from '../../../briefing/briefing/briefing.component
 })
 export class DispositivoPequenioComponent {
   public vista = VistaSeleccionada;
-  //vista$: Observable<VistaSeleccionada>;
-  
-  constructor(public estadoService: EstadoService) {
-    //this.vista$ = estadoService.selectorVista.vista$;
-  }
+    
+  constructor(public estadoService: EstadoService) {  }
 }

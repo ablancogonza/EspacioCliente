@@ -51,6 +51,13 @@ namespace EspacioCliente.Server.Controllers
             return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasListaMensajes]({idUsuario},{id}) as value").FirstOrDefault();
         }
 
+        [HttpGet("pendientes")]
+        public string? MensajesPendientes()
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[IncidenciasPendientes]({idUsuario}) as value").FirstOrDefault();
+        }
+
         [HttpPost("finalizar")]
         public async Task<string?> FinalizarIncidencia([FromBody] PeticionFinalizarIncidencia incidencia)
         {

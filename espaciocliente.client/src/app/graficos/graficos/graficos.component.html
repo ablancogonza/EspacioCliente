@@ -9,5 +9,5 @@
     <p-chart [type]="grafico.tipo()" [data]="grafico.data()" [options]="grafico.options()" />
   </div>
   <app-seleccione-nodo *ngIf="!grafico.nodoArbolSeleccionado || !grafico.nodoArbolSeleccionado.data"></app-seleccione-nodo> 
-  <app-cargando *ngIf="grafico?.cargando()"></app-cargando> 
+  <app-cargando *ngIf="grafico?.cargando() && grafico.nodoArbolSeleccionado?.data"></app-cargando> 
 </div>

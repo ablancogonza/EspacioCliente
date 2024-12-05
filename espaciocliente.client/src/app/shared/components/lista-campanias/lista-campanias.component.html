@@ -1,0 +1,10 @@
+<div class="contenedor">
+  <div class="contenedor-botones">
+    <p-button [label]="nodo?.label" *ngIf="aniadirNodo()"
+              (onClick)="seleccionadoNodoActivo()" class="p-fluid" />
+
+    <p-button [label]="camp.Descripcion" *ngFor="let camp of (incidencias.noLeidos$ | async)"
+              (onClick)="seleccionado(camp)" class="p-fluid" />
+
+  </div>
+</div>

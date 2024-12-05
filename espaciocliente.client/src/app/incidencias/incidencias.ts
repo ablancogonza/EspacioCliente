@@ -1,7 +1,7 @@
 import { signal } from "@angular/core";
 import { TipoEntradaMensaje } from "../shared/enumerados/tipo-entrada-mensaje";
 import { Fecha } from "../shared/utils/fecha";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { IncidenciasService } from "./incidencias.service";
 import { Incidencia } from "./incidencia";
 import { Mensaje } from "./mensaje";
@@ -9,6 +9,7 @@ import { EntradaMensaje } from "./entrada-mensaje";
 import { Nodo } from "../arbol-cliente/nodo";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { IncidenciasPendientes } from "../shared/dtos/incidencias-pendientes";
 
 export class Incidencias {
  
@@ -24,12 +25,16 @@ export class Incidencias {
   mensajes = signal<EntradaMensaje[]>([]);
   email: string;
   actualizarScroll$: Subject<undefined> = new Subject();
+  noLeidos$: BehaviorSubject<IncidenciasPendientes[]> = new BehaviorSubject([] as IncidenciasPendientes[]);
 
   constructor(private incidenciasService: IncidenciasService, private mensajesService: MensajesService, email: string) {
     this.email = email;
+
+    this.recuperarIncidenciasPendientes();
   }
 
   setNodo(nodo: Nodo | undefined) {
+    console.log('setNodo incidencias: ', nodo);
     this.vista.set('lista');
     this.lista.set([]);
     this.listaMensajes = [];
@@ -108,7 +113,11 @@ export class Incidencias {
         if (this.seleccionada && (this.seleccionada?.noLeidos??0) > 0 && lista.length > 0) {
           this.seleccionada!.noLeidos = 0;
           const ultimo = lista[lista.length - 1].id;
-          this.incidenciasService.marcarLeidos(this.seleccionada!.id, ultimo).subscribe();
+          this.incidenciasService.marcarLeidos(this.seleccionada!.id, ultimo).subscribe({
+            next: () => {
+              this.recuperarIncidenciasPendientes();
+            }
+          });
         }
       },
       error: (err: HttpErrorResponse) => {
@@ -164,5 +173,16 @@ export class Incidencias {
   buscaNuevosMensajes() {   
     if (!this.seleccionada) return;
     this.cargarMensajes(this.seleccionada!.id);
+  }
+
+  recuperarIncidenciasPendientes() {
+    this.incidenciasService.recuperarMensajesPendientes().subscribe({
+      next: (lista: IncidenciasPendientes[]) => {
+        this.noLeidos$.next(lista);        
+      },
+      error: (err: HttpErrorResponse) => {
+        this.mensajesService.errorHttp(err);
+      }
+    })
   }
 }

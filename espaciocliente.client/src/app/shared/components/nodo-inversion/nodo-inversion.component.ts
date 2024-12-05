@@ -42,7 +42,11 @@ export class NodoInversionComponent {
       subscribe({
         next: (seleccionado) => {
           this.nodo = seleccionado;
-          this.recalculaInversion();
+          if (this.nodo.data) {
+            this.recalculaInversion();
+          } else {
+            this.inversion = null;
+          }
         }
       });
     this.estadoService.filtro.filtroFechas$.
@@ -58,10 +62,16 @@ export class NodoInversionComponent {
   }
 
   recalculaInversion() {    
-    if (!this.filtroFechas || !this.nodo || !this.nodo?.key) return;
+    if (!this.filtroFechas || !this.nodo || !this.nodo?.key) {
+      this.inversion = null;
+      return;
+    }
+    const idNodo = parseInt(this.nodo?.key);
+
+    console.log('nodo key: ', idNodo);
     this.inversion = undefined;    
     setTimeout(() => {
-      this.inversionService.inversion({ id: parseInt(this.nodo?.key!), inicio: this.filtroFechas!.inicio, fin: this.filtroFechas!.fin }).
+      this.inversionService.inversion({ id: idNodo, inicio: this.filtroFechas!.inicio, fin: this.filtroFechas!.fin }).
         subscribe({
           next: (inv: number) => {
             this.inversion = inv;
