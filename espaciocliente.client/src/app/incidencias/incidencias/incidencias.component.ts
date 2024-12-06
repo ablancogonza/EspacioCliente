@@ -28,8 +28,7 @@ export class IncidenciasComponent {
     this.estadoService.arbol.nodoSeleccionado$.
       pipe(takeUntilDestroyed(this.destroyRef)).    
       subscribe({
-        next: (seleccionado: TreeNode) => {
-          console.log('incidencias nodo cambiado: ', seleccionado);
+        next: (seleccionado: TreeNode) => {         
           this.incidencias.setNodo(seleccionado.data);          
         }
       });

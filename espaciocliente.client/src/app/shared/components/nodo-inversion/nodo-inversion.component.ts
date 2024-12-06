@@ -66,9 +66,7 @@ export class NodoInversionComponent {
       this.inversion = null;
       return;
     }
-    const idNodo = parseInt(this.nodo?.key);
-
-    console.log('nodo key: ', idNodo);
+    const idNodo = parseInt(this.nodo?.key);    
     this.inversion = undefined;    
     setTimeout(() => {
       this.inversionService.inversion({ id: idNodo, inicio: this.filtroFechas!.inicio, fin: this.filtroFechas!.fin }).

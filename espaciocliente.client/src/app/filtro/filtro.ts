@@ -74,8 +74,7 @@ export class Filtro {
         if (f.id > e.id) return f;
         if (f.id === e.id) return { ...e };
         return { ...f, activo: false };      
-      });
-      console.log('nuevo: ', nuevo);
+      });      
       this.elementosFiltro$.next(nuevo);
     } else {
       let existeFiltro = false;      
@@ -114,8 +113,7 @@ export class Filtro {
   }
 
   establecerFiltroCampania(id: number, des: string): void {
-    const campania = this.elementosFiltro$.value.find(e => e.id === 6);
-    console.log('campaña: ', campania);
+    const campania = this.elementosFiltro$.value.find(e => e.id === 6);    
     if (campania) {
       campania.seleccionado = { key: id, value: des } as KeyValueDto;    
       this.buscadorModificado(campania);

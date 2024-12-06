@@ -20,8 +20,7 @@ export class ListaCampaniasComponent {
   nodo: TreeNode | undefined;
   constructor(public ref: DynamicDialogRef, private estadoService: EstadoService) {
     this.incidencias = estadoService.incidencias;
-    this.nodo = estadoService.arbol.nodoSeleccionado$.value;
-    console.log('nodo: ', this.nodo);
+    this.nodo = estadoService.arbol.nodoSeleccionado$.value;    
   }
 
   seleccionado(c: IncidenciasPendientes): void {    

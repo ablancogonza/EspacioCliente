@@ -70,14 +70,12 @@ export class Arbol {
 
   }
 
-  nuevoArbol(id: number | undefined): void {
-    console.log('nuevoArbol: ', id);
+  nuevoArbol(id: number | undefined): void {    
     if (id) {
       this.seccionArbol(id);
     } else {
       this.init();
-      this.nodoSeleccionado$.next({});
-      console.log('nodo seleccionado vacío');
+      this.nodoSeleccionado$.next({});      
     }    
   }
 

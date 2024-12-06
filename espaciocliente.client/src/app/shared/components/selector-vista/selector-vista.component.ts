@@ -48,12 +48,11 @@ export class SelectorVistaComponent {
       })
   }
 
-  selecciona(vista: VistaSeleccionada): void {
-   
+  selecciona(vista: VistaSeleccionada): void {    
     if (vista === VistaSeleccionada.incidencias &&
-      this.incidenciasNoLeidas().length > 0 &&
-      (this.incidenciasNoLeidas().length !== 1 ||
-      this.incidenciasNoLeidas()[0].Id !== this.nodoSeleccionado?.data.Id
+      this.incidenciasNoLeidas()?.length > 0 &&
+      (this.incidenciasNoLeidas()?.length !== 1 ||
+      this.incidenciasNoLeidas()[0]?.Id !== this.nodoSeleccionado?.data.Id
       )
     ) {
       this.ref = this.dialogService.open(ListaCampaniasComponent, { header: 'Seleccione campaña' });
@@ -63,12 +62,11 @@ export class SelectorVistaComponent {
           
         } else {
           const des = this.incidenciasNoLeidas().find(i => i.Id === id)?.Descripcion;
-          this.estadoService.filtro.establecerFiltroCampania(id, des??'');
-          console.log('seleccionado: ', id);
+          this.estadoService.filtro.establecerFiltroCampania(id, des??'');          
         }
         this.estadoService.selectorVista.vista$.next(VistaSeleccionada.incidencias);
       });
-    } else {
+    } else {      
       this.estadoService.selectorVista.vista$.next(vista);
     }
   }

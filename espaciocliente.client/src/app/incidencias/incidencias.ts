@@ -33,8 +33,7 @@ export class Incidencias {
     this.recuperarIncidenciasPendientes();
   }
 
-  setNodo(nodo: Nodo | undefined) {
-    console.log('setNodo incidencias: ', nodo);
+  setNodo(nodo: Nodo | undefined) {    
     this.vista.set('lista');
     this.lista.set([]);
     this.listaMensajes = [];
@@ -147,8 +146,7 @@ export class Incidencias {
         hora: Fecha.hora(fechaActual)
       });
       index++;
-    } while (index < lista.length);
-    console.log('mensajes procesados: ', res);
+    } while (index < lista.length);    
     return res;
   }
 
