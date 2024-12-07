@@ -3,6 +3,7 @@ using EspacioCliente.Server.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +48,36 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer",
+        new OpenApiSecurityScheme
+        {
+            Description = "Web API protegida con JWT",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+{
+    {
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference()
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+            },
+            Scheme = "oauth2",
+            Name = "Bearer",
+            In = ParameterLocation.Header,
+        },
+        new List<string>()
+    }
+});
+});
 
 builder.Services.AddDbContext<EspacioCliente.Data.Models.EspacioClienteContext>(options => options.UseSqlServer(builder.Configuration["DB_Conexion"]));
 

@@ -39,10 +39,8 @@ export class EstadoService {
     private briefingService: BriefingService,
     private mensajesService: MensajesService) { }
 
-  init(email: string, token: string) {
-    this.sesion = new Sesion();
-    this.sesion.setEmail(email);
-    this.sesion.setToken(token);    
+  init(email: string, token: string, rol: number) {
+    this.sesion = new Sesion(email, token, rol);    
     this.arbol = new Arbol(this.arbolService, this.mensajesService);
     this.selectorVista = new SelectorVista();
     this.filtro = new Filtro(this.filtroService, this.mensajesService);
@@ -58,8 +56,7 @@ export class EstadoService {
   }
   
   cerrarSesion() {
-    this.sesion.setToken('');
-    this.sesion.setEmail('');       
+    this.sesion.close();    
   }
 
  

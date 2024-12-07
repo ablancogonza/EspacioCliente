@@ -10,6 +10,7 @@ import { Fecha } from './shared/utils/fecha';
 import { EstadoService } from './shared/estado/estado.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from './auth/auth.service';
+import { Sesion } from './auth/sesion';
 
 
 @Component({
@@ -48,10 +49,12 @@ export class AppComponent implements OnInit {
     registerLocaleData(es);
 
     const token = localStorage.getItem('token')??'';
-    const email = localStorage.getItem('email')??'';        
-    this.estadoService.init(email, token);   
+    const email = localStorage.getItem('email') ?? '';
+    const rol = localStorage.getItem('rol') ?? '0';
+    this.estadoService.init(email, token, parseInt(rol));
 
-    if (this.estadoService.sesion.tieneCredenciales()) {
+    if (Sesion.tieneCredenciales()) {
+
       this.authService.isTokenValid().subscribe({
         next: () => {          
           this.estadoService.postInit();

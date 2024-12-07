@@ -51,11 +51,14 @@ export class LoginComponent {
   acceder() {    
     if (this.loginForm.valid) {      
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
-        next: (t) => {
-          localStorage.setItem('email', this.email?.value);
-          this.estadoService.init(this.email?.value, t.token);
-          this.estadoService.postInit();          
-          this.router.navigateByUrl('/principal');
+        next: (t) => {               
+          this.estadoService.init(this.email?.value, t.token, t.rol);
+          this.estadoService.postInit();
+          if (t.rol === 1) {
+            this.router.navigateByUrl('/admin');
+          } else {
+            this.router.navigateByUrl('/principal');
+          }
         },
         error: (e: HttpErrorResponse) => {         
           this.procesando.set(false);
