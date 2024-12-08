@@ -1,0 +1,11 @@
+<div class="contenedor">
+  <app-cabecera></app-cabecera>
+  <div class="contenido-variable">
+    <app-arbol *ngIf="admin.vistaSeleccionada() === VistaSeleccionadaAdmin.arbol"></app-arbol>
+    <app-usuario *ngIf="admin.vistaSeleccionada() === VistaSeleccionadaAdmin.usuario"></app-usuario>
+  </div>
+  <div class="pie">
+    <app-selector-vista-admin></app-selector-vista-admin>
+  </div>
+</div>
+

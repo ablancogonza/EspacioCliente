@@ -13,6 +13,7 @@ import { AuthService } from '../auth.service';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { MensajesService } from '../../shared/servicios/mensajes.service';
 import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
+import { Rol } from '../../shared/enumerados/rol';
 
 
 @Component({
@@ -53,8 +54,8 @@ export class LoginComponent {
       this.authService.signIn(this.email?.value, this.password?.value).subscribe({
         next: (t) => {               
           this.estadoService.init(this.email?.value, t.token, t.rol);
-          this.estadoService.postInit();
-          if (t.rol === 1) {
+          this.estadoService.postInit();   
+          if (t.rol === Rol.admin) {
             this.router.navigateByUrl('/admin');
           } else {
             this.router.navigateByUrl('/principal');

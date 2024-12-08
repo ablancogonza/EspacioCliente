@@ -1,0 +1,17 @@
+.contenedor {
+  width: 100svw;
+  height: 100svh;
+  display: grid;
+  grid-template-rows: 40px auto;
+  gap: 5px;
+}
+
+.contenedor-arbol {
+  height: 100%;
+  overflow: hidden;
+}
+
+.contenedor-usuario {
+  height: 100%;
+  overflow: hidden;
+}

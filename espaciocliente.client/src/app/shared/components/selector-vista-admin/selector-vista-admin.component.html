@@ -1,0 +1,9 @@
+<div class="contenedor-botones">
+  <div *ngFor="let id of visibles" class="boton">
+    <p-button [icon]="icono(id)" [outlined]="admin.vistaSeleccionada() !== id"
+              [rounded]="true" size="large" 
+              (click)="selecciona(id)"
+              [title]="title(id)"
+              ></p-button>    
+  </div>
+</div>

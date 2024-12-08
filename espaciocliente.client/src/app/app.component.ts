@@ -11,6 +11,7 @@ import { EstadoService } from './shared/estado/estado.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from './auth/auth.service';
 import { Sesion } from './auth/sesion';
+import { Rol } from './shared/enumerados/rol';
 
 
 @Component({
@@ -59,7 +60,11 @@ export class AppComponent implements OnInit {
         next: () => {          
           this.estadoService.postInit();
           setTimeout(() => {
-            this.router.navigateByUrl('/principal');
+            if (this.estadoService.sesion.getRol() === Rol.admin) {
+              this.router.navigateByUrl('/admin');
+            } else {
+              this.router.navigateByUrl('/principal');
+            }
           }, 300);
         },
         error: (e: any) => {          
