@@ -17,6 +17,7 @@ import { BriefingService } from '../../briefing/briefing.service';
 import { GraficosService } from '../../graficos/graficos.service';
 import { Rol } from '../enumerados/rol';
 import { Admin } from '../../admin/admin';
+import { AdminService } from '../../admin/admin.service';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,7 @@ export class EstadoService {
     private mapaService: MapaService,
     private incidenciasService: IncidenciasService,
     private briefingService: BriefingService,
+    private adminService: AdminService,
     private mensajesService: MensajesService) { }
 
   init(email: string, token: string, rol: number) {
@@ -53,7 +55,7 @@ export class EstadoService {
       this.incidencias = new Incidencias(this.incidenciasService, this.mensajesService, email);
       this.briefing = new Briefing(this.briefingService, this.mensajesService);
     } else {
-      this.admin = new Admin();
+      this.admin = new Admin(this.adminService, this.mensajesService);
     }
   }
 
@@ -61,6 +63,8 @@ export class EstadoService {
     if (this.sesion.getRol() !== Rol.admin) {
       this.filtro.init();
       this.arbol.init();
+    } else {
+      this.admin.init();
     }
   }
   

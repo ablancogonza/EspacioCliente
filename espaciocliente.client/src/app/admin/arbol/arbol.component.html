@@ -1,1 +1,27 @@
-<p>arbol works!</p>
+<div class="arbol-container">
+  <div class="arbol-scroll" #contenedor>
+    <p-tree #tree
+            [value]="admin.arbol()"
+            selectionMode="single"
+            loadingMode="icon"
+            scrollHeight="100%" class="tree font-bold"
+            [selection]="(admin.nodoSeleccionado$ | async)"
+            (onNodeExpand)="admin.nodoExpandido($event)"
+            (onNodeSelect)="admin.nodeSelect($event)">
+      <ng-template let-node pTemplate="default">
+        <div class="nodo" [title]="toolTipNodo(node)">
+          <div class="tipo">
+            {{ tipoNodo(node) }}
+          </div>
+          <div class="label">
+            {{ node.label | uppercase }}
+          </div>
+        </div>
+      </ng-template>
+    </p-tree>
+  </div>    
+
+  <p-speedDial [model]="items" direction="up" (onClick)="defineMenu()"
+               [style]="{ position: 'absolute', bottom: '50px', right: '50px' }" />
+  
+</div>
