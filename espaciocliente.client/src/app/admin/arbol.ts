@@ -3,12 +3,11 @@ import { signal } from "@angular/core";
 import { TreeNode, MenuItem } from "primeng/api";
 import { TreeNodeExpandEvent, TreeNodeSelectEvent } from "primeng/tree";
 import { BehaviorSubject } from "rxjs";
+import { Nodo } from "../arbol-cliente/nodo";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { AdminService } from "./admin.service";
-import { UsuarioDto } from "../shared/dtos/usuaio-dto";
-import { NodoDto } from "../shared/dtos/nodo-dto";
 
-export class Usuario {
+export class Arbol {
 
   arbol = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
@@ -18,22 +17,20 @@ export class Usuario {
   descripcionNodoVentana: string = '';
   items: MenuItem[] | null = [];
   cargando = false;
-  usuarios: UsuarioDto[] = [];
 
   constructor(private adminService: AdminService, private mensajesService: MensajesService) { }
 
   recargarRaices() {
-    this.adminService.usuarios().subscribe({
-      next: (usuarios: UsuarioDto[]) => {
-        this.usuarios = usuarios;
+    this.adminService.raices().subscribe({
+      next: (nodos) => {
         const raiz: TreeNode[] = [];
-        usuarios?.forEach((nodo: UsuarioDto) => {
+        nodos?.forEach((nodo: Nodo) => {
           raiz.push({
             key: nodo.Id.toString(),
-            label: nodo.Login,
+            label: nodo.Descripcion,
             children: [],
             data: nodo,
-            leaf: false,
+            leaf: nodo.IdTipoNodo == 6,
             loading: false
           });
         });
@@ -49,22 +46,25 @@ export class Usuario {
   }
 
   cargaDescendientes(nodo: TreeNode) {
-    nodo.loading = true;    
-    this.adminService.usuarioNodos(parseInt(nodo.key!)).subscribe({
-      next: (nodos: NodoDto[]) => {
+    nodo.loading = true;
+    this.adminService.descendientes(nodo.key!).subscribe({
+      next: (nodos: Nodo[]) => {
         nodo.children = [];
-        nodos?.forEach((nod: NodoDto) => {
+        nodos?.forEach((nod: Nodo) => {
           nodo.children!.push({
             key: nod.Id.toString(),
             label: nod.Descripcion,
             children: [],
             data: nod,
-            leaf: true,
+            leaf: nod.IdTipoNodo == 6,
             loading: false
           });
         });
         nodo.loading = false;
-        nodo.expanded = true;        
+        nodo.expanded = true;
+        if (nodo.children.length === 1) {
+          this.cargaDescendientes(nodo.children[0]);
+        }
       },
       error: (err: HttpErrorResponse) => {
         this.mensajesService.errorHttp(err);
@@ -72,7 +72,7 @@ export class Usuario {
     });
   }
 
-  nodoSeleccionado(): TreeNode | undefined {
+  nodoArbolSeleccionado(): TreeNode | undefined {
     return undefined;
   }
 
@@ -170,20 +170,12 @@ export class Usuario {
     });
   }
 
-  defineMenuArbol() {
-    console.log('defineMenuArbol', this.nodoSeleccionado$.value);
-    if (this.nodoSeleccionado$.value && this.nodoSeleccionado$.value.data) {
-      if (!this.nodoSeleccionado$.value.leaf) {
-        this.defineMenuUsuario();
-      } else {
-        this.defineMenuNodo();
-      }
-    } else {
-      this.defineMenuUsuario();
-    }
+
+  arbolMenu() {
+
   }
 
-  defineMenuUsuario() {
+  defineMenuArbol() {
     this.items = [
       {
         tooltipOptions: {
@@ -212,7 +204,7 @@ export class Usuario {
         },
         icon: 'pi pi-trash',
         command: () => {
-          if (confirm('¿Seguro que desea eliminar el usuario seleccionado?')) {
+          if (confirm('¿Seguro que desea eliminar el nodo seleccionado?')) {
             this.borrarNodos(this.nodoSeleccionado$.value!.data!.Id);
           }
         },
@@ -220,7 +212,7 @@ export class Usuario {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Nuevo usuario'
+          tooltipLabel: 'Nueva raiz'
         },
         icon: 'pi pi-reply',
         command: () => {
@@ -229,28 +221,11 @@ export class Usuario {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Asignar nodo'
+          tooltipLabel: 'Nuevo nodo'
         },
         icon: 'pi pi-arrow-down-right',
         command: () => {
           this.arbolOperacionNuevoNodo();
-        },
-        disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
-      }
-    ];
-  }
-
-  defineMenuNodo() {
-    this.items = [      
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Borrar'
-        },
-        icon: 'pi pi-trash',
-        command: () => {
-          if (confirm('¿Seguro que desea eliminar el nodo seleccionado?')) {
-            this.borrarNodos(this.nodoSeleccionado$.value!.data!.Id);
-          }
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
       }

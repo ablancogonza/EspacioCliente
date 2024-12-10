@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sesion } from '../../auth/sesion';
 import { Arbol } from '../../arbol-cliente/arbol';
+import { Arbol as ArbolAdmin } from '../../admin/arbol'; 
 import { Incidencias } from '../../incidencias/incidencias';
 import { ArbolService } from '../../arbol-cliente/arbol.service';
 import { Mapa } from '../../mapa/mapa';
@@ -18,6 +19,7 @@ import { GraficosService } from '../../graficos/graficos.service';
 import { Rol } from '../enumerados/rol';
 import { Admin } from '../../admin/admin';
 import { AdminService } from '../../admin/admin.service';
+import { Usuario } from '../../admin/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +36,9 @@ export class EstadoService {
   briefing!: Briefing;
   dispositivoMovil$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   admin!: Admin;
-
+  arbolAdmin!: ArbolAdmin;
+  usuarioAdmin!: Usuario;
+  
   constructor(private arbolService: ArbolService,
     private filtroService: FiltroService,
     private graficoService: GraficosService,
@@ -55,7 +59,9 @@ export class EstadoService {
       this.incidencias = new Incidencias(this.incidenciasService, this.mensajesService, email);
       this.briefing = new Briefing(this.briefingService, this.mensajesService);
     } else {
-      this.admin = new Admin(this.adminService, this.mensajesService);
+      this.admin = new Admin();
+      this.arbolAdmin = new ArbolAdmin(this.adminService, this.mensajesService);
+      this.usuarioAdmin = new Usuario(this.adminService, this.mensajesService);
     }
   }
 
@@ -63,9 +69,7 @@ export class EstadoService {
     if (this.sesion.getRol() !== Rol.admin) {
       this.filtro.init();
       this.arbol.init();
-    } else {
-      this.admin.init();
-    }
+    } 
   }
   
   cerrarSesion() {

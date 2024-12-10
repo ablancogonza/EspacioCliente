@@ -1,4 +1,4 @@
-export interface Nodo {  
+export interface NodoDto {
   Id: number,
   Descripcion: string
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, TreeNode } from 'primeng/api';
+import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 import { Arbol as UtilsArbol } from '../../shared/utils/arbol';
 import { EstadoService } from '../../shared/estado/estado.service';
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
+import { Arbol } from '../arbol';
 
 @Component({
   selector: 'app-arbol',
@@ -18,12 +19,16 @@ import { CargandoComponent } from '../../shared/components/cargando/cargando.com
   templateUrl: './arbol.component.html',
   styleUrl: './arbol.component.css'
 })
-export class ArbolComponent {
+export class ArbolComponent implements OnInit {
 
-  admin: Admin;
+  arbol: Arbol;
 
   constructor(private estadoService: EstadoService) {
-    this.admin = estadoService.admin;
+    this.arbol = estadoService.arbolAdmin;
+  }
+
+  ngOnInit(): void {
+    this.arbol.recargarRaices();
   }
 
   toolTipNodo(n: TreeNode): string {

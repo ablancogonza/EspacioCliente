@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Nodo } from '../arbol-cliente/nodo';
-import { Usuario } from './usuario';
+import { UsuarioDto } from '../shared/dtos/usuaio-dto';
+import { NodoDto } from '../shared/dtos/nodo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,11 @@ export class AdminService {
     return this.http.delete(`${environment.baseUrl}/admin/borrarNodos/${idNodo}`);
   }
 
-  usuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${environment.baseUrl}/admin/usuarios`);
+  usuarios(): Observable<UsuarioDto[]> {
+    return this.http.get<UsuarioDto[]>(`${environment.baseUrl}/admin/usuarios`);
+  }
+
+  usuarioNodos(id: number): Observable<NodoDto[]> {
+    return this.http.get<NodoDto[]>(`${environment.baseUrl}/admin/usuarioNodos/${id}`);
   }
 }

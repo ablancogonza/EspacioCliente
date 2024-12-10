@@ -1,0 +1,51 @@
+.arbol-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.p-tree {
+  height: 100%;
+  overflow: auto;
+}
+
+
+
+.arbol-scroll {
+  /*width: 100%;
+    height: 100%;*/
+  overflow: auto;
+}
+
+.nodo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tipo {
+  border-radius: 1rem;
+  border: 1px solid darkgray;
+  padding: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.contenedor-botones {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+}
+
+.cargando {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+}

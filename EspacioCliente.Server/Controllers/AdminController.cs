@@ -67,6 +67,13 @@ namespace EspacioCliente.Server.Controllers
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<string>($"SELECT [dbo].[AdminUsuarios]({idUsuario}) as value").FirstOrDefault();
         }
+
+        [HttpGet("usuarioNodos/{id}")]
+        public string? UsuarioNodos(int id)
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[AdminUsuariosNodos]({idUsuario},{id}) as value").FirstOrDefault();
+        }
     }
 
     public record PeticionNuevoNodo(int? idNodo, string descripcion);
