@@ -60,6 +60,13 @@ namespace EspacioCliente.Server.Controllers
             await this.context.Procedures.AdminBorrarNodosAsync(idUsuario, id, salida);
             return salida.Value ?? false;
         }
+
+        [HttpGet("usuarios")]
+        public string? Usuarios()
+        {
+            int idUsuario = User.IdUsuario();
+            return context.Database.SqlQuery<string>($"SELECT [dbo].[AdminUsuarios]({idUsuario}) as value").FirstOrDefault();
+        }
     }
 
     public record PeticionNuevoNodo(int? idNodo, string descripcion);

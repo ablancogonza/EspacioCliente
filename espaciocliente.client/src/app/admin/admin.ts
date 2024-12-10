@@ -10,14 +10,18 @@ import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 
 export class Admin {
   vistaSeleccionada = signal<VistaSeleccionadaAdmin>(VistaSeleccionadaAdmin.arbol);
+
   arbol = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
-
   arbolOperacion: 'nuevaRaiz' | 'nuevoNodo' | 'editar' | undefined = undefined;
   tituloVentanaNodo: string = '';
   visibleVentanaNodo: boolean = false;
   descripcionNodoVentana: string = '';
   items: MenuItem[] | null = [];
+
+
+
+
   cargando = false;
 
   constructor(private adminService: AdminService, private mensajesService: MensajesService) { }
@@ -119,7 +123,7 @@ export class Admin {
   guardarDescripcion() {
     this.cargando = true;
     this.visibleVentanaNodo = false;
-    const descripcion = this.descripcionNodoVentana;       
+    const descripcion = this.descripcionNodoVentana;
     switch (this.arbolOperacion) {
       case 'nuevaRaiz':
         this.adminService.nuevoNodo(undefined, descripcion).subscribe({
@@ -141,7 +145,7 @@ export class Admin {
           },
           error: (err: HttpErrorResponse) => {
             this.cargando = false;
-            this.mensajesService.errorHttp(err);            
+            this.mensajesService.errorHttp(err);
           }
         });
         break;
@@ -191,7 +195,7 @@ export class Admin {
         icon: 'pi pi-pencil',
         command: () => {
           this.descripcionNodoVentana = this.nodoSeleccionado$.value!.label!;
-          this.arbolOperacionEditar();        
+          this.arbolOperacionEditar();
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
       },
@@ -213,7 +217,7 @@ export class Admin {
         command: () => {
           if (confirm('¿Seguro que desea eliminar el nodo seleccionado?')) {
             this.borrarNodos(this.nodoSeleccionado$.value!.data!.Id);
-          }          
+          }
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
       },

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Nodo } from '../arbol-cliente/nodo';
+import { Usuario } from './usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class AdminService {
 
   borrarNodos(idNodo: number) {
     return this.http.delete(`${environment.baseUrl}/admin/borrarNodos/${idNodo}`);
+  }
+
+  usuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${environment.baseUrl}/admin/usuarios`);
   }
 }
