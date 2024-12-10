@@ -18,4 +18,16 @@ export class AdminService {
   descendientes(id: string): Observable<Nodo[]> {
     return this.http.get<Nodo[]>(`${environment.baseUrl}/admin/nodosArbol?id=${id}`);
   }
+
+  nuevoNodo(idNodo: number | undefined, descripcion: string) {
+    return this.http.post(`${environment.baseUrl}/admin/nuevoNodo`, { idNodo, descripcion });
+  }
+
+  editarNodo(idNodo: number, descripcion: string) {
+    return this.http.post(`${environment.baseUrl}/admin/editarNodo`, { idNodo, descripcion });
+  }
+
+  borrarNodos(idNodo: number) {
+    return this.http.delete(`${environment.baseUrl}/admin/borrarNodos/${idNodo}`);
+  }
 }

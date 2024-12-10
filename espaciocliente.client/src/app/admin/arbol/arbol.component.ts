@@ -7,69 +7,23 @@ import { EstadoService } from '../../shared/estado/estado.service';
 import { Admin } from '../admin';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
 
 @Component({
   selector: 'app-arbol',
   standalone: true,
-  imports: [CommonModule, FormsModule, TreeModule, SpeedDialModule],
+  imports: [CommonModule, FormsModule, TreeModule, SpeedDialModule, InputTextModule, DialogModule, CargandoComponent],
   templateUrl: './arbol.component.html',
   styleUrl: './arbol.component.css'
 })
 export class ArbolComponent {
 
   admin: Admin;
-  items: MenuItem[] | null = [];
+
   constructor(private estadoService: EstadoService) {
     this.admin = estadoService.admin;
-  }
-
-  defineMenu() {
-    this.items = [
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Editar'
-        },
-        icon: 'pi pi-pencil',
-        command: () => {
-          //this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-        },
-        disabled: !this.admin.nodoSeleccionado$.value || !this.admin.nodoSeleccionado$.value.data
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Recargar'
-        },
-        icon: 'pi pi-refresh',
-        command: () => {
-          this.admin.recargarRaices();
-          //this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-        }
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Borrar'
-        },
-        icon: 'pi pi-trash',
-        command: () => {
-          //this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-        }
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Nueva raiz'
-        },
-        icon: 'pi pi-reply',
-        command: () => {
-        }
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Nuevo nodo'
-        },
-        icon: 'pi pi-arrow-down-right',
-        command: () => { }
-      }
-    ];
   }
 
   toolTipNodo(n: TreeNode): string {

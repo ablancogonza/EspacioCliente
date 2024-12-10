@@ -43,6 +43,143 @@ namespace EspacioCliente.Data.Models
             _context = context;
         }
 
+        public virtual async Task<int> AdminBorrarNodosAsync(int? idUsuario, int? idNodo, OutputParameter<bool?> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parametersalida = new SqlParameter
+            {
+                ParameterName = "salida",
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = salida?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.Bit,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idUsuario",
+                    Value = idUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "idNodo",
+                    Value = idNodo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parametersalida,
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[AdminBorrarNodos] @idUsuario = @idUsuario, @idNodo = @idNodo, @salida = @salida OUTPUT", sqlParameters, cancellationToken);
+
+            salida.SetValue(parametersalida.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> AdminEditarNodoAsync(int? idUsuario, int? idNodo, string descripcion, OutputParameter<bool?> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parametersalida = new SqlParameter
+            {
+                ParameterName = "salida",
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = salida?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.Bit,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idUsuario",
+                    Value = idUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "idNodo",
+                    Value = idNodo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "descripcion",
+                    Size = 600,
+                    Value = descripcion ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parametersalida,
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[AdminEditarNodo] @idUsuario = @idUsuario, @idNodo = @idNodo, @descripcion = @descripcion, @salida = @salida OUTPUT", sqlParameters, cancellationToken);
+
+            salida.SetValue(parametersalida.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> AdminNuevoNodoAsync(int? idUsuario, int? idNodo, string descripcion, OutputParameter<bool?> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parametersalida = new SqlParameter
+            {
+                ParameterName = "salida",
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = salida?._value ?? Convert.DBNull,
+                SqlDbType = System.Data.SqlDbType.Bit,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "idUsuario",
+                    Value = idUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "idNodo",
+                    Value = idNodo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "descripcion",
+                    Size = 600,
+                    Value = descripcion ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                parametersalida,
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[AdminNuevoNodo] @idUsuario = @idUsuario, @idNodo = @idNodo, @descripcion = @descripcion, @salida = @salida OUTPUT", sqlParameters, cancellationToken);
+
+            salida.SetValue(parametersalida.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<int> BriefingCrearAsync(int? idNodo, string descrip, decimal? presupuesto, DateOnly? inicio, DateOnly? fin, int? medio, int? usuarioCreador, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parametersalida = new SqlParameter

@@ -13,6 +13,9 @@ namespace EspacioCliente.Data.Models
 {
     public partial interface IEspacioClienteContextProcedures
     {
+        Task<int> AdminBorrarNodosAsync(int? idUsuario, int? idNodo, OutputParameter<bool?> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> AdminEditarNodoAsync(int? idUsuario, int? idNodo, string descripcion, OutputParameter<bool?> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> AdminNuevoNodoAsync(int? idUsuario, int? idNodo, string descripcion, OutputParameter<bool?> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> BriefingCrearAsync(int? idNodo, string descrip, decimal? presupuesto, DateOnly? inicio, DateOnly? fin, int? medio, int? usuarioCreador, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> BriefingSubirAdjuntoAsync(int? idUsuario, int? idBriefing, string descripcion, byte[] contenido, string extension, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> IncidenciasConversacionCrearEntradaAsync(int? idUsuario, int? idIncidencia, string texto, byte[] imagen, OutputParameter<string> salida, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);

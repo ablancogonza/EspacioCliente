@@ -19,9 +19,22 @@
         </div>
       </ng-template>
     </p-tree>
-  </div>    
+  </div>
 
-  <p-speedDial [model]="items" direction="up" (onClick)="defineMenu()"
+  <p-speedDial [model]="admin.items" direction="up" (onClick)="admin.defineMenuArbol()"
                [style]="{ position: 'absolute', bottom: '50px', right: '50px' }" />
-  
+
+  <p-dialog [header]="admin.tituloVentanaNodo" [modal]="true" [(visible)]="admin.visibleVentanaNodo" [style]="{ width: '25rem' }">
+    
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="descripcion" class="font-semibold w-6rem">Descripción nodo</label>
+      <input pInputText id="descripcion" class="flex-auto" autocomplete="off" [(ngModel)]="admin.descripcionNodoVentana"  />
+    </div>    
+    <div class="contenedor-botones">
+      <p-button label="Cancelar" severity="secondary" (onClick)="admin.arbolOperacionReset()" />
+      <p-button label="Guardar" (onClick)="admin.guardarDescripcion()" />
+    </div>
+  </p-dialog>
 </div>
+
+<app-cargando class="cargando" *ngIf="admin.cargando"></app-cargando>

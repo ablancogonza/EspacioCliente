@@ -32,5 +32,36 @@ namespace EspacioCliente.Server.Controllers
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<string>($"SELECT [dbo].[AdminArbolNodos]({idUsuario}, {id}) as value").FirstOrDefault();
         }
+
+        [HttpPost("nuevoNodo")]
+        public async Task<bool> NuevoNodo([FromBody] PeticionNuevoNodo req)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminNuevoNodoAsync(idUsuario, req.idNodo, req.descripcion, salida);
+            return salida.Value??false;
+            
+        }
+
+        [HttpPost("editarNodo")]
+        public async Task<bool> EditarNodo([FromBody] PeticionNuevoNodo req)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminEditarNodoAsync(idUsuario, req.idNodo, req.descripcion, salida);
+            return salida.Value ?? false;
+        }
+
+        [HttpDelete("borrarNodos/{id}")]
+        public async Task<bool> BorrarNodos(int id)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminBorrarNodosAsync(idUsuario, id, salida);
+            return salida.Value ?? false;
+        }
     }
+
+    public record PeticionNuevoNodo(int? idNodo, string descripcion);
+    public record PeticionBorrarNodos(int? idNodo);
 }
