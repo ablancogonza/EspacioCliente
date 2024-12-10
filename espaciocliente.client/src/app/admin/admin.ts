@@ -211,7 +211,9 @@ export class Admin {
         },
         icon: 'pi pi-trash',
         command: () => {
-          this.borrarNodos(this.nodoSeleccionado$.value!.data!.Id);
+          if (confirm('¿Seguro que desea eliminar el nodo seleccionado?')) {
+            this.borrarNodos(this.nodoSeleccionado$.value!.data!.Id);
+          }          
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
       },
