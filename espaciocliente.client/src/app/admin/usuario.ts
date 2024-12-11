@@ -21,6 +21,7 @@ export class Usuario {
   items: MenuItem[] | null = [];
   cargando = false;
   usuarios: UsuarioDto[] = [];
+  sidebarVisible = false;
   readonly roles = [{ label: 'admin', value: 0 }, { label: 'gestor', value: 1 }, { label: 'cliente', value: 2 }];
 
   constructor(private adminService: AdminService, private mensajesService: MensajesService) { }
@@ -94,6 +95,7 @@ export class Usuario {
   }
 
   operacionNuevoNodo() {
+    this.sidebarVisible = true;
     //this.tituloVentanaNodo = 'Nuevo nodo';
     //this.arbolOperacion = 'nuevoNodo';
     //this.visibleVentanaNodo = true;
@@ -170,8 +172,12 @@ export class Usuario {
     const idUsuario = parseInt(this.nodoSeleccionado$.value.parent?.key!);
     this.adminService.usuarioDelNodo(idUsuario, id).subscribe({
       next: () => {
-        this.recargarRaices();
+        let parent = this.nodoSeleccionado$.value.parent;
+        this.nodoSeleccionado$.value.expanded = false;
+        this.nodoSeleccionado$.value.children = [];
         this.cargando = false;
+        this.cargaDescendientes(parent!);
+        this.nodoSeleccionado$.next({});
       },
       error: (err: HttpErrorResponse) => {
         this.cargando = false;
@@ -286,5 +292,23 @@ export class Usuario {
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
       }
     ];
+  }
+
+  addSeleccionado(nodo: TreeNode) {
+    this.cargando = true;
+    let usuario = parseInt(this.nodoSeleccionado$.value.key!);
+    let idNodo = parseInt(nodo.key!);
+    this.adminService.usuarioAddNodo(usuario, idNodo).subscribe({
+      next: () => {        
+        this.nodoSeleccionado$.value.expanded = false;
+        this.nodoSeleccionado$.value.children = [];
+        this.cargando = false;
+        this.cargaDescendientes(this.nodoSeleccionado$.value);        
+      },
+      error: (err: HttpErrorResponse) => {
+        this.cargando = false;
+        this.mensajesService.errorHttp(err);
+      }
+    });
   }
 }
