@@ -14,7 +14,7 @@
             {{ tipoNodo(node) }}
           </div>
           <div class="label">
-            {{ node.label | uppercase }}
+            {{ node.label }} ({{ node.data?.Rol | lowercase }})
           </div>
         </div>
       </ng-template>
@@ -26,13 +26,21 @@
 
   <p-dialog [header]="usuario.tituloVentanaNodo" [modal]="true" [(visible)]="usuario.visibleVentanaNodo" [style]="{ width: '25rem' }">
 
-    <div class="flex align-items-center gap-3 mb-3">
-      <label for="descripcion" class="font-semibold w-6rem">Descripción nodo</label>
-      <input pInputText id="descripcion" class="flex-auto" autocomplete="off" [(ngModel)]="usuario.descripcionNodoVentana" />
+    <div class="bloque">
+      <label for="nombre" class="font-semibold w-6rem">Nombre completo</label>
+      <input pInputText id="nombre" class="flex-auto" autocomplete="off" [(ngModel)]="usuario.nombre" />
+    </div>
+    <div class="bloque">
+      <label for="login" class="font-semibold w-6rem">Login</label>
+      <input pInputText id="login" class="flex-auto" autocomplete="off" [(ngModel)]="usuario.login" />
+    </div>
+    <div class="bloque">
+      <label for="rol" class="font-semibold w-6rem">Rol</label>
+      <p-dropdown id="rol" [options]="usuario.roles" [(ngModel)]="usuario.rol" optionLabel="label" optionValue="value" [style]="{ width: '100%' }" appendTo="body"></p-dropdown>
     </div>
     <div class="contenedor-botones">
-      <p-button label="Cancelar" severity="secondary" (onClick)="usuario.arbolOperacionReset()" />
-      <p-button label="Guardar" (onClick)="usuario.guardarDescripcion()" />
+      <p-button label="Cancelar" severity="secondary" (onClick)="usuario.operacionReset()" />
+      <p-button label="Guardar" (onClick)="usuario.guardar()" />
     </div>
   </p-dialog>
 </div>

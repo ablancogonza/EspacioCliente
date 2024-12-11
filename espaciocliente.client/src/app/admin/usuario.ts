@@ -12,13 +12,16 @@ export class Usuario {
 
   arbol = signal<TreeNode[]>([]);
   nodoSeleccionado$: BehaviorSubject<TreeNode> = new BehaviorSubject({});
-  arbolOperacion: 'nuevaRaiz' | 'nuevoNodo' | 'editar' | undefined = undefined;
+  arbolOperacion: 'nuevoUsuario' | 'nuevoNodo' | 'editar' | undefined = undefined;
   tituloVentanaNodo: string = '';
   visibleVentanaNodo: boolean = false;
-  descripcionNodoVentana: string = '';
+  nombre: string = '';
+  login: string = '';
+  rol: number = 2;
   items: MenuItem[] | null = [];
   cargando = false;
   usuarios: UsuarioDto[] = [];
+  readonly roles = [{ label: 'admin', value: 0 }, { label: 'gestor', value: 1 }, { label: 'cliente', value: 2 }];
 
   constructor(private adminService: AdminService, private mensajesService: MensajesService) { }
 
@@ -84,38 +87,44 @@ export class Usuario {
     this.nodoSeleccionado$.next(e.node);
   }
 
-  arbolOperacionNuevoNodoRaiz() {
-    this.tituloVentanaNodo = 'Nuevo nodo raíz';
-    this.arbolOperacion = 'nuevaRaiz';
+  operacionNuevoUsuario() {
+    this.tituloVentanaNodo = 'Nuevo usuario';
+    this.arbolOperacion = 'nuevoUsuario';
     this.visibleVentanaNodo = true;
   }
 
-  arbolOperacionNuevoNodo() {
+  operacionNuevoNodo() {
     this.tituloVentanaNodo = 'Nuevo nodo';
     this.arbolOperacion = 'nuevoNodo';
     this.visibleVentanaNodo = true;
   }
 
-  arbolOperacionEditar() {
-    this.tituloVentanaNodo = 'Editar nodo';
+  operacionEditar() {
+    this.tituloVentanaNodo = 'Editar usuario';
     this.arbolOperacion = 'editar';
+    this.nombre = this.nodoSeleccionado$.value!.data.Nombre;
+    this.login = this.nodoSeleccionado$.value!.data.Login;
+    this.rol = this.nodoSeleccionado$.value!.data.IdRol;
+    console.log('nodo seleccionado: ', this.nodoSeleccionado$.value);
     this.visibleVentanaNodo = true;
   }
 
-  arbolOperacionReset() {
+  operacionReset() {
     this.tituloVentanaNodo = '';
     this.arbolOperacion = undefined;
     this.visibleVentanaNodo = false;
-    this.descripcionNodoVentana = '';
+    this.nombre = '';
+    this.login = '';
+    this.rol = 2;
   }
 
-  guardarDescripcion() {
+  guardar() {
     this.cargando = true;
     this.visibleVentanaNodo = false;
-    const descripcion = this.descripcionNodoVentana;
+    
     switch (this.arbolOperacion) {
-      case 'nuevaRaiz':
-        this.adminService.nuevoNodo(undefined, descripcion).subscribe({
+      case 'nuevoUsuario':
+        this.adminService.guardarUsuario(undefined, this.nombre, this.login, this.rol).subscribe({
           next: () => {
             this.recargarRaices();
             this.cargando = false;
@@ -127,21 +136,21 @@ export class Usuario {
         });
         break;
       case 'nuevoNodo':
-        this.adminService.nuevoNodo(this.nodoSeleccionado$.value!.data!.Id, descripcion).subscribe({
-          next: () => {
-            this.cargaDescendientes(this.nodoSeleccionado$.value!);
-            this.cargando = false;
-          },
-          error: (err: HttpErrorResponse) => {
-            this.cargando = false;
-            this.mensajesService.errorHttp(err);
-          }
-        });
+        //this.adminService.nuevoNodo(this.nodoSeleccionado$.value!.data!.Id, descripcion).subscribe({
+        //  next: () => {
+        //    this.cargaDescendientes(this.nodoSeleccionado$.value!);
+        //    this.cargando = false;
+        //  },
+        //  error: (err: HttpErrorResponse) => {
+        //    this.cargando = false;
+        //    this.mensajesService.errorHttp(err);
+        //  }
+        //});
         break;
       case 'editar':
-        this.adminService.editarNodo(this.nodoSeleccionado$.value!.data!.Id, descripcion).subscribe({
+        this.adminService.guardarUsuario(this.nodoSeleccionado$.value!.data!.Id, this.nombre, this.login, this.rol).subscribe({
           next: () => {
-            this.nodoSeleccionado$.value!.label = descripcion;
+            this.nodoSeleccionado$.value!.label = this.login;
             this.nodoSeleccionado$.next(this.nodoSeleccionado$.value!);
             //this.cargaDescendientes(this.nodoSeleccionado$.value!);
             this.cargando = false;
@@ -153,12 +162,26 @@ export class Usuario {
         });
         break;
     }
-    this.arbolOperacionReset();
+    this.operacionReset();
   }
 
   borrarNodos(id: number) {
     this.cargando = true;
     this.adminService.borrarNodos(id).subscribe({
+      next: () => {
+        this.recargarRaices();
+        this.cargando = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.cargando = false;
+        this.mensajesService.errorHttp(err);
+      }
+    });
+  }
+
+  borrarUsuario(id: number) {
+    this.cargando = true;
+    this.adminService.borrarUsuario(id).subscribe({
       next: () => {
         this.recargarRaices();
         this.cargando = false;
@@ -189,10 +212,12 @@ export class Usuario {
         tooltipOptions: {
           tooltipLabel: 'Editar'
         },
-        icon: 'pi pi-pencil',
+        icon: 'pi pi-user-edit',
         command: () => {
-          this.descripcionNodoVentana = this.nodoSeleccionado$.value!.label!;
-          this.arbolOperacionEditar();
+          this.nombre = this.nodoSeleccionado$.value!.data!.nombre;
+          this.login = this.nodoSeleccionado$.value!.data!.login;
+          this.rol = this.nodoSeleccionado$.value!.data!.rol
+          this.operacionEditar();
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
       },
@@ -210,10 +235,10 @@ export class Usuario {
         tooltipOptions: {
           tooltipLabel: 'Borrar'
         },
-        icon: 'pi pi-trash',
+        icon: 'pi pi-user-minus',
         command: () => {
           if (confirm('¿Seguro que desea eliminar el usuario seleccionado?')) {
-            this.borrarNodos(this.nodoSeleccionado$.value!.data!.Id);
+            this.borrarUsuario(this.nodoSeleccionado$.value!.data!.Id);
           }
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
@@ -222,20 +247,20 @@ export class Usuario {
         tooltipOptions: {
           tooltipLabel: 'Nuevo usuario'
         },
-        icon: 'pi pi-reply',
+        icon: 'pi pi-user-plus',
         command: () => {
-          this.arbolOperacionNuevoNodoRaiz();
+          this.operacionNuevoUsuario();
         }
       },
       {
         tooltipOptions: {
           tooltipLabel: 'Asignar nodo'
         },
-        icon: 'pi pi-arrow-down-right',
+        icon: 'pi pi-folder-plus',
         command: () => {
-          this.arbolOperacionNuevoNodo();
+          this.operacionNuevoNodo();
         },
-        disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
+        disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data || this.nodoSeleccionado$.value?.data.IdRol === 0
       }
     ];
   }

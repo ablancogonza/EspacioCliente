@@ -11,11 +11,12 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { TreeModule } from 'primeng/tree';
 import { CargandoComponent } from '../../shared/components/cargando/cargando.component';
 import { Usuario } from '../usuario';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule, TreeModule, SpeedDialModule, InputTextModule, DialogModule, CargandoComponent],
+  imports: [CommonModule, FormsModule, TreeModule, SpeedDialModule, InputTextModule, DialogModule, DropdownModule, CargandoComponent],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.css'
 })

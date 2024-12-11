@@ -14,7 +14,7 @@ namespace EspacioCliente.Server.Controllers
     {
         private readonly EspacioClienteContext context;
 
-        public AdminController(Data.Models.EspacioClienteContext context)
+        public AdminController(EspacioClienteContext context)
         {
             this.context = context;
         }
@@ -26,7 +26,7 @@ namespace EspacioCliente.Server.Controllers
             return context.Database.SqlQuery<string>($"SELECT [dbo].[AdminArbolRaices]({idUsuario}) as value").FirstOrDefault();
         }
 
-        [HttpGet("nodosArbol")]
+        [HttpGet("nodosArbol/{id}")]
         public string? NodosArbol(int id)
         {
             int idUsuario = User.IdUsuario();
@@ -38,7 +38,7 @@ namespace EspacioCliente.Server.Controllers
         {
             int idUsuario = User.IdUsuario();
             OutputParameter<bool?> salida = new OutputParameter<bool?>();
-            await this.context.Procedures.AdminNuevoNodoAsync(idUsuario, req.idNodo, req.descripcion, salida);
+            await this.context.Procedures.AdminNuevoNodoAsync(idUsuario, req.IdNodo, req.Descripcion, salida);
             return salida.Value??false;
             
         }
@@ -48,7 +48,7 @@ namespace EspacioCliente.Server.Controllers
         {
             int idUsuario = User.IdUsuario();
             OutputParameter<bool?> salida = new OutputParameter<bool?>();
-            await this.context.Procedures.AdminEditarNodoAsync(idUsuario, req.idNodo, req.descripcion, salida);
+            await this.context.Procedures.AdminEditarNodoAsync(idUsuario, req.IdNodo, req.Descripcion, salida);
             return salida.Value ?? false;
         }
 
@@ -74,8 +74,46 @@ namespace EspacioCliente.Server.Controllers
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<string>($"SELECT [dbo].[AdminUsuariosNodos]({idUsuario},{id}) as value").FirstOrDefault();
         }
+
+        [HttpPost("guardarUsuario")]
+        public async Task<bool> GuardarUsuario([FromBody] PeticionGuardarUsuario req)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminGuardarUsuarioAsync(idUsuario, req.IdUsuario, req.Nombre, req.Login, req.IdRol, salida);
+            return salida.Value ?? false;
+        }
+
+        [HttpDelete("borrarUsuario/{id}")]
+        public async Task<bool> BorrarUsuario(int id)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminBorrarUsuarioAsync(idUsuario, id, salida);
+            return salida.Value ?? false;
+        }
+
+        [HttpPost("usuarioAddNodo")]
+        public async Task<bool> UsuarioAddNodo([FromBody] PeticionUsuarioNodo req)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminUsuarioAddNodoAsync(idUsuario, req.IdUsuario, req.IdNodo, salida);
+            return salida.Value ?? false;
+        }
+
+        [HttpDelete("usuarioEliminarNodo/{id}/{idNodo}")]
+        public async Task<bool> UsuarioEliminarNodo(int id, int idNodo)
+        {
+            int idUsuario = User.IdUsuario();
+            OutputParameter<bool?> salida = new OutputParameter<bool?>();
+            await this.context.Procedures.AdminUsuarioEliminarNodoAsync(idUsuario, id, idNodo, salida);
+            return salida.Value ?? false;
+        }
+
     }
 
-    public record PeticionNuevoNodo(int? idNodo, string descripcion);
-    public record PeticionBorrarNodos(int? idNodo);
+    public record PeticionNuevoNodo(int? IdNodo, string Descripcion);   
+    public record PeticionGuardarUsuario(int? IdUsuario, string Login, string Nombre, int IdRol);
+    public record PeticionUsuarioNodo(int IdUsuario, int IdNodo);
 }

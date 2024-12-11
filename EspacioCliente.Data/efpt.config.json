@@ -31,11 +31,27 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[AdminBorrarUsuario]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[AdminEditarNodo]",
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[AdminGuardarUsuario]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[AdminNuevoNodo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AdminUsuarioAddNodo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AdminUsuarioEliminarNodo]",
          "ObjectType": 1
       },
       {
