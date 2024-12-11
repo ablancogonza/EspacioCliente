@@ -42,7 +42,8 @@ export class AdminService {
   }
 
   guardarUsuario(id: number | undefined, nombre: string, login: string, rol: number) {
-    return this.http.post(`${environment.baseUrl}/admin/guardarUsuario`, { Id: id, Nombre: nombre, Login: login, IdRol: rol });
+    console.log('guardar: ', id, nombre, login, rol);
+    return this.http.post(`${environment.baseUrl}/admin/guardarUsuario`, { IdUsuario: id, Nombre: nombre, Login: login, IdRol: rol });
   }
 
   borrarUsuario(id: number) {

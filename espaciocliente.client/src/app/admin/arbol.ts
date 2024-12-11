@@ -179,7 +179,8 @@ export class Arbol {
     this.items = [
       {
         tooltipOptions: {
-          tooltipLabel: 'Editar'
+          tooltipLabel: 'Editar',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-pencil',
         command: () => {
@@ -190,7 +191,8 @@ export class Arbol {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Recargar'
+          tooltipLabel: 'Recargar',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-refresh',
         command: () => {
@@ -200,7 +202,8 @@ export class Arbol {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Borrar'
+          tooltipLabel: 'Borrar',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-trash',
         command: () => {
@@ -212,7 +215,8 @@ export class Arbol {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Nueva raiz'
+          tooltipLabel: 'Nueva raiz',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-reply',
         command: () => {
@@ -221,7 +225,8 @@ export class Arbol {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Nuevo nodo'
+          tooltipLabel: 'Nuevo nodo',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-arrow-down-right',
         command: () => {

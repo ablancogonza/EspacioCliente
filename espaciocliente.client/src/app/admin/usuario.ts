@@ -94,9 +94,9 @@ export class Usuario {
   }
 
   operacionNuevoNodo() {
-    this.tituloVentanaNodo = 'Nuevo nodo';
-    this.arbolOperacion = 'nuevoNodo';
-    this.visibleVentanaNodo = true;
+    //this.tituloVentanaNodo = 'Nuevo nodo';
+    //this.arbolOperacion = 'nuevoNodo';
+    //this.visibleVentanaNodo = true;
   }
 
   operacionEditar() {
@@ -104,8 +104,7 @@ export class Usuario {
     this.arbolOperacion = 'editar';
     this.nombre = this.nodoSeleccionado$.value!.data.Nombre;
     this.login = this.nodoSeleccionado$.value!.data.Login;
-    this.rol = this.nodoSeleccionado$.value!.data.IdRol;
-    console.log('nodo seleccionado: ', this.nodoSeleccionado$.value);
+    this.rol = this.nodoSeleccionado$.value!.data.IdRol;    
     this.visibleVentanaNodo = true;
   }
 
@@ -116,6 +115,7 @@ export class Usuario {
     this.nombre = '';
     this.login = '';
     this.rol = 2;
+    this.nodoSeleccionado$.next({});
   }
 
   guardar() {
@@ -126,7 +126,8 @@ export class Usuario {
       case 'nuevoUsuario':
         this.adminService.guardarUsuario(undefined, this.nombre, this.login, this.rol).subscribe({
           next: () => {
-            this.recargarRaices();
+            this.operacionReset();
+            this.recargarRaices();            
             this.cargando = false;
           },
           error: (err: HttpErrorResponse) => {
@@ -150,9 +151,8 @@ export class Usuario {
       case 'editar':
         this.adminService.guardarUsuario(this.nodoSeleccionado$.value!.data!.Id, this.nombre, this.login, this.rol).subscribe({
           next: () => {
-            this.nodoSeleccionado$.value!.label = this.login;
-            this.nodoSeleccionado$.next(this.nodoSeleccionado$.value!);
-            //this.cargaDescendientes(this.nodoSeleccionado$.value!);
+            this.operacionReset();
+            this.recargarRaices();            
             this.cargando = false;
           },
           error: (err: HttpErrorResponse) => {
@@ -167,7 +167,8 @@ export class Usuario {
 
   borrarNodos(id: number) {
     this.cargando = true;
-    this.adminService.borrarNodos(id).subscribe({
+    const idUsuario = parseInt(this.nodoSeleccionado$.value.parent?.key!);
+    this.adminService.usuarioDelNodo(idUsuario, id).subscribe({
       next: () => {
         this.recargarRaices();
         this.cargando = false;
@@ -210,7 +211,8 @@ export class Usuario {
     this.items = [
       {
         tooltipOptions: {
-          tooltipLabel: 'Editar'
+          tooltipLabel: 'Editar',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-user-edit',
         command: () => {
@@ -223,7 +225,8 @@ export class Usuario {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Recargar'
+          tooltipLabel: 'Recargar',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-refresh',
         command: () => {
@@ -233,7 +236,8 @@ export class Usuario {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Borrar'
+          tooltipLabel: 'Borrar',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-user-minus',
         command: () => {
@@ -245,7 +249,8 @@ export class Usuario {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Nuevo usuario'
+          tooltipLabel: 'Nuevo usuario',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-user-plus',
         command: () => {
@@ -254,7 +259,8 @@ export class Usuario {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Asignar nodo'
+          tooltipLabel: 'Asignar nodo',
+          tooltipPosition: 'left'
         },
         icon: 'pi pi-folder-plus',
         command: () => {
