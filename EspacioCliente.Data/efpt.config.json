@@ -19,14 +19,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Usuario]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[UsuarioNodo]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[AdminBorrarNodos]",
          "ObjectType": 1
       },

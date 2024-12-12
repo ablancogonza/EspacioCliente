@@ -215,16 +215,6 @@ export class Arbol {
       },
       {
         tooltipOptions: {
-          tooltipLabel: 'Nueva raiz',
-          tooltipPosition: 'left'
-        },
-        icon: 'pi pi-reply',
-        command: () => {
-          this.arbolOperacionNuevoNodoRaiz();
-        }
-      },
-      {
-        tooltipOptions: {
           tooltipLabel: 'Nuevo nodo',
           tooltipPosition: 'left'
         },
@@ -233,7 +223,17 @@ export class Arbol {
           this.arbolOperacionNuevoNodo();
         },
         disabled: !this.nodoSeleccionado$.value || !this.nodoSeleccionado$.value.data
-      }
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: 'Nueva raiz',
+          tooltipPosition: 'left'
+        },
+        icon: 'pi pi-reply',
+        command: () => {
+          this.arbolOperacionNuevoNodoRaiz();
+        }
+      }      
     ];
   }
 }

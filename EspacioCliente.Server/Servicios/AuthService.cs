@@ -28,7 +28,7 @@ namespace EspacioCliente.Server.Servicios
                 }
                 return null;
             }
-            catch (Exception e)
+            catch 
             {
                 return null;
             }            

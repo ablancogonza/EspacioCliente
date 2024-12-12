@@ -38,22 +38,6 @@ namespace EspacioCliente.Server.Controllers
         {
             int idUsuario = User.IdUsuario();
             return context.Database.SqlQuery<string>($"SELECT [dbo].[ArbolFiltrado]({idUsuario},{id}) as value").FirstOrDefault();
-        }
-
-        [HttpGet("eliminar")]
-        public void Eliminar(int id)
-        {
-            int idUsuario = User.IdUsuario();
-            try
-            {
-                string cmd = $"EXEC [dbo].[EliminarNodo] @idNodo = {id}";
-                context.Database.ExecuteSql($"EXEC [dbo].[EliminarNodo] @idNodo = {id}"); // .SqlQuery<string>($"SELECT [dbo].[EliminarNodos]({id}) as value").FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                string ee = e.Message;
-            }
-        }
-
+        }       
     }
 }
