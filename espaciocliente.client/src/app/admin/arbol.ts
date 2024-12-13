@@ -170,11 +170,6 @@ export class Arbol {
     });
   }
 
-
-  arbolMenu() {
-
-  }
-
   defineMenuArbol() {
     this.items = [
       {
