@@ -6,6 +6,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { ArbolService } from "./arbol.service";
 import { Nodo } from "./nodo";
+import { Arbol as UtilsArbol } from '../shared/utils/arbol';
 
 export class Arbol {
  
@@ -104,10 +105,6 @@ export class Arbol {
     });
   }
   
-  nodoSeleccionado(): TreeNode | undefined {
-    return undefined;
-  }
-
   nodoExpandido(e: TreeNodeExpandEvent) {
     this.cargaDescendientes(e.node);
   }
@@ -124,5 +121,15 @@ export class Arbol {
       this.cargaDescendientes(nodo);      
     }
   }
+
+  toolTipNodo(n: TreeNode): string {
+    if (!n.data || !n.data.IdTipoNodo) return '';
+    return `${UtilsArbol.desTipoNodo(n.data.IdTipoNodo)}: ${n.label}`;
+  }
+
+  tipoNodo(n: TreeNode): string {
+    if (!n.data || !n.data.IdTipoNodo) return '';
+    return UtilsArbol.tipoNodo(n.data.IdTipoNodo);
+  }  
  
 }

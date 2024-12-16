@@ -1,12 +1,9 @@
-import { DestroyRef, signal } from "@angular/core";
+import { signal } from "@angular/core";
 import { TreeNode } from "primeng/api";
-import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from "primeng/selectbutton";
-import { Observable, Subject, Subscription, switchMap } from "rxjs";
+import { Observable } from "rxjs";
 import { MensajesService } from "../shared/servicios/mensajes.service";
 import { GraficosService, InversionData } from "./graficos.service";
 import { FiltroFechas } from "../filtro/filtro-fechas";
-import { EstadoService } from "../shared/estado/estado.service";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FiltroActivo } from "../filtro/filtro-activo";
 import { HttpErrorResponse } from "@angular/common/http";
 
@@ -108,3 +105,4 @@ export class Grafico {
 }
 
 export type TipoGrafico = "bar" | "line" | "scatter" | "bubble" | "pie" | "doughnut" | "polarArea" | "radar" | undefined;
+

@@ -9,9 +9,9 @@
             (onNodeExpand)="arbol.nodoExpandido($event)"
             (onNodeSelect)="arbol.nodeSelect($event)">     
       <ng-template let-node pTemplate="default">
-        <div class="nodo" [title]="toolTipNodo(node)">
+        <div class="nodo" [title]="arbol.toolTipNodo(node)">
           <div class="tipo">
-            {{ tipoNodo(node) }}
+            {{ arbol.tipoNodo(node) }}
           </div>
           <div class="label">
             {{ node.label | uppercase }}

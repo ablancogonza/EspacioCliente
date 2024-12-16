@@ -53,6 +53,7 @@ export class Mapa {
       this.recuperarVallas(this.idNodo, inicio, fin);
     };
   }
+
   recuperarVallasNodo(id: number) {
     this.idNodo = id;
     if (this.inicio && this.fin) {

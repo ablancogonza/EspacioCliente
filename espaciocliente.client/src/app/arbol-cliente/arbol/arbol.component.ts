@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, DestroyRef, ElementRef, ViewChild } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
-import { TreeNode } from 'primeng/api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EstadoService } from '../../shared/estado/estado.service';
 import { Arbol } from '../arbol';
-import { Arbol as UtilsArbol } from '../../shared/utils/arbol';
 import { FiltroNodo } from '../../filtro/filtro-nodo';
 import { fromEvent } from 'rxjs';
 
@@ -37,19 +35,5 @@ export class ArbolComponent implements AfterViewInit {
         this.arbol.scrollArbol.set(t.srcElement.scrollTop);
       }
     });    
-  }
-
-
-  toolTipNodo(n: TreeNode): string {
-    if (!n.data || !n.data.IdTipoNodo) return '';
-    return `${ UtilsArbol.desTipoNodo(n.data.IdTipoNodo)}: ${n.label}`;
-  }
-
-  tipoNodo(n: TreeNode): string {
-    if (!n.data || !n.data.IdTipoNodo) return '';
-    return UtilsArbol.tipoNodo(n.data.IdTipoNodo);
-  }
-
-
-  
+  } 
 }
