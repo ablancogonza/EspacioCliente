@@ -19,11 +19,7 @@ export class ArbolComponent implements AfterViewInit {
   arbol: Arbol;
   
   constructor(private estado: EstadoService, private destroyRef: DestroyRef) {
-    this.arbol = estado.arbol;
-    this.estado.filtro.filtroNodo$.
-      pipe(takeUntilDestroyed(this.destroyRef)).
-      subscribe((f: FiltroNodo) => estado.arbol.setNodo(f.nodo));
-    
+    this.arbol = estado.arbol;    
   };
 
   ngAfterViewInit() {

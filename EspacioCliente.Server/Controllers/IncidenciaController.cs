@@ -14,7 +14,7 @@ namespace EspacioCliente.Server.Controllers
     {
         private readonly EspacioClienteContext context;
 
-        public IncidenciaController(Data.Models.EspacioClienteContext context)
+        public IncidenciaController(EspacioClienteContext context)
         {
             this.context = context;
         }
