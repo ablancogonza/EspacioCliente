@@ -25,10 +25,12 @@ export class DetalleVallaComponent implements OnChanges {
   @Input() fin?: number;
   cargando = true;
 
-  imagen?: string;
+  imagen?: string = undefined;
   info?: InfoValla;
 
-  constructor(private mapaService: MapaService, private mensajesService: MensajesService) { }
+  constructor(private mapaService: MapaService, private mensajesService: MensajesService) {
+    this.imagen = undefined;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {    
     if (changes['valla'] && changes['valla'].currentValue) {

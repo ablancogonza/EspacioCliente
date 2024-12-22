@@ -22,6 +22,7 @@ import { FiltroFechas } from '../../filtro/filtro-fechas';
 export class MapaComponent {
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
+  @ViewChild(DetalleVallaComponent, { static: false }) detalleValla!: DetalleVallaComponent;
   mapa: Mapa;  
   
   constructor(private estadoService: EstadoService, private destroyRef: DestroyRef) {
@@ -55,7 +56,8 @@ export class MapaComponent {
       });
   }
 
-  onVallaClick(marker: MapAdvancedMarker, valla: Valla) {       
+  onVallaClick(marker: MapAdvancedMarker, valla: Valla) {
+    this.detalleValla.imagen = undefined;    
     this.mapa.valla = valla;
     this.infoWindow.open(marker);
   }  

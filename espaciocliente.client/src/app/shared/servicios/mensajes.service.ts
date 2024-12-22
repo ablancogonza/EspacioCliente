@@ -13,16 +13,16 @@ export class MensajesService {
   errorHttp(error: HttpErrorResponse) {
     switch (error.status) {
       case 401:
-        this.mensaje$.next({ severity: 'warning', summary: 'Sesiónm caducada', detail: 'Su sesión ha caducado. Deberá volver a iniciar sesión.' });
+        this.mensaje$.next({ severity: 'secondary', summary: 'Sesiónm caducada', detail: 'Su sesión ha caducado. Deberá volver a iniciar sesión.' });
         break;
       default:
-        this.mensaje$.next({ severity: 'error', summary: 'Error', detail: 'Parece que no hay conexión' });
+        this.mensaje$.next({ severity: 'danger', summary: 'Error', detail: 'Parece que no hay conexión' });
         break;
     }
   }
 
   error(mensaje: string) {
-    this.mensaje$.next({ severity: 'error', summary: 'Error', detail: mensaje });
+    this.mensaje$.next({ severity: 'danger', summary: 'Error', detail: mensaje });
   }
 
   ok(mensaje: string) {
@@ -35,6 +35,6 @@ export class MensajesService {
 
 
   warning(mensaje: string) {
-    this.mensaje$.next({ severity: 'contrast', summary: 'Atención', detail: mensaje });
+    this.mensaje$.next({ severity: 'warning', summary: 'Atención', detail: mensaje });
   }
 }
