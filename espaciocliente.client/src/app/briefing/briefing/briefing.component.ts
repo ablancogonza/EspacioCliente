@@ -25,7 +25,7 @@ export class BriefingComponent {
       pipe(takeUntilDestroyed(this.destroyRef)).
       subscribe({
         next: (seleccionado: TreeNode) => {
-          if (seleccionado) this.briefing.setNodo(seleccionado);
+          this.briefing.setNodo(seleccionado);
         }
       });
   }

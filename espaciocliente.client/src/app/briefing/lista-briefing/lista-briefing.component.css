@@ -29,6 +29,15 @@
 }
 
 
+.btn {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+}
+
+
 @media (max-width: 768px) {
   .inferior-derecha {
     bottom: 80px;

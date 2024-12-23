@@ -47,6 +47,13 @@ app-incidencia:hover {
   gap: 2px;
 }
 
+.btn {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
 @media (max-width: 768px) {
   .inferior-derecha {
     bottom: 80px;

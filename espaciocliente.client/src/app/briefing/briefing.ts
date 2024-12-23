@@ -23,7 +23,7 @@ export class Briefing {
   constructor(private briefingService: BriefingService, private mensajesService: MensajesService) { }
 
   setNodo(seleccionado: TreeNode<any>) {    
-    if (seleccionado && seleccionado.data && seleccionado !== this.activo) {
+    if (seleccionado && seleccionado.data) {
       this.activo = seleccionado;
       this.recargaLista();
     } else {

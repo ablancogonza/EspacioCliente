@@ -1,7 +1,9 @@
 <div class="contenedor">
   <div class="contenedor-scroll">
-    <app-detalle-briefing *ngFor="let entrada of briefing.lista()" [entrada]="entrada" (click)="briefing.adjuntos(entrada)">
-    </app-detalle-briefing>
+    <button *ngFor="let entrada of briefing.lista()" (click)="briefing.adjuntos(entrada)" class="btn" [title]="entrada?.Descripcion">
+      <app-detalle-briefing  [entrada]="entrada">
+      </app-detalle-briefing>
+    </button>
   </div>
     
   <div class="inferior-derecha">
