@@ -95,10 +95,7 @@ export class Usuario {
   }
 
   operacionNuevoNodo() {
-    this.sidebarVisible = true;
-    //this.tituloVentanaNodo = 'Nuevo nodo';
-    //this.arbolOperacion = 'nuevoNodo';
-    //this.visibleVentanaNodo = true;
+    this.sidebarVisible = true;  
   }
 
   operacionEditar() {
@@ -137,19 +134,7 @@ export class Usuario {
             this.mensajesService.errorHttp(err);
           }
         });
-        break;
-      case 'nuevoNodo':
-        //this.adminService.nuevoNodo(this.nodoSeleccionado$.value!.data!.Id, descripcion).subscribe({
-        //  next: () => {
-        //    this.cargaDescendientes(this.nodoSeleccionado$.value!);
-        //    this.cargando = false;
-        //  },
-        //  error: (err: HttpErrorResponse) => {
-        //    this.cargando = false;
-        //    this.mensajesService.errorHttp(err);
-        //  }
-        //});
-        break;
+        break;      
       case 'editar':
         this.adminService.guardarUsuario(this.nodoSeleccionado$.value!.data!.Id, this.nombre, this.login, this.rol).subscribe({
           next: () => {
@@ -200,8 +185,7 @@ export class Usuario {
     });
   }
 
-  defineMenuArbol() {
-    console.log('defineMenuArbol', this.nodoSeleccionado$.value);
+  defineMenuArbol() {    
     if (this.nodoSeleccionado$.value && this.nodoSeleccionado$.value.data) {
       if (!this.nodoSeleccionado$.value.leaf) {
         this.defineMenuUsuario();

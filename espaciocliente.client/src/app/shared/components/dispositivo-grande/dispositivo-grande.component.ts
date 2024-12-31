@@ -32,10 +32,8 @@ import { BriefingComponent } from '../../../briefing/briefing/briefing.component
   styleUrl: './dispositivo-grande.component.css'
 })
 export class DispositivoGrandeComponent {
-  public vista = VistaSeleccionada;
-  //vista$: Observable<VistaSeleccionada>;
-  constructor(public estadoService: EstadoService) {
-    //this.vista$ = estadoService.selectorVista.vista$;
+  public vista = VistaSeleccionada;  
+  constructor(public estadoService: EstadoService) {    
   }
 
 }

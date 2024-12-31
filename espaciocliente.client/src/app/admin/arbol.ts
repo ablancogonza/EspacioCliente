@@ -142,8 +142,7 @@ export class Arbol {
         this.adminService.editarNodo(this.nodoSeleccionado$.value!.data!.Id, descripcion).subscribe({
           next: () => {
             this.nodoSeleccionado$.value!.label = descripcion;
-            this.nodoSeleccionado$.next(this.nodoSeleccionado$.value!);
-            //this.cargaDescendientes(this.nodoSeleccionado$.value!);
+            this.nodoSeleccionado$.next(this.nodoSeleccionado$.value!);           
             this.cargando = false;
           },
           error: (err: HttpErrorResponse) => {

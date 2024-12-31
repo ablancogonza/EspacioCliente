@@ -25,6 +25,7 @@
                          mode="currency"
                          inputId="currency-germany"
                          currency="EUR"
+                         id="presupuesto"
                          locale="es-ES" />
           <div *ngIf="presupuesto?.invalid && (presupuesto?.dirty || presupuesto?.touched)" class="error">
             <div *ngIf="presupuesto?.hasError('required')">
@@ -59,6 +60,7 @@
           <p-dropdown formControlName="medio"
                       [options]="briefing.medios"
                       optionLabel="Medio"
+                      id="medio"
                       placeholder="Seleccione el medio" />
           <div *ngIf="medio?.invalid && (medio?.dirty || medio?.touched)" class="error">
             <div *ngIf="medio?.hasError('required')">
