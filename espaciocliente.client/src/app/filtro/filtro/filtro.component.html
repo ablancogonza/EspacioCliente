@@ -3,14 +3,16 @@
                        (buscadorModificado)="filtro.buscadorModificado($event)"></app-buscador-filtro>
 
   <label for="inicio">Desde</label>
-  <p-calendar [ngModel]="filtro.inicio()" id="inicio"
+  <p-calendar [ngModel]="filtro.inicio()"
+              inputId="inicio"
               view="month"
               dateFormat="mm/yy"
               [readonlyInput]="true"
               (onSelect)="filtro.inicioModificado($event)" />
 
   <label for="fin">Hasta</label>
-  <p-calendar [ngModel]="filtro.fin()" id="fin"
+  <p-calendar [ngModel]="filtro.fin()"
+              inputId="fin"
               view="month"
               dateFormat="mm/yy"
               [readonlyInput]="true"
