@@ -51,6 +51,7 @@ export class SelectorVistaComponent {
   selecciona(vista: VistaSeleccionada): void {    
     if (vista === VistaSeleccionada.incidencias &&
       this.incidenciasNoLeidas()?.length > 0 &&
+      this.nodoSeleccionado?.data &&
       (this.incidenciasNoLeidas()?.length !== 1 ||
       this.incidenciasNoLeidas()[0]?.Id !== this.nodoSeleccionado?.data.Id
       )
