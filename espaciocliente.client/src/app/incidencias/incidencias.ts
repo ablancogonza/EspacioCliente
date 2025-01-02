@@ -109,7 +109,8 @@ export class Incidencias {
       next: (lista: Mensaje[]) => {
         this.listaMensajes = lista;
         this.mensajes.set(this.mensajesProcesados(lista));
-        if (this.seleccionada && (this.seleccionada?.noLeidos??0) > 0 && lista.length > 0) {
+      
+        if (this.seleccionada && lista?.length > 0) {
           this.seleccionada!.noLeidos = 0;
           const ultimo = lista[lista.length - 1].id;
           this.incidenciasService.marcarLeidos(this.seleccionada!.id, ultimo).subscribe({

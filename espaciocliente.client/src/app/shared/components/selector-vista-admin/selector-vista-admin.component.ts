@@ -25,8 +25,8 @@ export class SelectorVistaAdminComponent {
     this.admin = this.estadoService.admin; 
   }
 
-  selecciona(vista: VistaSeleccionadaAdmin): void {
-    if (vista) this.admin.vistaSeleccionada.set(vista);
+  selecciona(vista: VistaSeleccionadaAdmin): void {    
+    this.admin.vistaSeleccionada.set(vista);  
   }
 
   icono(i: number): string {

@@ -48,26 +48,29 @@ export class SelectorVistaComponent {
       })
   }
 
-  selecciona(vista: VistaSeleccionada): void {    
-    if (vista === VistaSeleccionada.incidencias &&
-      this.incidenciasNoLeidas()?.length > 0 &&
-      this.nodoSeleccionado?.data &&
-      (this.incidenciasNoLeidas()?.length !== 1 ||
-      this.incidenciasNoLeidas()[0]?.Id !== this.nodoSeleccionado?.data.Id
-      )
-    ) {
-      this.ref = this.dialogService.open(ListaCampaniasComponent, { header: 'Seleccione campaña' });
-
-      this.ref.onClose.subscribe((id: number) => {                
-        if (this.nodoSeleccionado && this.nodoSeleccionado.key === id.toString()) {
-          
-        } else {
-          const des = this.incidenciasNoLeidas().find(i => i.Id === id)?.Descripcion;
-          this.estadoService.filtro.establecerFiltroCampania(id, des??'');          
-        }
+  selecciona(vista: VistaSeleccionada): void {
+    if (vista === VistaSeleccionada.incidencias && this.incidenciasNoLeidas()?.length > 0) {
+      if (this.incidenciasNoLeidas()?.length === 1 &&
+        (!this.nodoSeleccionado?.key ||
+        this.incidenciasNoLeidas()[0].Id === this.nodoSeleccionado?.data.Id)) {
+        const des = this.incidenciasNoLeidas()[0].Descripcion;
+        const id = this.incidenciasNoLeidas()[0].Id;
+        this.estadoService.filtro.establecerFiltroCampania(id, des ?? '');
         this.estadoService.selectorVista.vista$.next(VistaSeleccionada.incidencias);
-      });
-    } else {      
+      } else {
+        this.ref = this.dialogService.open(ListaCampaniasComponent, { header: 'Seleccione campaña' });
+
+        this.ref.onClose.subscribe((id: number) => {
+          if (this.nodoSeleccionado && this.nodoSeleccionado.key === id.toString()) {
+
+          } else {
+            const des = this.incidenciasNoLeidas().find(i => i.Id === id)?.Descripcion;
+            this.estadoService.filtro.establecerFiltroCampania(id, des ?? '');
+          }
+          this.estadoService.selectorVista.vista$.next(VistaSeleccionada.incidencias);
+        });   
+      }
+    } else {
       this.estadoService.selectorVista.vista$.next(vista);
     }
   }
